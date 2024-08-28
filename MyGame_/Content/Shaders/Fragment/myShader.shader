@@ -41,10 +41,13 @@ void main(
 
 )
 {
+	float red = 0.5 + 0.5 * sin( g_elapsedSecondCount_simulationTime );
+	float green = 0.5 + 0.5 * cos( g_elapsedSecondCount_simulationTime );
+
 	// Output solid white
 	o_color = float4(
 		// RGB (color)
-		0.8, 0.0, 0.5,
+		red, green, 0.5,
 		// Alpha (opacity)
 		1.0 );
 }
@@ -77,10 +80,12 @@ out vec4 o_color;
 
 void main()
 {
+	float red = 0.5 + 0.5 * sin( g_elapsedSecondCount_simulationTime );
+	float green = 0.5 + 0.5 * cos( g_elapsedSecondCount_simulationTime );
 	// Output solid white
 	o_color = vec4(
 		// RGB (color)
-		0.8, 0.0, 0.5,
+		red, green, 0.5,
 		// Alpha (opacity)
 		1.0 );
 }
