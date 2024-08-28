@@ -22,7 +22,7 @@ cbuffer g_constantBuffer_frame : register( b0 )
 	float2 g_padding;
 };
 
-// Entry Point
+// Entry Point for D3D
 //============
 
 void main(
@@ -44,7 +44,7 @@ void main(
 	// Output solid white
 	o_color = float4(
 		// RGB (color)
-		1.0, 1.0, 1.0,
+		0.8, 0.0, 0.5,
 		// Alpha (opacity)
 		1.0 );
 }
@@ -72,7 +72,7 @@ layout( std140, binding = 0 ) uniform g_constantBuffer_frame
 // will determine the color of the corresponding pixel on the screen
 out vec4 o_color;
 
-// Entry Point
+// Entry Point for OpenGL
 //============
 
 void main()
@@ -80,7 +80,7 @@ void main()
 	// Output solid white
 	o_color = vec4(
 		// RGB (color)
-		1.0, 1.0, 1.0,
+		0.8, 0.0, 0.5,
 		// Alpha (opacity)
 		1.0 );
 }
