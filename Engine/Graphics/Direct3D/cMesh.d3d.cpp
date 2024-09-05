@@ -32,14 +32,9 @@ void eae6320::Graphics::cMesh::DrawMesh()
 	}
 	// Render triangles from the currently-bound vertex buffer
 	{
-		// As of this comment only a single triangle is drawn
-		// (you will have to update this code in future assignments!)
-		constexpr unsigned int triangleCount = 1;
-		constexpr unsigned int vertexCountPerTriangle = 3;
-		constexpr auto vertexCountToRender = triangleCount * vertexCountPerTriangle;
 		// It's possible to start rendering primitives in the middle of the stream
 		constexpr unsigned int indexOfFirstVertexToRender = 0;
-		direct3dImmediateContext->Draw(vertexCountToRender, indexOfFirstVertexToRender);
+		direct3dImmediateContext->Draw(m_triangleCount * m_vertexCountPerTriangle, indexOfFirstVertexToRender);
 	}
 }
 
@@ -61,7 +56,7 @@ eae6320::cResult eae6320::Graphics::cMesh::InitializeGeometry()
 	}
 	// Vertex Buffer
 	{
-		m_triangleCount = 1;
+		m_triangleCount = 2;
 		m_vertexCountPerTriangle = 3;
 		const auto vertexCount = m_triangleCount * m_vertexCountPerTriangle;
 		m_vertexData = new eae6320::Graphics::VertexFormats::sVertex_mesh[vertexCount];
@@ -79,6 +74,20 @@ eae6320::cResult eae6320::Graphics::cMesh::InitializeGeometry()
 			m_vertexData[2].x = 1.0f;
 			m_vertexData[2].y = 0.0f;
 			m_vertexData[2].z = 0.0f;
+
+			// second triangle
+
+			m_vertexData[3].x = 0.0f;
+			m_vertexData[3].y = 0.0f;
+			m_vertexData[3].z = 0.0f;
+
+			m_vertexData[4].x = 0.0f;
+			m_vertexData[4].y = 1.0f;
+			m_vertexData[4].z = 0.0f;
+
+			m_vertexData[5].x = 1.0f;
+			m_vertexData[5].y = 1.0f;
+			m_vertexData[5].z = 0.0f;
 		}
 		const auto bufferSize = sizeof(m_vertexData[0]) * vertexCount;
 		EAE6320_ASSERT(bufferSize <= std::numeric_limits<decltype(D3D11_BUFFER_DESC::ByteWidth)>::max());

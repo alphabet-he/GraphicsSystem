@@ -82,7 +82,7 @@ eae6320::cResult eae6320::Graphics::cMesh::InitializeGeometry()
 	}
 	// Assign the data to the buffer
 	{
-		m_triangleCount = 1;
+		m_triangleCount = 2;
 		m_vertexCountPerTriangle = 3;
 		const auto vertexCount = m_triangleCount * m_vertexCountPerTriangle;
 
@@ -101,6 +101,20 @@ eae6320::cResult eae6320::Graphics::cMesh::InitializeGeometry()
 			m_vertexData[2].x = 1.0f;
 			m_vertexData[2].y = 1.0f;
 			m_vertexData[2].z = 0.0f;
+
+			// second triangle
+
+			m_vertexData[3].x = 0.0f;
+			m_vertexData[3].y = 0.0f;
+			m_vertexData[3].z = 0.0f;
+
+			m_vertexData[4].x = 1.0f;
+			m_vertexData[4].y = 1.0f;
+			m_vertexData[4].z = 0.0f;
+
+			m_vertexData[5].x = 0.0f;
+			m_vertexData[5].y = 1.0f;
+			m_vertexData[5].z = 0.0f;
 		}
 		const auto bufferSize = sizeof(m_vertexData[0]) * vertexCount;
 		EAE6320_ASSERT(static_cast<GLsizeiptr>(bufferSize) <= std::numeric_limits<GLsizeiptr>::max());
