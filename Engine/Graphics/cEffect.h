@@ -11,13 +11,13 @@ namespace eae6320
 		class cEffect 
 		{
 			// variables
-			eae6320::Graphics::cShader* s_vertexShader;
-			eae6320::Graphics::cShader* s_fragmentShader;
+			eae6320::Graphics::cShader* m_vertexShader;
+			eae6320::Graphics::cShader* m_fragmentShader;
 
-			eae6320::Graphics::cRenderState s_renderState;
+			eae6320::Graphics::cRenderState m_renderState;
 
 #if defined( EAE6320_PLATFORM_GL )
-			GLuint s_programId;
+			GLuint m_programId;
 #endif
 
 		public:
