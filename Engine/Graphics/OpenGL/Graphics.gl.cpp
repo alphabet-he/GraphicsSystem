@@ -61,11 +61,11 @@ namespace
 
 	// Geometry Data
 	//--------------
-	eae6320::Graphics::cMesh* mesh = nullptr;
+	eae6320::Graphics::cMesh* s_mesh = nullptr;
 
 	// Shading Data
 	//-------------
-	eae6320::Graphics::cEffect* effect = nullptr;
+	eae6320::Graphics::cEffect* s_effect = nullptr;
 }
 
 // Helper Declarations
@@ -172,11 +172,17 @@ void eae6320::Graphics::RenderFrame()
 
 	// Bind the shading data
 	{
-		effect->BindEffect();
+		if (s_effect) 
+		{
+			s_effect->BindEffect();
+		}
 	}
 	// Draw the geometry
 	{
-		mesh->DrawMesh();
+		if (s_mesh)
+		{
+			s_mesh->DrawMesh();
+		}
 	}
 
 	// Everything has been drawn to the "back buffer", which is just an image in memory.
@@ -244,8 +250,8 @@ eae6320::cResult eae6320::Graphics::Initialize( const sInitializationParameters&
 	}
 	// Initialize the shading data
 	{
-		effect = new cEffect();
-		if ( !( result = effect->InitializeShadingData() ) )
+		s_effect = new cEffect();
+		if ( !( result = s_effect->InitializeShadingData() ) )
 		{
 			EAE6320_ASSERTF( false, "Can't initialize Graphics without the shading data" );
 			return result;
@@ -253,8 +259,8 @@ eae6320::cResult eae6320::Graphics::Initialize( const sInitializationParameters&
 	}
 	// Initialize the geometry
 	{
-		mesh = new cMesh();
-		if ( !( result = mesh->InitializeGeometry() ) )
+		s_mesh = new cMesh();
+		if ( !( result = s_mesh->InitializeGeometry() ) )
 		{
 			EAE6320_ASSERTF( false, "Can't initialize Graphics without the geometry data" );
 			return result;
@@ -268,14 +274,22 @@ eae6320::cResult eae6320::Graphics::CleanUp()
 {
 	auto result = Results::Success;
 
+	// mesh data clean up
 	{
-		result = mesh->CleanUp();
-		delete mesh;
+		if (s_mesh) {
+			result = s_mesh->CleanUp();
+			delete s_mesh;
+		}
+
 	}
 
+	// effect data clean up
 	{
-		result = effect->CleanUp();
-		delete effect;
+		if (s_effect)
+		{
+			result = s_effect->CleanUp();
+			delete s_effect;
+		}
 	}
 
 	{
