@@ -27,10 +27,10 @@ namespace eae6320
 
 			// In Direct3D "views" are objects that allow a texture to be used a particular way:
 			// A render target view allows a texture to have color rendered to it
-			ID3D11RenderTargetView* s_renderTargetView = nullptr;
+			ID3D11RenderTargetView* m_renderTargetView = nullptr;
 
 			// A depth/stencil view allows a texture to have depth rendered to it
-			ID3D11DepthStencilView* s_depthStencilView = nullptr;
+			ID3D11DepthStencilView* m_depthStencilView = nullptr;
 #endif
 		public:
 			eae6320::cResult InitializeViews(const sInitializationParameters& i_initializationParameters);

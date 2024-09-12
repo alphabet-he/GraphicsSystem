@@ -13,21 +13,21 @@ void eae6320::Graphics::cView::ClearView()
 	// Before drawing anything, then, the previous image will be erased
 	// by "clearing" the image buffer (filling it with a solid color)
 	{
-		EAE6320_ASSERT(s_renderTargetView);
+		EAE6320_ASSERT(m_renderTargetView);
 
 		// Black is usually used
 		constexpr float clearColor[4] = { 0.0f, 0.0f, 0.0f, 1.0f };
-		direct3dImmediateContext->ClearRenderTargetView(s_renderTargetView, clearColor);
+		direct3dImmediateContext->ClearRenderTargetView(m_renderTargetView, clearColor);
 	}
 	// In addition to the color buffer there is also a hidden image called the "depth buffer"
 	// which is used to make it less important which order draw calls are made.
 	// It must also be "cleared" every frame just like the visible color buffer.
 	{
-		EAE6320_ASSERT(s_depthStencilView);
+		EAE6320_ASSERT(m_depthStencilView);
 
 		constexpr float clearToFarDepth = 1.0f;
 		constexpr uint8_t stencilValue = 0;	// Arbitrary if stencil isn't used
-		direct3dImmediateContext->ClearDepthStencilView(s_depthStencilView, D3D11_CLEAR_DEPTH, clearToFarDepth, stencilValue);
+		direct3dImmediateContext->ClearDepthStencilView(m_depthStencilView, D3D11_CLEAR_DEPTH, clearToFarDepth, stencilValue);
 	}
 }
 
@@ -95,7 +95,7 @@ eae6320::cResult eae6320::Graphics::cView::InitializeViews(const sInitialization
 		// Create the view
 		{
 			constexpr D3D11_RENDER_TARGET_VIEW_DESC* const accessAllSubResources = nullptr;
-			const auto d3dResult = direct3dDevice->CreateRenderTargetView(backBuffer, accessAllSubResources, &s_renderTargetView);
+			const auto d3dResult = direct3dDevice->CreateRenderTargetView(backBuffer, accessAllSubResources, &m_renderTargetView);
 			if (FAILED(d3dResult))
 			{
 				result = eae6320::Results::Failure;
@@ -152,7 +152,7 @@ eae6320::cResult eae6320::Graphics::cView::InitializeViews(const sInitialization
 		// Create the view
 		{
 			constexpr D3D11_DEPTH_STENCIL_VIEW_DESC* const noSubResources = nullptr;
-			const auto d3dResult = direct3dDevice->CreateDepthStencilView(depthBuffer, noSubResources, &s_depthStencilView);
+			const auto d3dResult = direct3dDevice->CreateDepthStencilView(depthBuffer, noSubResources, &m_depthStencilView);
 			if (FAILED(d3dResult))
 			{
 				result = eae6320::Results::Failure;
@@ -166,7 +166,7 @@ eae6320::cResult eae6320::Graphics::cView::InitializeViews(const sInitialization
 	// Bind the views
 	{
 		constexpr unsigned int renderTargetCount = 1;
-		direct3dImmediateContext->OMSetRenderTargets(renderTargetCount, &s_renderTargetView, s_depthStencilView);
+		direct3dImmediateContext->OMSetRenderTargets(renderTargetCount, &m_renderTargetView, m_depthStencilView);
 	}
 	// Specify that the entire render target should be visible
 	{
@@ -198,15 +198,15 @@ eae6320::cResult eae6320::Graphics::cView::CleanUp()
 {
 	auto result = Results::Success;
 
-	if (s_renderTargetView)
+	if (m_renderTargetView)
 	{
-		s_renderTargetView->Release();
-		s_renderTargetView = nullptr;
+		m_renderTargetView->Release();
+		m_renderTargetView = nullptr;
 	}
-	if (s_depthStencilView)
+	if (m_depthStencilView)
 	{
-		s_depthStencilView->Release();
-		s_depthStencilView = nullptr;
+		m_depthStencilView->Release();
+		m_depthStencilView = nullptr;
 	}
 
 	return result;
