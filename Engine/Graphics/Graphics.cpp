@@ -132,7 +132,7 @@ void eae6320::Graphics::RenderFrame()
 
 	// clear view
 	if (s_View) {
-		s_View->ClearView(0.0f, 0.0f, 0.0f);
+		s_View->ClearView(1.0f, 0.0f, 0.0f);
 	}
 
 	EAE6320_ASSERT(s_dataBeingRenderedByRenderThread);
