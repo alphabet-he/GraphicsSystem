@@ -1,6 +1,6 @@
 #include "../cView.h"
 
-void eae6320::Graphics::cView::ClearView()
+void eae6320::Graphics::cView::ClearView(float i_rValue, float i_gValue, float i_bValue)
 {
 	// Every frame an entirely new image will be created.
 	// Before drawing anything, then, the previous image will be erased
@@ -8,7 +8,7 @@ void eae6320::Graphics::cView::ClearView()
 	{
 		// Black is usually used
 		{
-			glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+			glClearColor(i_rValue, i_gValue, i_bValue, 1.0f);
 			EAE6320_ASSERT(glGetError() == GL_NO_ERROR);
 		}
 		{

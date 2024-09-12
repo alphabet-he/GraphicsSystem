@@ -1,8 +1,9 @@
 #pragma once
-#include "cShader.h"
-#include "cRenderState.h"
 #ifndef EAE6320_GRAPHICS_CEFFECT_H
 #define EAE6320_GRAPHICS_CEFFECT_H
+
+#include "cShader.h"
+#include "cRenderState.h"
 
 namespace eae6320 
 {
@@ -16,6 +17,9 @@ namespace eae6320
 
 			eae6320::Graphics::cRenderState m_renderState;
 
+			std::string m_vertexShaderPath;
+			std::string m_fragmentShaderPath;
+
 #if defined( EAE6320_PLATFORM_GL )
 			GLuint m_programId;
 #endif
@@ -28,6 +32,8 @@ namespace eae6320
 			eae6320::cResult CleanUp();
 
 			cEffect();
+
+			cEffect(const char* i_vertexShaderFileName, const char* i_fragmentShaderFileName);
 
 			~cEffect();
 		};

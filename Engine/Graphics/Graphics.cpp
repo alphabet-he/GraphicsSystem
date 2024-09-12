@@ -64,11 +64,13 @@ namespace
 
 	// Geometry Data
 	//--------------
-	eae6320::Graphics::cMesh* s_mesh = nullptr;
+	eae6320::Graphics::cMesh** s_meshArr = nullptr;
+	uint16_t s_meshCount = 0;
 
 	// Shading Data
 	//-------------
-	eae6320::Graphics::cEffect* s_effect = nullptr;
+	eae6320::Graphics::cEffect** s_effectArr = nullptr;
+	uint16_t s_effectCount = 0;
 }
 
 
@@ -130,7 +132,7 @@ void eae6320::Graphics::RenderFrame()
 
 	// clear view
 	if (s_View) {
-		s_View->ClearView();
+		s_View->ClearView(0.0f, 0.0f, 0.0f);
 	}
 
 	EAE6320_ASSERT(s_dataBeingRenderedByRenderThread);
@@ -150,18 +152,42 @@ void eae6320::Graphics::RenderFrame()
 		s_constantBuffer_frame.Update(&constantData_frame);
 	}
 
-	// Bind the shading data
+	// draw mesh
 	{
-		if (s_effect)
+		// first mesh and effect
 		{
-			s_effect->BindEffect();
+			// Bind the shading data
+			{
+				if (s_effectArr[0])
+				{
+					s_effectArr[0]->BindEffect();
+				}
+			}
+			// Draw the geometry
+			{
+				if (s_meshArr[0])
+				{
+					s_meshArr[0]->DrawMesh();
+				}
+			}
 		}
-	}
-	// Draw the geometry
-	{
-		if (s_mesh)
+
+		// second mesh and effect
 		{
-			s_mesh->DrawMesh();
+			// Bind the shading data
+			{
+				if (s_effectArr[1])
+				{
+					s_effectArr[1]->BindEffect();
+				}
+			}
+			// Draw the geometry
+			{
+				if (s_meshArr[1])
+				{
+					s_meshArr[1]->DrawMesh();
+				}
+			}
 		}
 	}
 
@@ -237,20 +263,106 @@ eae6320::cResult eae6320::Graphics::Initialize(const sInitializationParameters& 
 	}
 	// Initialize the shading data
 	{
-		s_effect = new cEffect();
-		if (!(result = s_effect->InitializeShadingData()))
+		// create effect array
+		s_effectCount = 2;
+		s_effectArr = new cEffect * [s_effectCount];
+
+		// first effect
 		{
-			EAE6320_ASSERTF(false, "Can't initialize Graphics without the shading data");
-			return result;
+			cEffect* effect = new cEffect("standard", "myshader");
+			if (!(result = effect->InitializeShadingData()))
+			{
+				EAE6320_ASSERTF(false, "Can't initialize Graphics without the shading data");
+				return result;
+			}
+			s_effectArr[0] = effect;
+		}
+
+		// second effect
+		{
+			cEffect* effect = new cEffect("standard", "standard");
+			if (!(result = effect->InitializeShadingData()))
+			{
+				EAE6320_ASSERTF(false, "Can't initialize Graphics without the shading data");
+				return result;
+			}
+			s_effectArr[1] = effect;
 		}
 	}
 	// Initialize the geometry
 	{
-		s_mesh = new cMesh();
-		if (!(result = s_mesh->InitializeGeometry()))
+		// create mesh array
+		s_meshCount = 2;
+		s_meshArr = new cMesh * [s_meshCount];
+
+		// first mesh
 		{
-			EAE6320_ASSERTF(false, "Can't initialize Graphics without the geometry data");
-			return result;
+			eae6320::Graphics::VertexFormats::sVertex_mesh* i_vertexData = new eae6320::Graphics::VertexFormats::sVertex_mesh[6];
+			{
+				// clockwise
+				i_vertexData[0].x = 0.0f;
+				i_vertexData[0].y = 0.0f;
+				i_vertexData[0].z = 0.0f;
+
+				i_vertexData[1].x = 1.0f;
+				i_vertexData[1].y = 0.0f;
+				i_vertexData[1].z = 0.0f;
+
+				i_vertexData[2].x = 1.0f;
+				i_vertexData[2].y = 1.0f;
+				i_vertexData[2].z = 0.0f;
+
+				i_vertexData[3].x = 0.0f;
+				i_vertexData[3].y = 0.0f;
+				i_vertexData[3].z = 0.0f;
+
+				i_vertexData[4].x = 1.0f;
+				i_vertexData[4].y = 1.0f;
+				i_vertexData[4].z = 0.0f;
+
+				i_vertexData[5].x = 0.0f;
+				i_vertexData[5].y = 1.0f;
+				i_vertexData[5].z = 0.0f;
+			}
+
+			uint16_t* i_indices = new uint16_t[6]{ 0, 1, 2, 3, 4, 5 };
+
+			cMesh* mesh = new cMesh(static_cast<unsigned int>(2), static_cast<unsigned int>(3), i_vertexData, i_indices);
+			if (!(result = mesh->InitializeGeometry()))
+			{
+				EAE6320_ASSERTF(false, "Can't initialize Graphics without the geometry data");
+				return result;
+			}
+			s_meshArr[0] = mesh;
+		}
+
+		// second mesh
+		{
+			eae6320::Graphics::VertexFormats::sVertex_mesh* i_vertexData = new eae6320::Graphics::VertexFormats::sVertex_mesh[3];
+			{
+				// clockwise
+				i_vertexData[0].x = 1.5f;
+				i_vertexData[0].y = 1.5f;
+				i_vertexData[0].z = 0.0f;
+
+				i_vertexData[1].x = 1.8f;
+				i_vertexData[1].y = 1.5f;
+				i_vertexData[1].z = 0.0f;
+
+				i_vertexData[2].x = 1.8f;
+				i_vertexData[2].y = 1.8f;
+				i_vertexData[2].z = 0.0f;
+			}
+
+			uint16_t* i_indices = new uint16_t[3]{ 0, 1, 2 };
+
+			cMesh* mesh = new cMesh(static_cast<unsigned int>(1), static_cast<unsigned int>(3), i_vertexData, i_indices);
+			if (!(result = mesh->InitializeGeometry()))
+			{
+				EAE6320_ASSERTF(false, "Can't initialize Graphics without the geometry data");
+				return result;
+			}
+			s_meshArr[1] = mesh;
 		}
 	}
 
@@ -271,20 +383,27 @@ eae6320::cResult eae6320::Graphics::CleanUp()
 
 	// mesh data clean up
 	{
-		if (s_mesh) {
-			result = s_mesh->CleanUp();
-			delete s_mesh;
+		for (int i = 0; i < s_meshCount; i++) {
+			if (s_meshArr[i])
+			{
+				result = s_meshArr[i]->CleanUp();
+				delete s_meshArr[i];
+			}
 		}
+		delete[] s_meshArr;
 
 	}
 
 	// effect data clean up
 	{
-		if (s_effect)
-		{
-			result = s_effect->CleanUp();
-			delete s_effect;
+		for (int i = 0; i < s_effectCount; i++) {
+			if (s_effectArr[i])
+			{
+				result = s_effectArr[i]->CleanUp();
+				delete s_effectArr[i];
+			}
 		}
+		delete[] s_effectArr;
 	}
 
 	{

@@ -38,6 +38,8 @@ namespace eae6320
 			eae6320::cResult CleanUp();
 
 			void ClearView();
+
+			void ClearView(float i_rValue, float i_gValue, float i_bValue);
 			
 			void SwapBackBuffer();
 
