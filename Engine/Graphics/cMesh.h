@@ -63,7 +63,7 @@ namespace eae6320
 			cMesh(unsigned int i_triangleCount,
 				unsigned int i_vertexCountPerTriangle,
 				eae6320::Graphics::VertexFormats::sVertex_mesh i_vertexData[],
-				uint16_t i_indices[]); // use clockwise winding order
+				uint16_t i_indices[]); // use OpenGL right handed winding order (counter clockwise)
 			~cMesh();
 		};
 	}

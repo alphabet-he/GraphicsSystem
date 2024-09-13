@@ -172,6 +172,7 @@ void eae6320::Graphics::RenderFrame()
 			}
 		}
 
+		
 		// second mesh and effect
 		{
 			// Bind the shading data
@@ -189,6 +190,7 @@ void eae6320::Graphics::RenderFrame()
 				}
 			}
 		}
+		
 	}
 
 	// Everything has been drawn to the "back buffer", which is just an image in memory.
@@ -341,16 +343,16 @@ eae6320::cResult eae6320::Graphics::Initialize(const sInitializationParameters& 
 			eae6320::Graphics::VertexFormats::sVertex_mesh* i_vertexData = new eae6320::Graphics::VertexFormats::sVertex_mesh[3];
 			{
 				// clockwise
-				i_vertexData[0].x = 1.5f;
-				i_vertexData[0].y = 1.5f;
+				i_vertexData[0].x = 0.0f;
+				i_vertexData[0].y = 0.0f;
 				i_vertexData[0].z = 0.0f;
 
-				i_vertexData[1].x = 1.8f;
-				i_vertexData[1].y = 1.5f;
+				i_vertexData[1].x = -1.5f;
+				i_vertexData[1].y = 1.0f;
 				i_vertexData[1].z = 0.0f;
 
-				i_vertexData[2].x = 1.8f;
-				i_vertexData[2].y = 1.8f;
+				i_vertexData[2].x = -1.5f;
+				i_vertexData[2].y = 0.0f;
 				i_vertexData[2].z = 0.0f;
 			}
 
@@ -364,6 +366,7 @@ eae6320::cResult eae6320::Graphics::Initialize(const sInitializationParameters& 
 			}
 			s_meshArr[1] = mesh;
 		}
+
 	}
 
 	return result;
