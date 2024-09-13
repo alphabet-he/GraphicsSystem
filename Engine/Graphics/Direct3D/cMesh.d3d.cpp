@@ -1,6 +1,7 @@
 #include "../cMesh.h"
 #include "../sContext.h"
 #include <Engine/Logging/Logging.h>
+#include <algorithm>
 
 void eae6320::Graphics::cMesh::DrawMesh()
 {

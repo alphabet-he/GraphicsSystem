@@ -3,15 +3,14 @@
 
 eae6320::Graphics::cEffect::cEffect()
 {
-	m_vertexShaderPath = "data/Shaders/Vertex/standard.shader";
-	m_fragmentShaderPath = "data/Shaders/Fragment/myshader.shader";
+	m_vertexShaderFileName = "standard";
+	m_fragmentShaderFileName = "myshader";
 }
 
 eae6320::Graphics::cEffect::cEffect(const char* i_vertexShaderFileName, const char* i_fragmentShaderFileName)
 {
-	m_vertexShaderPath = std::string("data/Shaders/Vertex/") + i_vertexShaderFileName + std::string(".shader");
-	m_fragmentShaderPath = std::string("data/Shaders/Fragment/") + i_fragmentShaderFileName + std::string(".shader");
-
+	m_vertexShaderFileName = i_vertexShaderFileName;
+	m_fragmentShaderFileName = i_fragmentShaderFileName;
 }
 
 eae6320::Graphics::cEffect::~cEffect()

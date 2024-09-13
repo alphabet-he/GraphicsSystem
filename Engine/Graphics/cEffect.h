@@ -17,8 +17,8 @@ namespace eae6320
 
 			eae6320::Graphics::cRenderState m_renderState;
 
-			std::string m_vertexShaderPath;
-			std::string m_fragmentShaderPath;
+			const char* m_vertexShaderFileName;
+			const char* m_fragmentShaderFileName;
 
 #if defined( EAE6320_PLATFORM_GL )
 			GLuint m_programId;
