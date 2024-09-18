@@ -20,8 +20,6 @@
 #include <Engine/UserOutput/UserOutput.h>
 #include <new>
 #include <utility>
-#include <Engine/Graphics/cMesh.h>
-#include <Engine/Graphics/cEffect.h>
 #include <Engine/Graphics/cView.h>
 
 // Static Data
@@ -43,6 +41,10 @@ namespace
 	struct sDataRequiredToRenderAFrame
 	{
 		eae6320::Graphics::ConstantBufferFormats::sFrame constantData_frame;
+		float backgroundColor[3];
+		float meshCount;
+		eae6320::Graphics::cMesh* meshArr;
+		eae6320::Graphics::cEffect* effectArr;
 	};
 	// In our class there will be two copies of the data required to render a frame:
 	//	* One of them will be in the process of being populated by the data currently being submitted by the application loop thread
@@ -88,6 +90,24 @@ void eae6320::Graphics::SubmitElapsedTime(const float i_elapsedSecondCount_syste
 	constantData_frame.g_elapsedSecondCount_simulationTime = i_elapsedSecondCount_simulationTime;
 }
 
+void eae6320::Graphics::SubmitRenderData(float i_backgroundColor[], uint16_t i_meshCount, cMesh* i_meshArr, cEffect* i_effectArr)
+{
+	EAE6320_ASSERT(s_dataBeingSubmittedByApplicationThread);
+
+	auto& backgroundColor = s_dataBeingSubmittedByApplicationThread->backgroundColor;
+	for (int i = 0; i < 3; i++) {
+		backgroundColor[i] = i_backgroundColor[i];
+	}
+
+	s_dataBeingSubmittedByApplicationThread->meshCount = i_meshCount;
+
+	s_dataBeingSubmittedByApplicationThread->meshArr = i_meshArr;
+
+	s_dataBeingSubmittedByApplicationThread->effectArr = i_effectArr;
+}
+
+
+
 eae6320::cResult eae6320::Graphics::WaitUntilDataForANewFrameCanBeSubmitted(const unsigned int i_timeToWait_inMilliseconds)
 {
 	return Concurrency::WaitForEvent(s_whenDataForANewFrameCanBeSubmittedFromApplicationThread, i_timeToWait_inMilliseconds);
@@ -130,12 +150,16 @@ void eae6320::Graphics::RenderFrame()
 		}
 	}
 
-	// clear view
-	if (s_View) {
-		s_View->ClearView(0.0f, 0.0f, 1.0f);
-	}
+
 
 	EAE6320_ASSERT(s_dataBeingRenderedByRenderThread);
+
+	// clear view
+	if (s_View) {
+		s_View->ClearView(s_dataBeingRenderedByRenderThread->backgroundColor[0],
+			s_dataBeingRenderedByRenderThread->backgroundColor[1], 
+			s_dataBeingRenderedByRenderThread->backgroundColor[2]);
+	}
 
 #if defined( EAE6320_PLATFORM_D3D )
 	auto* const dataRequiredToRenderFrame = s_dataBeingRenderedByRenderThread;
