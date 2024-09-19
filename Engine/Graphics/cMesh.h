@@ -30,6 +30,10 @@ namespace eae6320
 			eae6320::Graphics::VertexFormats::sVertex_mesh* m_vertexData = nullptr;
 			uint16_t* m_indices = nullptr;
 
+			EAE6320_ASSETS_DECLAREDELETEDREFERENCECOUNTEDFUNCTIONS(cMesh);
+
+			EAE6320_ASSETS_DECLAREREFERENCECOUNT();
+
 #if defined( EAE6320_PLATFORM_D3D )
 			eae6320::Graphics::cVertexFormat* m_vertexFormat = nullptr;
 
@@ -53,7 +57,17 @@ namespace eae6320
 			// functions
 		public:
 
+			EAE6320_ASSETS_DECLAREREFERENCECOUNTINGFUNCTIONS();
+
+			static cResult Load(unsigned int i_triangleCount,
+				unsigned int i_vertexCountPerTriangle,
+				eae6320::Graphics::VertexFormats::sVertex_mesh i_vertexData[],
+				uint16_t i_indices[], 
+				cMesh*& o_mesh);
+
 			void DrawMesh();
+
+		private:
 
 			eae6320::cResult InitializeGeometry();
 

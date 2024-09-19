@@ -20,12 +20,23 @@ namespace eae6320
 			const char* m_vertexShaderFileName;
 			const char* m_fragmentShaderFileName;
 
+			EAE6320_ASSETS_DECLAREDELETEDREFERENCECOUNTEDFUNCTIONS(cEffect);
+
+			EAE6320_ASSETS_DECLAREREFERENCECOUNT();
+
 #if defined( EAE6320_PLATFORM_GL )
 			GLuint m_programId = 0;
 #endif
 
 		public:
+
+			EAE6320_ASSETS_DECLAREREFERENCECOUNTINGFUNCTIONS();
+
+			static cResult Load(const char* i_vertexShaderFileName, const char* i_fragmentShaderFileName, cEffect*& o_effect);
+
 			void BindEffect();
+
+		private:
 
 			eae6320::cResult InitializeShadingData();
 

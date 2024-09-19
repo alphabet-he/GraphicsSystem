@@ -45,6 +45,12 @@ namespace
 		uint16_t meshCount;
 		eae6320::Graphics::cMesh** meshArr;
 		eae6320::Graphics::cEffect** effectArr;
+
+		void CleanUp() {
+			meshCount = 0;
+			delete[] meshArr;
+			delete[] effectArr;
+		}
 	};
 	// In our class there will be two copies of the data required to render a frame:
 	//	* One of them will be in the process of being populated by the data currently being submitted by the application loop thread
@@ -201,6 +207,7 @@ void eae6320::Graphics::RenderFrame()
 	{
 		// (At this point in the class there isn't anything that needs to be cleaned up)
 		//dataRequiredToRenderFrame	// TODO
+		s_dataBeingRenderedByRenderThread->CleanUp();
 	}
 }
 
@@ -256,111 +263,6 @@ eae6320::cResult eae6320::Graphics::Initialize(const sInitializationParameters& 
 			return result;
 		}
 	}
-	// Initialize the shading data
-	{
-		// create effect array
-		s_effectCount = 2;
-		s_effectArr = new cEffect * [s_effectCount];
-
-		// first effect
-		{
-			cEffect* effect = new cEffect("standard", "myshader");
-			if (!(result = effect->InitializeShadingData()))
-			{
-				EAE6320_ASSERTF(false, "Can't initialize Graphics without the shading data");
-				return result;
-			}
-			s_effectArr[0] = effect;
-		}
-
-		// second effect
-		{
-			cEffect* effect = new cEffect("standard", "standard");
-			if (!(result = effect->InitializeShadingData()))
-			{
-				EAE6320_ASSERTF(false, "Can't initialize Graphics without the shading data");
-				return result;
-			}
-			s_effectArr[1] = effect;
-		}
-	}
-	// Initialize the geometry
-	{
-		// create mesh array
-		s_meshCount = 2;
-		s_meshArr = new cMesh * [s_meshCount];
-
-		// first mesh
-		{
-			eae6320::Graphics::VertexFormats::sVertex_mesh* i_vertexData = new eae6320::Graphics::VertexFormats::sVertex_mesh[6];
-			{
-				// clockwise
-				i_vertexData[0].x = 0.0f;
-				i_vertexData[0].y = 0.0f;
-				i_vertexData[0].z = 0.0f;
-
-				i_vertexData[1].x = 1.0f;
-				i_vertexData[1].y = 0.0f;
-				i_vertexData[1].z = 0.0f;
-
-				i_vertexData[2].x = 1.0f;
-				i_vertexData[2].y = 1.0f;
-				i_vertexData[2].z = 0.0f;
-
-				i_vertexData[3].x = 0.0f;
-				i_vertexData[3].y = 0.0f;
-				i_vertexData[3].z = 0.0f;
-
-				i_vertexData[4].x = 1.0f;
-				i_vertexData[4].y = 1.0f;
-				i_vertexData[4].z = 0.0f;
-
-				i_vertexData[5].x = 0.0f;
-				i_vertexData[5].y = 1.0f;
-				i_vertexData[5].z = 0.0f;
-			}
-
-			uint16_t* i_indices = new uint16_t[6]{ 0, 1, 2, 3, 4, 5 };
-
-			cMesh* mesh = new cMesh(static_cast<unsigned int>(2), static_cast<unsigned int>(3), i_vertexData, i_indices);
-			if (!(result = mesh->InitializeGeometry()))
-			{
-				EAE6320_ASSERTF(false, "Can't initialize Graphics without the geometry data");
-				return result;
-			}
-			s_meshArr[0] = mesh;
-		}
-
-		// second mesh
-		{
-			eae6320::Graphics::VertexFormats::sVertex_mesh* i_vertexData = new eae6320::Graphics::VertexFormats::sVertex_mesh[3];
-			{
-				// clockwise
-				i_vertexData[0].x = 0.0f;
-				i_vertexData[0].y = 0.0f;
-				i_vertexData[0].z = 0.0f;
-
-				i_vertexData[1].x = -1.5f;
-				i_vertexData[1].y = 1.0f;
-				i_vertexData[1].z = 0.0f;
-
-				i_vertexData[2].x = -1.5f;
-				i_vertexData[2].y = 0.0f;
-				i_vertexData[2].z = 0.0f;
-			}
-
-			uint16_t* i_indices = new uint16_t[3]{ 0, 1, 2 };
-
-			cMesh* mesh = new cMesh(static_cast<unsigned int>(1), static_cast<unsigned int>(3), i_vertexData, i_indices);
-			if (!(result = mesh->InitializeGeometry()))
-			{
-				EAE6320_ASSERTF(false, "Can't initialize Graphics without the geometry data");
-				return result;
-			}
-			s_meshArr[1] = mesh;
-		}
-
-	}
 
 	return result;
 }
@@ -375,31 +277,6 @@ eae6320::cResult eae6320::Graphics::CleanUp()
 			result = s_View->CleanUp();
 			delete s_View;
 		}
-	}
-
-	// mesh data clean up
-	{
-		for (int i = 0; i < s_meshCount; i++) {
-			if (s_meshArr[i])
-			{
-				result = s_meshArr[i]->CleanUp();
-				delete s_meshArr[i];
-			}
-		}
-		delete[] s_meshArr;
-
-	}
-
-	// effect data clean up
-	{
-		for (int i = 0; i < s_effectCount; i++) {
-			if (s_effectArr[i])
-			{
-				result = s_effectArr[i]->CleanUp();
-				delete s_effectArr[i];
-			}
-		}
-		delete[] s_effectArr;
 	}
 
 	{

@@ -43,24 +43,20 @@ eae6320::cResult eae6320::cMyGame::Initialize()
 
 		// release-to-show effect
 		{
-			eae6320::Graphics::cEffect* i_effect = new eae6320::Graphics::cEffect("standard", "myshader");
-			if (!(result = i_effect->InitializeShadingData()))
+			if (!(result = Graphics::cEffect::Load("standard", "myshader", m_EffectReleaseToShow)))
 			{
 				EAE6320_ASSERTF(false, "Can't initialize Graphics without the shading data");
 				return result;
 			}
-			m_EffectReleaseToShow = i_effect;
 		}
 
 		// press-to-show effect
 		{
-			eae6320::Graphics::cEffect* i_effect = new eae6320::Graphics::cEffect("standard", "standard");
-			if (!(result = i_effect->InitializeShadingData()))
+			if (!(result = Graphics::cEffect::Load("standard", "standard", m_EffectPressToShow)))
 			{
 				EAE6320_ASSERTF(false, "Can't initialize Graphics without the shading data");
 				return result;
 			}
-			m_EffectPressToShow = i_effect;
 		}
 	}
 	// Initialize the geometry
@@ -98,13 +94,11 @@ eae6320::cResult eae6320::cMyGame::Initialize()
 
 			uint16_t* i_indices = new uint16_t[6]{ 0, 1, 2, 3, 4, 5 };
 
-			eae6320::Graphics::cMesh* i_mesh = new eae6320::Graphics::cMesh(static_cast<unsigned int>(2), static_cast<unsigned int>(3), i_vertexData, i_indices);
-			if (!(result = i_mesh->InitializeGeometry()))
+			if (!(result = Graphics::cMesh::Load(static_cast<unsigned int>(2), static_cast<unsigned int>(3), i_vertexData, i_indices, m_MeshReleaseToShow)))
 			{
 				EAE6320_ASSERTF(false, "Can't initialize Graphics without the geometry data");
 				return result;
 			}
-			m_MeshReleaseToShow = i_mesh;
 		}
 
 		// press-to-show mesh
@@ -127,13 +121,11 @@ eae6320::cResult eae6320::cMyGame::Initialize()
 
 			uint16_t* i_indices = new uint16_t[3]{ 0, 1, 2 };
 
-			eae6320::Graphics::cMesh* i_mesh = new eae6320::Graphics::cMesh(static_cast<unsigned int>(1), static_cast<unsigned int>(3), i_vertexData, i_indices);
-			if (!(result = i_mesh->InitializeGeometry()))
+			if (!(result = Graphics::cMesh::Load(static_cast<unsigned int>(1), static_cast<unsigned int>(3), i_vertexData, i_indices, m_MeshPressToShow)))
 			{
 				EAE6320_ASSERTF(false, "Can't initialize Graphics without the geometry data");
 				return result;
 			}
-			m_MeshPressToShow = i_mesh;
 		}
 
 	}
@@ -145,6 +137,30 @@ eae6320::cResult eae6320::cMyGame::Initialize()
 
 eae6320::cResult eae6320::cMyGame::CleanUp()
 {
+	if (m_EffectReleaseToShow)
+	{
+		m_EffectReleaseToShow->DecrementReferenceCount();
+		m_EffectReleaseToShow = nullptr;
+	}
+
+	if (m_EffectPressToShow)
+	{
+		m_EffectPressToShow->DecrementReferenceCount();
+		m_EffectPressToShow = nullptr;
+	}
+
+	if (m_MeshReleaseToShow)
+	{
+		m_MeshReleaseToShow->DecrementReferenceCount();
+		m_MeshReleaseToShow = nullptr;
+	}
+
+	if (m_MeshPressToShow)
+	{
+		m_MeshPressToShow->DecrementReferenceCount();
+		m_MeshPressToShow = nullptr;
+	}
+
 	Logging::OutputMessage("Junxuan-Hu's Game Cleaning Up!");
 	return Results::Success;
 }
@@ -160,4 +176,5 @@ void eae6320::cMyGame::SubmitDataToBeRendered(const float i_elapsedSecondCount_s
 	i_effectToSubmit[1] = m_EffectPressToShow;
 
 	Graphics::SubmitRenderData(m_backgroundColor, 2, i_meshToSubmit, i_effectToSubmit);
+
 }

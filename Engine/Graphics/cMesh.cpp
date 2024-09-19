@@ -1,5 +1,27 @@
 #include "cMesh.h"
 
+eae6320::cResult eae6320::Graphics::cMesh::Load(unsigned int i_triangleCount, unsigned int i_vertexCountPerTriangle, eae6320::Graphics::VertexFormats::sVertex_mesh i_vertexData[], uint16_t i_indices[], cMesh*& o_mesh)
+{
+	cMesh* newMesh = new cMesh(i_triangleCount, i_vertexCountPerTriangle, i_vertexData, i_indices);
+
+	if (newMesh->InitializeGeometry())
+	{
+		EAE6320_ASSERT(newMesh != nullptr);
+		o_mesh = newMesh;
+		return Results::Success;
+	}
+	else
+	{
+		if (newMesh)
+		{
+			newMesh->DecrementReferenceCount();
+			newMesh = nullptr;
+		}
+		o_mesh = nullptr;
+		return Results::Failure;
+	}
+}
+
 eae6320::Graphics::cMesh::cMesh()
 {
 	m_triangleCount = 1;
@@ -54,4 +76,8 @@ eae6320::Graphics::cMesh::~cMesh()
 
 	delete[] m_indices;
 	m_indices = nullptr;
+
+	EAE6320_ASSERT(m_referenceCount == 0);
+	const auto result = CleanUp();
+	EAE6320_ASSERT(result);
 }
