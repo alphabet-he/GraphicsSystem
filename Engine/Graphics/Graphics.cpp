@@ -69,16 +69,6 @@ namespace
 	// and the application loop thread can start submitting data for the following frame
 	// (the application loop thread waits for the signal)
 	eae6320::Concurrency::cEvent s_whenDataForANewFrameCanBeSubmittedFromApplicationThread;
-
-	// Geometry Data
-	//--------------
-	eae6320::Graphics::cMesh** s_meshArr = nullptr;
-	uint16_t s_meshCount = 0;
-
-	// Shading Data
-	//-------------
-	eae6320::Graphics::cEffect** s_effectArr = nullptr;
-	uint16_t s_effectCount = 0;
 }
 
 
