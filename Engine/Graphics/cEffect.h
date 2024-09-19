@@ -21,7 +21,7 @@ namespace eae6320
 			const char* m_fragmentShaderFileName;
 
 #if defined( EAE6320_PLATFORM_GL )
-			GLuint m_programId;
+			GLuint m_programId = 0;
 #endif
 
 		public:
