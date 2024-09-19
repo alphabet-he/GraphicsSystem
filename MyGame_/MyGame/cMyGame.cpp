@@ -23,6 +23,25 @@ void eae6320::cMyGame::UpdateBasedOnInput()
 		const auto result = Exit( EXIT_SUCCESS );
 		EAE6320_ASSERT( result );
 	}
+
+	if (UserInput::IsKeyPressed(UserInput::KeyCodes::Shift))
+	{
+		// not show m_MeshReleaseToShow
+		m_shiftKeyPressed = true;
+	}
+	else {
+		m_shiftKeyPressed = false;
+	}
+
+	if (UserInput::IsKeyPressed(UserInput::KeyCodes::Space))
+	{
+		// not show m_MeshReleaseToShow
+		m_spaceKeyPressed = true;
+	}
+	else
+	{
+		m_spaceKeyPressed = false;
+	}
 }
 
 // Initialize / Clean Up
@@ -167,14 +186,57 @@ eae6320::cResult eae6320::cMyGame::CleanUp()
 
 void eae6320::cMyGame::SubmitDataToBeRendered(const float i_elapsedSecondCount_systemTime, const float i_elapsedSecondCount_sinceLastSimulationUpdate)
 {
-	eae6320::Graphics::cMesh** i_meshToSubmit = new eae6320::Graphics::cMesh*[2];
-	i_meshToSubmit[0] = m_MeshReleaseToShow;
-	i_meshToSubmit[1] = m_MeshPressToShow;
+	eae6320::Graphics::cMesh** i_meshToSubmit;
+	eae6320::Graphics::cEffect** i_effectToSubmit;
+	uint16_t i_count = 0;
 
-	eae6320::Graphics::cEffect** i_effectToSubmit = new eae6320::Graphics::cEffect*[2];
-	i_effectToSubmit[0] = m_EffectReleaseToShow;
-	i_effectToSubmit[1] = m_EffectPressToShow;
+	// situations with key pressed or not
+	{
+		// press space, release shift: show two meshes
+		if (!m_shiftKeyPressed && m_spaceKeyPressed) {
+			i_meshToSubmit = new eae6320::Graphics::cMesh * [2];
+			i_meshToSubmit[0] = m_MeshReleaseToShow;
+			i_meshToSubmit[1] = m_MeshPressToShow;
 
-	Graphics::SubmitRenderData(m_backgroundColor, 2, i_meshToSubmit, i_effectToSubmit);
+			i_effectToSubmit = new eae6320::Graphics::cEffect * [2];
+			i_effectToSubmit[0] = m_EffectReleaseToShow;
+			i_effectToSubmit[1] = m_EffectPressToShow;
+
+			i_count = 2;
+		}
+
+		// press space, press shift: show press-to-show mesh
+		if (m_shiftKeyPressed && m_spaceKeyPressed) {
+			i_meshToSubmit = new eae6320::Graphics::cMesh * [1];
+			i_meshToSubmit[0] = m_MeshPressToShow;
+
+			i_effectToSubmit = new eae6320::Graphics::cEffect * [1];
+			i_effectToSubmit[0] = m_EffectPressToShow;
+
+			i_count = 1;
+		}
+
+		// release space, release shift: show release-to-show mesh
+		if (!m_shiftKeyPressed && !m_spaceKeyPressed) {
+			i_meshToSubmit = new eae6320::Graphics::cMesh * [1];
+			i_meshToSubmit[0] = m_MeshReleaseToShow;
+
+			i_effectToSubmit = new eae6320::Graphics::cEffect * [1];
+			i_effectToSubmit[0] = m_EffectReleaseToShow;
+
+			i_count = 1;
+		}
+
+		// release space, press shift: show no mesh
+		if (m_shiftKeyPressed && !m_spaceKeyPressed) {
+			i_meshToSubmit = nullptr;
+			i_effectToSubmit = nullptr;
+
+			i_count = 0;
+		}
+	}
+
+
+	Graphics::SubmitRenderData(m_backgroundColor, i_count, i_meshToSubmit, i_effectToSubmit);
 
 }

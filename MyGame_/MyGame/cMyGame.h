@@ -91,6 +91,11 @@ namespace eae6320
 
 		Graphics::cMesh* m_MeshReleaseToShow;
 		Graphics::cEffect* m_EffectReleaseToShow;
+
+
+		// key pressed flags
+		bool m_shiftKeyPressed = false;
+		bool m_spaceKeyPressed = false;
 	};
 }
 
