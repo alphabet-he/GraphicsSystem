@@ -28,6 +28,7 @@ namespace eae6320
 			unsigned int m_triangleCount;
 			unsigned int m_vertexCountPerTriangle;
 			eae6320::Graphics::VertexFormats::sVertex_mesh* m_vertexData = nullptr;
+			uint16_t* m_indices = nullptr;
 
 #if defined( EAE6320_PLATFORM_D3D )
 			eae6320::Graphics::cVertexFormat* m_vertexFormat = nullptr;
@@ -35,11 +36,17 @@ namespace eae6320
 			// A vertex buffer holds the data for each vertex
 			ID3D11Buffer* m_vertexBuffer = nullptr;
 
+			// An index buffer
+			ID3D11Buffer* m_indexBuffer = nullptr;
+
 #elif defined( EAE6320_PLATFORM_GL )
 			// A vertex buffer holds the data for each vertex
 			GLuint m_vertexBufferId = 0;
 			// A vertex array encapsulates the vertex data as well as the vertex input layout
 			GLuint m_vertexArrayId = 0;
+
+			// A vertex buffer holds the data for each vertex
+			GLuint m_indexBufferId = 0;
 #endif
 
 
@@ -53,9 +60,10 @@ namespace eae6320
 			eae6320::cResult CleanUp();
 
 			cMesh();
-			cMesh(unsigned int triangleCount,
-				unsigned int vertexCountPerTriangle,
-				eae6320::Graphics::VertexFormats::sVertex_mesh vertexData[]);
+			cMesh(unsigned int i_triangleCount,
+				unsigned int i_vertexCountPerTriangle,
+				eae6320::Graphics::VertexFormats::sVertex_mesh i_vertexData[],
+				uint16_t i_indices[]); // use OpenGL right handed winding order (counter clockwise)
 			~cMesh();
 		};
 	}
