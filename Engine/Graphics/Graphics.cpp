@@ -42,9 +42,9 @@ namespace
 	{
 		eae6320::Graphics::ConstantBufferFormats::sFrame constantData_frame;
 		float backgroundColor[3];
-		float meshCount;
-		eae6320::Graphics::cMesh* meshArr;
-		eae6320::Graphics::cEffect* effectArr;
+		uint16_t meshCount;
+		eae6320::Graphics::cMesh** meshArr;
+		eae6320::Graphics::cEffect** effectArr;
 	};
 	// In our class there will be two copies of the data required to render a frame:
 	//	* One of them will be in the process of being populated by the data currently being submitted by the application loop thread
@@ -90,7 +90,7 @@ void eae6320::Graphics::SubmitElapsedTime(const float i_elapsedSecondCount_syste
 	constantData_frame.g_elapsedSecondCount_simulationTime = i_elapsedSecondCount_simulationTime;
 }
 
-void eae6320::Graphics::SubmitRenderData(float i_backgroundColor[], uint16_t i_meshCount, cMesh* i_meshArr, cEffect* i_effectArr)
+void eae6320::Graphics::SubmitRenderData(float i_backgroundColor[], uint16_t i_meshCount, cMesh** i_meshArr, cEffect** i_effectArr)
 {
 	EAE6320_ASSERT(s_dataBeingSubmittedByApplicationThread);
 
@@ -178,41 +178,10 @@ void eae6320::Graphics::RenderFrame()
 
 	// draw mesh
 	{
-		// first mesh and effect
-		{
-			// Bind the shading data
-			{
-				if (s_effectArr[0])
-				{
-					s_effectArr[0]->BindEffect();
-				}
-			}
-			// Draw the geometry
-			{
-				if (s_meshArr[0])
-				{
-					s_meshArr[0]->DrawMesh();
-				}
-			}
-		}
-
-		
-		// second mesh and effect
-		{
-			// Bind the shading data
-			{
-				if (s_effectArr[1])
-				{
-					s_effectArr[1]->BindEffect();
-				}
-			}
-			// Draw the geometry
-			{
-				if (s_meshArr[1])
-				{
-					s_meshArr[1]->DrawMesh();
-				}
-			}
+		uint16_t i_meshCount = s_dataBeingRenderedByRenderThread->meshCount;
+		for (int i = 0; i < i_meshCount; i++) {
+			s_dataBeingRenderedByRenderThread->effectArr[i]->BindEffect();
+			s_dataBeingRenderedByRenderThread->meshArr[i]->DrawMesh();
 		}
 		
 	}

@@ -41,8 +41,8 @@ namespace eae6320
 		void SubmitRenderData(
 			float i_backgroundColor[], // background
 			uint16_t i_meshCount, // count of meshes
-			cMesh* i_meshArr,
-			cEffect* i_effectArr
+			cMesh** i_meshArr,
+			cEffect** i_effectArr
 		);
 
 		// When the application is ready to submit data for a new frame
