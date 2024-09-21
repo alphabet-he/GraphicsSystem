@@ -149,6 +149,7 @@ eae6320::cResult eae6320::cMyGame::Initialize()
 
 	}
 	
+
 	Logging::OutputMessage("Junxuan-Hu's Game Initializd!");
 
 	return Results::Success;

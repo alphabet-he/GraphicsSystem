@@ -191,6 +191,7 @@ void eae6320::Graphics::RenderFrame()
 		}
 	}
 
+
 	// After all of the data that was submitted for this frame has been used
 	// you must make sure that it is all cleaned up and cleared out
 	// so that the struct can be re-used (i.e. so that data for a new frame can be submitted to it)

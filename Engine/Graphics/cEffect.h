@@ -17,11 +17,6 @@ namespace eae6320
 
 			eae6320::Graphics::cRenderState m_renderState;
 
-			const char* m_vertexShaderFileName;
-			const char* m_fragmentShaderFileName;
-
-			EAE6320_ASSETS_DECLAREDELETEDREFERENCECOUNTEDFUNCTIONS(cEffect);
-
 			EAE6320_ASSETS_DECLAREREFERENCECOUNT();
 
 #if defined( EAE6320_PLATFORM_GL )
@@ -37,6 +32,8 @@ namespace eae6320
 			void BindEffect();
 
 		private:
+
+			EAE6320_ASSETS_DECLAREDELETEDREFERENCECOUNTEDFUNCTIONS(cEffect);
 
 			eae6320::cResult InitializeShadingData();
 
