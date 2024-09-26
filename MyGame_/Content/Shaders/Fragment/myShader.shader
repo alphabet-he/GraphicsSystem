@@ -6,88 +6,14 @@
 
 #include <Shaders/shaders.inc>
 
-#if defined( EAE6320_PLATFORM_D3D )
 
-// Constant Buffers
-//=================
-
-cbuffer g_constantBuffer_frame : register( b0 )
-{
-	float4x4 g_transform_worldToCamera;
-	float4x4 g_transform_cameraToProjected;
-
-	float g_elapsedSecondCount_systemTime;
-	float g_elapsedSecondCount_simulationTime;
-	// For float4 alignment
-	float2 g_padding;
-};
-
-// Entry Point for D3D
-//============
-
-void main(
-
-	// Input
-	//======
-
-	in const float4 i_fragmentPosition : SV_POSITION,
-
-	// Output
-	//=======
-
-	// Whatever color value is output from the fragment shader
-	// will determine the color of the corresponding pixel on the screen
-	out float4 o_color : SV_TARGET
-
-)
-{
+PLATFORM_OutputFragmentShader{
 	float red = 0.5 + 0.5 * sin( g_elapsedSecondCount_simulationTime );
 	float green = 0.5 + 0.5 * cos( g_elapsedSecondCount_simulationTime );
-
 	// Output solid white
-	o_color = float4(
+	o_color = PLATFORM_float4(
 		// RGB (color)
 		red, green, 0.5,
 		// Alpha (opacity)
 		1.0 );
-}
-
-#elif defined( EAE6320_PLATFORM_GL )
-
-// Constant Buffers
-//=================
-
-layout( std140, binding = 0 ) uniform g_constantBuffer_frame
-{
-	mat4 g_transform_worldToCamera;
-	mat4 g_transform_cameraToProjected;
-
-	float g_elapsedSecondCount_systemTime;
-	float g_elapsedSecondCount_simulationTime;
-	// For vec4 alignment
-	vec2 g_padding;
-};
-
-// Output
-//=======
-
-// Whatever color value is output from the fragment shader
-// will determine the color of the corresponding pixel on the screen
-out vec4 o_color;
-
-// Entry Point for OpenGL
-//============
-
-void main()
-{
-	float red = 0.5 + 0.5 * sin( g_elapsedSecondCount_simulationTime );
-	float green = 0.5 + 0.5 * cos( g_elapsedSecondCount_simulationTime );
-	// Output solid white
-	o_color = vec4(
-		// RGB (color)
-		red, green, 0.5,
-		// Alpha (opacity)
-		1.0 );
-}
-
-#endif
+	}

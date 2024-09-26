@@ -41,15 +41,13 @@ namespace
 	struct sDataRequiredToRenderAFrame
 	{
 		eae6320::Graphics::ConstantBufferFormats::sFrame constantData_frame;
-		float backgroundColor[3];
-		uint16_t meshCount;
-		eae6320::Graphics::cMesh** meshArr;
-		eae6320::Graphics::cEffect** effectArr;
+		float m_backgroundColor[3];
+		uint16_t m_gameObjectCount;
+		eae6320::Assets::sGameObject** m_GameObjectArr;
 
 		void CleanUp() {
-			meshCount = 0;
-			delete[] meshArr;
-			delete[] effectArr;
+			m_gameObjectCount = 0;
+			delete[] m_GameObjectArr;
 		}
 	};
 	// In our class there will be two copies of the data required to render a frame:
@@ -86,20 +84,31 @@ void eae6320::Graphics::SubmitElapsedTime(const float i_elapsedSecondCount_syste
 	constantData_frame.g_elapsedSecondCount_simulationTime = i_elapsedSecondCount_simulationTime;
 }
 
-void eae6320::Graphics::SubmitRenderData(float i_backgroundColor[], uint16_t i_meshCount, cMesh** i_meshArr, cEffect** i_effectArr)
+void eae6320::Graphics::SubmitRenderData(sCamera* i_Camera, float i_backgroundColor[], uint16_t i_gameObjectCount, Assets::sGameObject** i_GameObjectArr)
 {
 	EAE6320_ASSERT(s_dataBeingSubmittedByApplicationThread);
 
-	auto& backgroundColor = s_dataBeingSubmittedByApplicationThread->backgroundColor;
+	auto& backgroundColor = s_dataBeingSubmittedByApplicationThread->m_backgroundColor;
 	for (int i = 0; i < 3; i++) {
 		backgroundColor[i] = i_backgroundColor[i];
 	}
 
-	s_dataBeingSubmittedByApplicationThread->meshCount = i_meshCount;
+	s_dataBeingSubmittedByApplicationThread->constantData_frame.g_transform_worldToCamera =
+		Math::cMatrix_transformation::CreateWorldToCameraTransform(
+			i_Camera->m_RigidBodyState.orientation,
+			i_Camera->m_RigidBodyState.position
+		);
 
-	s_dataBeingSubmittedByApplicationThread->meshArr = i_meshArr;
+	s_dataBeingSubmittedByApplicationThread->constantData_frame.g_transform_cameraToProjected =
+		Math::cMatrix_transformation::CreateCameraToProjectedTransform_perspective(
+			i_Camera->m_verticalFieldOfView_inRadians,
+			i_Camera->m_aspectRatio,
+			i_Camera->m_z_nearPlane, i_Camera->m_z_farPlane
+		);
 
-	s_dataBeingSubmittedByApplicationThread->effectArr = i_effectArr;
+	s_dataBeingSubmittedByApplicationThread->m_gameObjectCount = i_gameObjectCount;
+
+	s_dataBeingSubmittedByApplicationThread->m_GameObjectArr = i_GameObjectArr;
 }
 
 
@@ -152,9 +161,9 @@ void eae6320::Graphics::RenderFrame()
 
 	// clear view
 	if (s_View) {
-		s_View->ClearView(s_dataBeingRenderedByRenderThread->backgroundColor[0],
-			s_dataBeingRenderedByRenderThread->backgroundColor[1], 
-			s_dataBeingRenderedByRenderThread->backgroundColor[2]);
+		s_View->ClearView(s_dataBeingRenderedByRenderThread->m_backgroundColor[0],
+			s_dataBeingRenderedByRenderThread->m_backgroundColor[1], 
+			s_dataBeingRenderedByRenderThread->m_backgroundColor[2]);
 	}
 
 #if defined( EAE6320_PLATFORM_D3D )
@@ -174,10 +183,10 @@ void eae6320::Graphics::RenderFrame()
 
 	// draw mesh
 	{
-		uint16_t i_meshCount = s_dataBeingRenderedByRenderThread->meshCount;
+		uint16_t i_meshCount = s_dataBeingRenderedByRenderThread->m_gameObjectCount;
 		for (int i = 0; i < i_meshCount; i++) {
-			s_dataBeingRenderedByRenderThread->effectArr[i]->BindEffect();
-			s_dataBeingRenderedByRenderThread->meshArr[i]->DrawMesh();
+			s_dataBeingRenderedByRenderThread->m_GameObjectArr[i]->m_Effect->BindEffect();
+			s_dataBeingRenderedByRenderThread->m_GameObjectArr[i]->m_Mesh->DrawMesh();
 		}
 		
 	}

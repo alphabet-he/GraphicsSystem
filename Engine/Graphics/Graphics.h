@@ -12,8 +12,8 @@
 
 #include <cstdint>
 #include <Engine/Results/Results.h>
-#include <Engine/Graphics/cMesh.h>
-#include <Engine/Graphics/cEffect.h>
+#include <Engine/Assets/sGameObject.h>
+#include <Engine/Graphics/sCamera.h>
 
 #if defined( EAE6320_PLATFORM_WINDOWS )
 	#include <Engine/Windows/Includes.h>
@@ -39,10 +39,10 @@ namespace eae6320
 
 		// Submit Render Data
 		void SubmitRenderData(
+			sCamera* i_Camera,
 			float i_backgroundColor[], // background
-			uint16_t i_meshCount, // count of meshes
-			cMesh** i_meshArr,
-			cEffect** i_effectArr
+			uint16_t i_gameObjectCount, // count of meshes
+			Assets::sGameObject** i_GameObjectArr
 		);
 
 		// When the application is ready to submit data for a new frame
