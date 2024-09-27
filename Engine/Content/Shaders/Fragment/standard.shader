@@ -6,8 +6,11 @@
 
 #include <Shaders/shaders.inc>
 
+#if defined(EAE6320_PLATFORM_GL)
+	out PLATFORM_float4 o_color;
+#endif
 
-PLATFORM_OutputFragmentShader{
+PLATFORM_OutputFragmentShader(main){
 	// Output solid white
 	o_color = PLATFORM_float4(
 		// RGB (color)

@@ -6,8 +6,11 @@
 
 #include <Shaders/shaders.inc>
 
+#if defined(EAE6320_PLATFORM_GL)
+	out PLATFORM_float4 o_color;
+#endif
 
-PLATFORM_OutputFragmentShader{
+PLATFORM_OutputFragmentShader(main){
 	float red = 0.5 + 0.5 * sin( g_elapsedSecondCount_simulationTime );
 	float green = 0.5 + 0.5 * cos( g_elapsedSecondCount_simulationTime );
 	// Output solid white

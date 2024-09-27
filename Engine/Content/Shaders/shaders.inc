@@ -46,10 +46,10 @@ DeclareConstantBuffer( g_constantBuffer_frame, 0 )
 //=================
 
 #if defined( EAE6320_PLATFORM_D3D )
-    # define PLATFORM_OutputFragmentShader void main(in const float4 i_fragmentPosition : SV_POSITION, out float4 o_color : SV_TARGET)
+    # define PLATFORM_OutputFragmentShader(i_name) void i_name(in const float4 i_fragmentPosition : SV_POSITION, out float4 o_color : SV_TARGET)
 
 #elif defined( EAE6320_PLATFORM_GL )
-    # define PLATFORM_OutputFragmentShader out vec4 o_color; void main()
+    # define PLATFORM_OutputFragmentShader(i_name) void i_name()
 #endif
 
 
