@@ -58,10 +58,9 @@ DeclareConstantBuffer( g_constantBuffer_frame, 0 )
 
 #if defined( EAE6320_PLATFORM_D3D )
     # define PLATFORM_Mul(matrix, vector) mul( matrix, vector )
-    # define PLATFORM_OutputVertexShader void main(in const float3 i_vertexPosition_local : POSITION, out float4 o_vertexPosition_projected : SV_POSITION)
+    # define PLATFORM_OutputVertexShader(i_name) void i_name(in const float3 i_vertexPosition_local : POSITION, out float4 o_vertexPosition_projected : SV_POSITION)
 
 #elif defined( EAE6320_PLATFORM_GL )
     # define PLATFORM_Mul(matrix, vector) matrix * vector
-    # define PLATFORM_OutputVertexShader layout( location = 0 ) in vec3 i_vertexPosition_local; void main()
-
+    # define PLATFORM_OutputVertexShader(i_name) void i_name()
 #endif

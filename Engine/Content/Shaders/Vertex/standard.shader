@@ -10,7 +10,11 @@
 
 #include <Shaders/shaders.inc>
 
-PLATFORM_OutputVertexShader
+#if defined(EAE6320_PLATFORM_GL)
+	layout( location = 0 ) in vec3 i_vertexPosition_local;
+#endif
+
+PLATFORM_OutputVertexShader(main)
 {
 	// Transform the local vertex into world space
 	PLATFORM_float4 vertexPosition_world;
@@ -25,6 +29,12 @@ PLATFORM_OutputVertexShader
 		// Transform the vertex from world space into camera space
 		PLATFORM_float4 vertexPosition_camera = PLATFORM_Mul( g_transform_worldToCamera, vertexPosition_world );
 		// Project the vertex from camera space into projected space
-		o_vertexPosition_projected = PLATFORM_Mul( g_transform_cameraToProjected, vertexPosition_camera );
+
+		#if defined(EAE6320_PLATFORM_D3D)
+			o_vertexPosition_projected = PLATFORM_Mul( g_transform_cameraToProjected, vertexPosition_camera );
+		#elif defined(EAE6320_PLATFORM_GL)
+			gl_Position = PLATFORM_Mul( g_transform_cameraToProjected, vertexPosition_camera );
+		#endif
+			
 	}
 }
