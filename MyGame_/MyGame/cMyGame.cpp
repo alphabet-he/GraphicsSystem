@@ -26,6 +26,18 @@ void eae6320::cMyGame::UpdateBasedOnInput()
 		EAE6320_ASSERT( result );
 	}
 
+	// Change effect
+	if (UserInput::IsKeyPressed('Z'))
+	{
+		m_gameObject->m_Effect = m_standardShaderEffect;
+		m_gameObject->m_Mesh = m_triangleMesh;
+	}
+	else {
+		m_gameObject->m_Effect = m_myShaderEffect;
+		m_gameObject->m_Mesh = m_squareMesh;
+
+	}
+
 	// Move camera
 	{
 		if (UserInput::IsKeyPressed(UserInput::KeyCodes::Left))
@@ -119,54 +131,89 @@ eae6320::cResult eae6320::cMyGame::Initialize()
 
 	// Initialize the shading data
 	{
-		Graphics::cEffect* i_effect;
-		if (!(result = Graphics::cEffect::Load("standard", "myshader", i_effect)))
+		if (!(result = Graphics::cEffect::Load("standard", "myshader", m_myShaderEffect)))
 		{
 			EAE6320_ASSERTF(false, "Can't initialize Graphics without the shading data");
 			return result;
 		}
-		m_gameObject->m_Effect = i_effect;
 
+		if (!(result = Graphics::cEffect::Load("standard", "standard", m_standardShaderEffect)))
+		{
+			EAE6320_ASSERTF(false, "Can't initialize Graphics without the shading data");
+			return result;
+		}
+		m_gameObject->m_Effect = m_myShaderEffect;
 	}
 	// Initialize the geometry
 	{
-		eae6320::Graphics::VertexFormats::sVertex_mesh* i_vertexData = new eae6320::Graphics::VertexFormats::sVertex_mesh[6];
 		{
-			// clockwise
-			i_vertexData[0].x = 0.0f;
-			i_vertexData[0].y = 0.0f;
-			i_vertexData[0].z = 0.0f;
+			eae6320::Graphics::VertexFormats::sVertex_mesh* i_vertexData = new eae6320::Graphics::VertexFormats::sVertex_mesh[6];
+			{
+				// clockwise
+				i_vertexData[0].x = 0.0f;
+				i_vertexData[0].y = 0.0f;
+				i_vertexData[0].z = 0.0f;
 
-			i_vertexData[1].x = 1.0f;
-			i_vertexData[1].y = 0.0f;
-			i_vertexData[1].z = 0.0f;
+				i_vertexData[1].x = 1.0f;
+				i_vertexData[1].y = 0.0f;
+				i_vertexData[1].z = 0.0f;
 
-			i_vertexData[2].x = 1.0f;
-			i_vertexData[2].y = 1.0f;
-			i_vertexData[2].z = 0.0f;
+				i_vertexData[2].x = 1.0f;
+				i_vertexData[2].y = 1.0f;
+				i_vertexData[2].z = 0.0f;
 
-			i_vertexData[3].x = 0.0f;
-			i_vertexData[3].y = 0.0f;
-			i_vertexData[3].z = 0.0f;
+				i_vertexData[3].x = 0.0f;
+				i_vertexData[3].y = 0.0f;
+				i_vertexData[3].z = 0.0f;
 
-			i_vertexData[4].x = 1.0f;
-			i_vertexData[4].y = 1.0f;
-			i_vertexData[4].z = 0.0f;
+				i_vertexData[4].x = 1.0f;
+				i_vertexData[4].y = 1.0f;
+				i_vertexData[4].z = 0.0f;
 
-			i_vertexData[5].x = 0.0f;
-			i_vertexData[5].y = 1.0f;
-			i_vertexData[5].z = 0.0f;
+				i_vertexData[5].x = 0.0f;
+				i_vertexData[5].y = 1.0f;
+				i_vertexData[5].z = 0.0f;
+			}
+
+			uint16_t* i_indices = new uint16_t[6]{ 0, 1, 2, 3, 4, 5 };
+
+
+			if (!(result = Graphics::cMesh::Load(static_cast<unsigned int>(2), static_cast<unsigned int>(3), i_vertexData, i_indices, m_squareMesh)))
+			{
+				EAE6320_ASSERTF(false, "Can't initialize Graphics without the geometry data");
+				return result;
+			}
 		}
 
-		uint16_t* i_indices = new uint16_t[6]{ 0, 1, 2, 3, 4, 5 };
-
-		Graphics::cMesh* i_mesh;
-		if (!(result = Graphics::cMesh::Load(static_cast<unsigned int>(2), static_cast<unsigned int>(3), i_vertexData, i_indices, i_mesh)))
 		{
-			EAE6320_ASSERTF(false, "Can't initialize Graphics without the geometry data");
-			return result;
+			eae6320::Graphics::VertexFormats::sVertex_mesh* i_vertexData = new eae6320::Graphics::VertexFormats::sVertex_mesh[3];
+			{
+				// clockwise
+				i_vertexData[0].x = 0.0f;
+				i_vertexData[0].y = 0.0f;
+				i_vertexData[0].z = 0.0f;
+
+				i_vertexData[1].x = 1.0f;
+				i_vertexData[1].y = 0.0f;
+				i_vertexData[1].z = 0.0f;
+
+				i_vertexData[2].x = 1.0f;
+				i_vertexData[2].y = 1.0f;
+				i_vertexData[2].z = 0.0f;
+			}
+
+			uint16_t* i_indices = new uint16_t[3]{ 0, 1, 2 };
+
+
+			if (!(result = Graphics::cMesh::Load(static_cast<unsigned int>(1), static_cast<unsigned int>(3), i_vertexData, i_indices, m_triangleMesh)))
+			{
+				EAE6320_ASSERTF(false, "Can't initialize Graphics without the geometry data");
+				return result;
+			}
 		}
-		m_gameObject->m_Mesh = i_mesh;
+
+
+		m_gameObject->m_Mesh = m_squareMesh;
 	}
 	
 	
@@ -177,6 +224,31 @@ eae6320::cResult eae6320::cMyGame::Initialize()
 
 eae6320::cResult eae6320::cMyGame::CleanUp()
 {
+	if (m_myShaderEffect)
+	{
+		m_myShaderEffect->DecrementReferenceCount();
+		m_myShaderEffect = nullptr;
+	}
+
+	if (m_standardShaderEffect)
+	{
+		m_standardShaderEffect->DecrementReferenceCount();
+		m_standardShaderEffect = nullptr;
+	}
+
+	if (m_squareMesh)
+	{
+		m_squareMesh->DecrementReferenceCount();
+		m_squareMesh = nullptr;
+	}
+
+	if (m_triangleMesh)
+	{
+		m_triangleMesh->DecrementReferenceCount();
+		m_triangleMesh = nullptr;
+	}
+
+
 	delete m_gameObject;
 
 	Logging::OutputMessage("Junxuan-Hu's Game Cleaning Up!");

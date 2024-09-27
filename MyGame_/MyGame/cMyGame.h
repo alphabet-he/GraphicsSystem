@@ -96,6 +96,12 @@ namespace eae6320
 
 		Assets::sGameObject* m_gameObject;
 		Graphics::sCamera* m_Camera;
+
+		Graphics::cEffect* m_myShaderEffect;
+		Graphics::cEffect* m_standardShaderEffect;
+
+		Graphics::cMesh* m_squareMesh;
+		Graphics::cMesh* m_triangleMesh;
 	};
 }
 
