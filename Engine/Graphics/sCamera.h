@@ -6,7 +6,7 @@
 namespace eae6320 {
 	namespace Graphics {
 		struct sCamera {
-			//Math::sVector m_cameraPosition;
+			Math::sVector m_cameraPositionPredicted;
 			float m_verticalFieldOfView_inRadians;
 			float m_aspectRatio = 1.0f; // default resolution being 512:512
 			float m_z_nearPlane;

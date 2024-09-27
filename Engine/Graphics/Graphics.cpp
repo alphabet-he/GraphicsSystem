@@ -32,6 +32,7 @@ namespace
 
 	// Constant buffer object
 	eae6320::Graphics::cConstantBuffer s_constantBuffer_frame(eae6320::Graphics::ConstantBufferTypes::Frame);
+	eae6320::Graphics::cConstantBuffer s_constantBuffer_drawCall(eae6320::Graphics::ConstantBufferTypes::DrawCall);
 
 	// Submission Data
 	//----------------
@@ -43,11 +44,15 @@ namespace
 		eae6320::Graphics::ConstantBufferFormats::sFrame constantData_frame;
 		float m_backgroundColor[3];
 		uint16_t m_gameObjectCount;
-		eae6320::Assets::sGameObject** m_GameObjectArr;
+		eae6320::Graphics::cMesh** m_meshArr;
+		eae6320::Graphics::cEffect** m_effectArr;
+		eae6320::Math::cMatrix_transformation* m_localToWorldMatrixArr;
 
 		void CleanUp() {
 			m_gameObjectCount = 0;
-			delete[] m_GameObjectArr;
+			delete[] m_meshArr;
+			delete[] m_effectArr;
+			delete[] m_localToWorldMatrixArr;
 		}
 	};
 	// In our class there will be two copies of the data required to render a frame:
@@ -84,7 +89,12 @@ void eae6320::Graphics::SubmitElapsedTime(const float i_elapsedSecondCount_syste
 	constantData_frame.g_elapsedSecondCount_simulationTime = i_elapsedSecondCount_simulationTime;
 }
 
-void eae6320::Graphics::SubmitRenderData(sCamera* i_Camera, float i_backgroundColor[], uint16_t i_gameObjectCount, Assets::sGameObject** i_GameObjectArr)
+void eae6320::Graphics::SubmitRenderData(sCamera* i_Camera, 
+	float i_backgroundColor[], 
+	uint16_t i_gameObjectCount, 
+	cMesh** i_meshArr,
+	cEffect** i_effectArr,
+	Math::cMatrix_transformation* i_localToWorldMatrixArr)
 {
 	EAE6320_ASSERT(s_dataBeingSubmittedByApplicationThread);
 
@@ -96,7 +106,7 @@ void eae6320::Graphics::SubmitRenderData(sCamera* i_Camera, float i_backgroundCo
 	s_dataBeingSubmittedByApplicationThread->constantData_frame.g_transform_worldToCamera =
 		Math::cMatrix_transformation::CreateWorldToCameraTransform(
 			i_Camera->m_RigidBodyState.orientation,
-			i_Camera->m_RigidBodyState.position
+			i_Camera->m_cameraPositionPredicted
 		);
 
 	s_dataBeingSubmittedByApplicationThread->constantData_frame.g_transform_cameraToProjected =
@@ -108,7 +118,10 @@ void eae6320::Graphics::SubmitRenderData(sCamera* i_Camera, float i_backgroundCo
 
 	s_dataBeingSubmittedByApplicationThread->m_gameObjectCount = i_gameObjectCount;
 
-	s_dataBeingSubmittedByApplicationThread->m_GameObjectArr = i_GameObjectArr;
+	s_dataBeingSubmittedByApplicationThread->m_meshArr = i_meshArr;
+	s_dataBeingSubmittedByApplicationThread->m_effectArr = i_effectArr;
+	s_dataBeingSubmittedByApplicationThread->m_localToWorldMatrixArr = i_localToWorldMatrixArr;
+
 }
 
 
@@ -185,8 +198,14 @@ void eae6320::Graphics::RenderFrame()
 	{
 		uint16_t i_meshCount = s_dataBeingRenderedByRenderThread->m_gameObjectCount;
 		for (int i = 0; i < i_meshCount; i++) {
-			s_dataBeingRenderedByRenderThread->m_GameObjectArr[i]->m_Effect->BindEffect();
-			s_dataBeingRenderedByRenderThread->m_GameObjectArr[i]->m_Mesh->DrawMesh();
+
+			eae6320::Graphics::ConstantBufferFormats::sDrawCall constantData_drawCall;
+			constantData_drawCall.g_transform_localToWorld =
+				s_dataBeingRenderedByRenderThread->m_localToWorldMatrixArr[i];
+			s_constantBuffer_drawCall.Update(&constantData_drawCall);
+
+			s_dataBeingRenderedByRenderThread->m_effectArr[i]->BindEffect();
+			s_dataBeingRenderedByRenderThread->m_meshArr[i]->DrawMesh();
 		}
 		
 	}
@@ -239,6 +258,19 @@ eae6320::cResult eae6320::Graphics::Initialize(const sInitializationParameters& 
 			EAE6320_ASSERTF(false, "Can't initialize Graphics without frame constant buffer");
 			return result;
 		}
+		if (result = s_constantBuffer_drawCall.Initialize())
+		{
+			// There is only a single frame constant buffer that is reused
+			// and so it can be bound at initialization time and never unbound
+			s_constantBuffer_drawCall.Bind(
+				// In our class only vertex shaders use per-frame constant data
+				static_cast<uint_fast8_t>(eShaderType::Vertex));
+		}
+		else
+		{
+			EAE6320_ASSERTF(false, "Can't initialize Graphics without draw call constant buffer");
+			return result;
+		}
 	}
 	// Initialize the events
 	{
@@ -287,6 +319,16 @@ eae6320::cResult eae6320::Graphics::CleanUp()
 			if (result)
 			{
 				result = result_constantBuffer_frame;
+			}
+		}
+		
+		const auto result_constantBuffer_drawCall = s_constantBuffer_drawCall.CleanUp();
+		if (!result_constantBuffer_drawCall)
+		{
+			EAE6320_ASSERT(false);
+			if (result)
+			{
+				result = result_constantBuffer_drawCall;
 			}
 		}
 	}

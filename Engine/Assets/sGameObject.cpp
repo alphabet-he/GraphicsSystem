@@ -16,5 +16,3 @@ eae6320::Assets::sGameObject::~sGameObject()
 
 	
 }
-
-

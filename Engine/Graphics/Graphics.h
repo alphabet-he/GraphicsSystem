@@ -12,8 +12,9 @@
 
 #include <cstdint>
 #include <Engine/Results/Results.h>
-#include <Engine/Assets/sGameObject.h>
 #include <Engine/Graphics/sCamera.h>
+#include <Engine/Graphics/cMesh.h>
+#include <Engine/Graphics/cEffect.h>
 
 #if defined( EAE6320_PLATFORM_WINDOWS )
 	#include <Engine/Windows/Includes.h>
@@ -42,7 +43,9 @@ namespace eae6320
 			sCamera* i_Camera,
 			float i_backgroundColor[], // background
 			uint16_t i_gameObjectCount, // count of meshes
-			Assets::sGameObject** i_GameObjectArr
+			cMesh** i_meshArr,
+			cEffect** i_effectArr,
+			Math::cMatrix_transformation* i_localToWorldMatrixArr
 		);
 
 		// When the application is ready to submit data for a new frame

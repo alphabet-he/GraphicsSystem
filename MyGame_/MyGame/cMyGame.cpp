@@ -8,6 +8,7 @@
 #include <Engine/Logging/Logging.h>
 #include <Engine/Graphics/Graphics.h>
 #include <Engine/Math/Functions.h>
+#include <Engine/Math/cMatrix_transformation.h>
 
 // Inherited Implementation
 //=========================
@@ -24,6 +25,68 @@ void eae6320::cMyGame::UpdateBasedOnInput()
 		const auto result = Exit( EXIT_SUCCESS );
 		EAE6320_ASSERT( result );
 	}
+
+	// Move camera
+	{
+		if (UserInput::IsKeyPressed(UserInput::KeyCodes::Left))
+		{
+			m_Camera->m_RigidBodyState.velocity.x = -0.5f;
+		}
+		else if (UserInput::IsKeyPressed(UserInput::KeyCodes::Right)) {
+			m_Camera->m_RigidBodyState.velocity.x = 0.5f;
+		}
+		else {
+			m_Camera->m_RigidBodyState.velocity.x = 0.0f;
+		}
+
+		if (UserInput::IsKeyPressed(UserInput::KeyCodes::Down))
+		{
+			m_Camera->m_RigidBodyState.velocity.y = -0.5f;
+		}
+		else if (UserInput::IsKeyPressed(UserInput::KeyCodes::Up)) {
+			m_Camera->m_RigidBodyState.velocity.y = 0.5f;
+		}
+		else {
+			m_Camera->m_RigidBodyState.velocity.y = 0.0f;
+		}
+
+		if (UserInput::IsKeyPressed(UserInput::KeyCodes::Control))
+		{
+			m_Camera->m_RigidBodyState.velocity.z = -0.5f;
+		}
+		else if (UserInput::IsKeyPressed(UserInput::KeyCodes::Shift)) {
+			m_Camera->m_RigidBodyState.velocity.z = 0.5f;
+		}
+		else {
+			m_Camera->m_RigidBodyState.velocity.z = 0.0f;
+		}
+	}
+
+	// Move game object
+	{
+		if (UserInput::IsKeyPressed('A'))
+		{
+			m_gameObject->m_RigidBodyState.velocity.x = -0.5f;
+		}
+		else if (UserInput::IsKeyPressed('D')) {
+			m_gameObject->m_RigidBodyState.velocity.x = 0.5f;
+		}
+		else {
+			m_gameObject->m_RigidBodyState.velocity.x = 0.0f;
+		}
+
+		if (UserInput::IsKeyPressed('S'))
+		{
+			m_gameObject->m_RigidBodyState.velocity.y = -0.5f;
+		}
+		else if (UserInput::IsKeyPressed('W')) {
+			m_gameObject->m_RigidBodyState.velocity.y = 0.5f;
+		}
+		else {
+			m_gameObject->m_RigidBodyState.velocity.y = 0.0f;
+		}
+	}
+
 }
 
 // Initialize / Clean Up
@@ -47,12 +110,12 @@ eae6320::cResult eae6320::cMyGame::Initialize()
 	m_Camera->m_RigidBodyState = Physics::sRigidBodyState();
 	m_Camera->m_RigidBodyState.position = Math::sVector(0.0f, 0.0f, 8.0f);
 	//m_Camera->m_cameraPosition = m_Camera->m_RigidBodyState.position;
-	m_Camera->m_RigidBodyState.velocity = Math::sVector(-0.1f, 0.0f, 0.0f);
+	//m_Camera->m_RigidBodyState.velocity = Math::sVector(-0.1f, 0.0f, 0.0f);
 
 	// game object
 	m_gameObject = new Assets::sGameObject();
 	m_gameObject->m_RigidBodyState = Physics::sRigidBodyState();
-	//i_RigidBodyState->velocity = Math::sVector(-0.1f, 0.0f, 0.0f);
+	//m_gameObject->m_RigidBodyState.velocity = Math::sVector(-0.1f, 0.0f, 0.0f);
 
 	// Initialize the shading data
 	{
@@ -123,15 +186,37 @@ eae6320::cResult eae6320::cMyGame::CleanUp()
 void eae6320::cMyGame::UpdateSimulationBasedOnTime(const float i_elapsedSecondCount_sinceLastUpdate)
 {
 	m_Camera->m_RigidBodyState.Update(i_elapsedSecondCount_sinceLastUpdate);
+	m_gameObject->m_RigidBodyState.Update(i_elapsedSecondCount_sinceLastUpdate);
+}
+
+void eae6320::cMyGame::SubmitGameObjectsRenderData
+(
+	Graphics::sCamera* i_camera,
+	float i_background[],
+	uint16_t i_cnt, Assets::sGameObject** i_gameObjects,
+	const float i_elapsedSecondCount_sinceLastSimulationUpdate
+)
+{
+	Graphics::cMesh** i_meshArrToSubmit = new Graphics::cMesh * [i_cnt];
+	Graphics::cEffect** i_effectArrToSubmit = new Graphics::cEffect * [i_cnt];
+	Math::cMatrix_transformation* i_localToWorldMatrixArrToSubmit = new Math::cMatrix_transformation[i_cnt];
+
+	for (int i = 0; i < i_cnt; i++) {
+		i_meshArrToSubmit[i] = i_gameObjects[i]->m_Mesh;
+		i_effectArrToSubmit[i] = i_gameObjects[i]->m_Effect;
+		i_localToWorldMatrixArrToSubmit[i] = i_gameObjects[i]->m_RigidBodyState.PredictFutureTransform(i_elapsedSecondCount_sinceLastSimulationUpdate);
+	}
+
+	m_Camera->m_cameraPositionPredicted = m_Camera->m_RigidBodyState.PredictFuturePosition(i_elapsedSecondCount_sinceLastSimulationUpdate);
+
+	Graphics::SubmitRenderData(i_camera, i_background,
+		i_cnt, i_meshArrToSubmit, i_effectArrToSubmit, i_localToWorldMatrixArrToSubmit);
 }
 
 void eae6320::cMyGame::SubmitDataToBeRendered(const float i_elapsedSecondCount_systemTime, const float i_elapsedSecondCount_sinceLastSimulationUpdate)
 {
-	//m_Camera->m_cameraPosition = m_Camera->m_RigidBodyState.PredictFuturePosition(i_elapsedSecondCount_sinceLastSimulationUpdate);
-	
 	Assets::sGameObject** i_gameObjectsToSubmit = new Assets::sGameObject * [1];
 	i_gameObjectsToSubmit[0] = m_gameObject;
-	//m_gameObject->m_RigidBodyState.Update(i_elapsedSecondCount_sinceLastSimulationUpdate);
-	Graphics::SubmitRenderData(m_Camera, m_backgroundColor, 1, i_gameObjectsToSubmit);
+	SubmitGameObjectsRenderData(m_Camera, m_backgroundColor, 1, i_gameObjectsToSubmit, i_elapsedSecondCount_sinceLastSimulationUpdate);
 
 }

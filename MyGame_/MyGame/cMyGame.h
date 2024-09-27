@@ -73,6 +73,13 @@ namespace eae6320
 		//----
 
 		void UpdateBasedOnInput() final;
+		void SubmitGameObjectsRenderData(
+			Graphics::sCamera* i_camera,
+			float i_background[],
+			uint16_t i_cnt, Assets::sGameObject** i_gameObjects,
+			const float i_elapsedSecondCount_sinceLastSimulationUpdate
+		);
+		void SubmitDataToBeRendered(const float i_elapsedSecondCount_systemTime, const float i_elapsedSecondCount_sinceLastSimulationUpdate) override;
 
 		// Initialize / Clean Up
 		//----------------------
@@ -81,7 +88,7 @@ namespace eae6320
 		cResult CleanUp() final;
 
 		void UpdateSimulationBasedOnTime(const float i_elapsedSecondCount_sinceLastUpdate) override;
-		void SubmitDataToBeRendered(const float i_elapsedSecondCount_systemTime, const float i_elapsedSecondCount_sinceLastSimulationUpdate) override;
+		
 
 		// Data
 		//---
