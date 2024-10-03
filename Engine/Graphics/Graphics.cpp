@@ -20,8 +20,6 @@
 #include <Engine/UserOutput/UserOutput.h>
 #include <new>
 #include <utility>
-#include <Engine/Graphics/cMesh.h>
-#include <Engine/Graphics/cEffect.h>
 #include <Engine/Graphics/cView.h>
 
 // Static Data
@@ -43,6 +41,16 @@ namespace
 	struct sDataRequiredToRenderAFrame
 	{
 		eae6320::Graphics::ConstantBufferFormats::sFrame constantData_frame;
+		float backgroundColor[3];
+		uint16_t meshCount;
+		eae6320::Graphics::cMesh** meshArr;
+		eae6320::Graphics::cEffect** effectArr;
+
+		void CleanUp() {
+			meshCount = 0;
+			delete[] meshArr;
+			delete[] effectArr;
+		}
 	};
 	// In our class there will be two copies of the data required to render a frame:
 	//	* One of them will be in the process of being populated by the data currently being submitted by the application loop thread
@@ -61,16 +69,6 @@ namespace
 	// and the application loop thread can start submitting data for the following frame
 	// (the application loop thread waits for the signal)
 	eae6320::Concurrency::cEvent s_whenDataForANewFrameCanBeSubmittedFromApplicationThread;
-
-	// Geometry Data
-	//--------------
-	eae6320::Graphics::cMesh** s_meshArr = nullptr;
-	uint16_t s_meshCount = 0;
-
-	// Shading Data
-	//-------------
-	eae6320::Graphics::cEffect** s_effectArr = nullptr;
-	uint16_t s_effectCount = 0;
 }
 
 
@@ -87,6 +85,24 @@ void eae6320::Graphics::SubmitElapsedTime(const float i_elapsedSecondCount_syste
 	constantData_frame.g_elapsedSecondCount_systemTime = i_elapsedSecondCount_systemTime;
 	constantData_frame.g_elapsedSecondCount_simulationTime = i_elapsedSecondCount_simulationTime;
 }
+
+void eae6320::Graphics::SubmitRenderData(float i_backgroundColor[], uint16_t i_meshCount, cMesh** i_meshArr, cEffect** i_effectArr)
+{
+	EAE6320_ASSERT(s_dataBeingSubmittedByApplicationThread);
+
+	auto& backgroundColor = s_dataBeingSubmittedByApplicationThread->backgroundColor;
+	for (int i = 0; i < 3; i++) {
+		backgroundColor[i] = i_backgroundColor[i];
+	}
+
+	s_dataBeingSubmittedByApplicationThread->meshCount = i_meshCount;
+
+	s_dataBeingSubmittedByApplicationThread->meshArr = i_meshArr;
+
+	s_dataBeingSubmittedByApplicationThread->effectArr = i_effectArr;
+}
+
+
 
 eae6320::cResult eae6320::Graphics::WaitUntilDataForANewFrameCanBeSubmitted(const unsigned int i_timeToWait_inMilliseconds)
 {
@@ -130,12 +146,16 @@ void eae6320::Graphics::RenderFrame()
 		}
 	}
 
-	// clear view
-	if (s_View) {
-		s_View->ClearView(0.0f, 0.0f, 1.0f);
-	}
+
 
 	EAE6320_ASSERT(s_dataBeingRenderedByRenderThread);
+
+	// clear view
+	if (s_View) {
+		s_View->ClearView(s_dataBeingRenderedByRenderThread->backgroundColor[0],
+			s_dataBeingRenderedByRenderThread->backgroundColor[1], 
+			s_dataBeingRenderedByRenderThread->backgroundColor[2]);
+	}
 
 #if defined( EAE6320_PLATFORM_D3D )
 	auto* const dataRequiredToRenderFrame = s_dataBeingRenderedByRenderThread;
@@ -154,41 +174,10 @@ void eae6320::Graphics::RenderFrame()
 
 	// draw mesh
 	{
-		// first mesh and effect
-		{
-			// Bind the shading data
-			{
-				if (s_effectArr[0])
-				{
-					s_effectArr[0]->BindEffect();
-				}
-			}
-			// Draw the geometry
-			{
-				if (s_meshArr[0])
-				{
-					s_meshArr[0]->DrawMesh();
-				}
-			}
-		}
-
-		
-		// second mesh and effect
-		{
-			// Bind the shading data
-			{
-				if (s_effectArr[1])
-				{
-					s_effectArr[1]->BindEffect();
-				}
-			}
-			// Draw the geometry
-			{
-				if (s_meshArr[1])
-				{
-					s_meshArr[1]->DrawMesh();
-				}
-			}
+		uint16_t i_meshCount = s_dataBeingRenderedByRenderThread->meshCount;
+		for (int i = 0; i < i_meshCount; i++) {
+			s_dataBeingRenderedByRenderThread->effectArr[i]->BindEffect();
+			s_dataBeingRenderedByRenderThread->meshArr[i]->DrawMesh();
 		}
 		
 	}
@@ -202,12 +191,14 @@ void eae6320::Graphics::RenderFrame()
 		}
 	}
 
+
 	// After all of the data that was submitted for this frame has been used
 	// you must make sure that it is all cleaned up and cleared out
 	// so that the struct can be re-used (i.e. so that data for a new frame can be submitted to it)
 	{
 		// (At this point in the class there isn't anything that needs to be cleaned up)
 		//dataRequiredToRenderFrame	// TODO
+		s_dataBeingRenderedByRenderThread->CleanUp();
 	}
 }
 
@@ -263,111 +254,6 @@ eae6320::cResult eae6320::Graphics::Initialize(const sInitializationParameters& 
 			return result;
 		}
 	}
-	// Initialize the shading data
-	{
-		// create effect array
-		s_effectCount = 2;
-		s_effectArr = new cEffect * [s_effectCount];
-
-		// first effect
-		{
-			cEffect* effect = new cEffect("standard", "myshader");
-			if (!(result = effect->InitializeShadingData()))
-			{
-				EAE6320_ASSERTF(false, "Can't initialize Graphics without the shading data");
-				return result;
-			}
-			s_effectArr[0] = effect;
-		}
-
-		// second effect
-		{
-			cEffect* effect = new cEffect("standard", "standard");
-			if (!(result = effect->InitializeShadingData()))
-			{
-				EAE6320_ASSERTF(false, "Can't initialize Graphics without the shading data");
-				return result;
-			}
-			s_effectArr[1] = effect;
-		}
-	}
-	// Initialize the geometry
-	{
-		// create mesh array
-		s_meshCount = 2;
-		s_meshArr = new cMesh * [s_meshCount];
-
-		// first mesh
-		{
-			eae6320::Graphics::VertexFormats::sVertex_mesh* i_vertexData = new eae6320::Graphics::VertexFormats::sVertex_mesh[6];
-			{
-				// clockwise
-				i_vertexData[0].x = 0.0f;
-				i_vertexData[0].y = 0.0f;
-				i_vertexData[0].z = 0.0f;
-
-				i_vertexData[1].x = 1.0f;
-				i_vertexData[1].y = 0.0f;
-				i_vertexData[1].z = 0.0f;
-
-				i_vertexData[2].x = 1.0f;
-				i_vertexData[2].y = 1.0f;
-				i_vertexData[2].z = 0.0f;
-
-				i_vertexData[3].x = 0.0f;
-				i_vertexData[3].y = 0.0f;
-				i_vertexData[3].z = 0.0f;
-
-				i_vertexData[4].x = 1.0f;
-				i_vertexData[4].y = 1.0f;
-				i_vertexData[4].z = 0.0f;
-
-				i_vertexData[5].x = 0.0f;
-				i_vertexData[5].y = 1.0f;
-				i_vertexData[5].z = 0.0f;
-			}
-
-			uint16_t* i_indices = new uint16_t[6]{ 0, 1, 2, 3, 4, 5 };
-
-			cMesh* mesh = new cMesh(static_cast<unsigned int>(2), static_cast<unsigned int>(3), i_vertexData, i_indices);
-			if (!(result = mesh->InitializeGeometry()))
-			{
-				EAE6320_ASSERTF(false, "Can't initialize Graphics without the geometry data");
-				return result;
-			}
-			s_meshArr[0] = mesh;
-		}
-
-		// second mesh
-		{
-			eae6320::Graphics::VertexFormats::sVertex_mesh* i_vertexData = new eae6320::Graphics::VertexFormats::sVertex_mesh[3];
-			{
-				// clockwise
-				i_vertexData[0].x = 0.0f;
-				i_vertexData[0].y = 0.0f;
-				i_vertexData[0].z = 0.0f;
-
-				i_vertexData[1].x = -1.5f;
-				i_vertexData[1].y = 1.0f;
-				i_vertexData[1].z = 0.0f;
-
-				i_vertexData[2].x = -1.5f;
-				i_vertexData[2].y = 0.0f;
-				i_vertexData[2].z = 0.0f;
-			}
-
-			uint16_t* i_indices = new uint16_t[3]{ 0, 1, 2 };
-
-			cMesh* mesh = new cMesh(static_cast<unsigned int>(1), static_cast<unsigned int>(3), i_vertexData, i_indices);
-			if (!(result = mesh->InitializeGeometry()))
-			{
-				EAE6320_ASSERTF(false, "Can't initialize Graphics without the geometry data");
-				return result;
-			}
-			s_meshArr[1] = mesh;
-		}
-
-	}
 
 	return result;
 }
@@ -382,31 +268,6 @@ eae6320::cResult eae6320::Graphics::CleanUp()
 			result = s_View->CleanUp();
 			delete s_View;
 		}
-	}
-
-	// mesh data clean up
-	{
-		for (int i = 0; i < s_meshCount; i++) {
-			if (s_meshArr[i])
-			{
-				result = s_meshArr[i]->CleanUp();
-				delete s_meshArr[i];
-			}
-		}
-		delete[] s_meshArr;
-
-	}
-
-	// effect data clean up
-	{
-		for (int i = 0; i < s_effectCount; i++) {
-			if (s_effectArr[i])
-			{
-				result = s_effectArr[i]->CleanUp();
-				delete s_effectArr[i];
-			}
-		}
-		delete[] s_effectArr;
 	}
 
 	{

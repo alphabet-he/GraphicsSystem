@@ -10,6 +10,8 @@
 
 #include <Engine/Application/iApplication.h>
 #include <Engine/Results/Results.h>
+#include <Engine/Graphics/cMesh.h>
+#include <Engine/Graphics/cEffect.h>
 
 #if defined( EAE6320_PLATFORM_WINDOWS )
 	#include "Resource Files/Resource.h"
@@ -78,8 +80,25 @@ namespace eae6320
 		cResult Initialize() final;
 		cResult CleanUp() final;
 
+		void SubmitDataToBeRendered(const float i_elapsedSecondCount_systemTime, const float i_elapsedSecondCount_sinceLastSimulationUpdate) override;
+
+		// Data
+		//---
+		float m_backgroundColor[3];
+
+		Graphics::cMesh* m_MeshPressToShow;
+		Graphics::cEffect* m_EffectPressToShow;
+
+		Graphics::cMesh* m_MeshReleaseToShow;
+		Graphics::cEffect* m_EffectReleaseToShow;
+
+
+		// key pressed flags
+		bool m_shiftKeyPressed = false;
+		bool m_spaceKeyPressed = false;
 	};
 }
+
 
 // Result Definitions
 //===================
