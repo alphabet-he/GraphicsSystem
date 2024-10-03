@@ -10,8 +10,8 @@
 
 #include <Engine/Application/iApplication.h>
 #include <Engine/Results/Results.h>
-#include <Engine/Graphics/cMesh.h>
-#include <Engine/Graphics/cEffect.h>
+#include <Engine/Assets/sGameObject.h>
+#include <Engine/Graphics/sCamera.h>
 
 #if defined( EAE6320_PLATFORM_WINDOWS )
 	#include "Resource Files/Resource.h"
@@ -73,6 +73,13 @@ namespace eae6320
 		//----
 
 		void UpdateBasedOnInput() final;
+		void SubmitGameObjectsRenderData(
+			Graphics::sCamera* i_camera,
+			float i_background[],
+			uint16_t i_cnt, Assets::sGameObject** i_gameObjects,
+			const float i_elapsedSecondCount_sinceLastSimulationUpdate
+		);
+		void SubmitDataToBeRendered(const float i_elapsedSecondCount_systemTime, const float i_elapsedSecondCount_sinceLastSimulationUpdate) override;
 
 		// Initialize / Clean Up
 		//----------------------
@@ -80,22 +87,21 @@ namespace eae6320
 		cResult Initialize() final;
 		cResult CleanUp() final;
 
-		void SubmitDataToBeRendered(const float i_elapsedSecondCount_systemTime, const float i_elapsedSecondCount_sinceLastSimulationUpdate) override;
+		void UpdateSimulationBasedOnTime(const float i_elapsedSecondCount_sinceLastUpdate) override;
+		
 
 		// Data
 		//---
 		float m_backgroundColor[3];
 
-		Graphics::cMesh* m_MeshPressToShow;
-		Graphics::cEffect* m_EffectPressToShow;
+		Assets::sGameObject* m_gameObject;
+		Graphics::sCamera* m_Camera;
 
-		Graphics::cMesh* m_MeshReleaseToShow;
-		Graphics::cEffect* m_EffectReleaseToShow;
+		Graphics::cEffect* m_myShaderEffect;
+		Graphics::cEffect* m_standardShaderEffect;
 
-
-		// key pressed flags
-		bool m_shiftKeyPressed = false;
-		bool m_spaceKeyPressed = false;
+		Graphics::cMesh* m_squareMesh;
+		Graphics::cMesh* m_triangleMesh;
 	};
 }
 

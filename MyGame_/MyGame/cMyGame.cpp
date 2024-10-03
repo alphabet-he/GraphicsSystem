@@ -7,6 +7,8 @@
 #include <Engine/UserInput/UserInput.h>
 #include <Engine/Logging/Logging.h>
 #include <Engine/Graphics/Graphics.h>
+#include <Engine/Math/Functions.h>
+#include <Engine/Math/cMatrix_transformation.h>
 
 // Inherited Implementation
 //=========================
@@ -24,24 +26,79 @@ void eae6320::cMyGame::UpdateBasedOnInput()
 		EAE6320_ASSERT( result );
 	}
 
-	if (UserInput::IsKeyPressed(UserInput::KeyCodes::Shift))
+	// Change effect
+	if (UserInput::IsKeyPressed('Z'))
 	{
-		// not show m_MeshReleaseToShow
-		m_shiftKeyPressed = true;
+		m_gameObject->m_Effect = m_standardShaderEffect;
+		m_gameObject->m_Mesh = m_triangleMesh;
 	}
 	else {
-		m_shiftKeyPressed = false;
+		m_gameObject->m_Effect = m_myShaderEffect;
+		m_gameObject->m_Mesh = m_squareMesh;
+
 	}
 
-	if (UserInput::IsKeyPressed(UserInput::KeyCodes::Space))
+	// Move camera
 	{
-		// not show m_MeshReleaseToShow
-		m_spaceKeyPressed = true;
+		if (UserInput::IsKeyPressed(UserInput::KeyCodes::Left))
+		{
+			m_Camera->m_RigidBodyState.velocity.x = -0.5f;
+		}
+		else if (UserInput::IsKeyPressed(UserInput::KeyCodes::Right)) {
+			m_Camera->m_RigidBodyState.velocity.x = 0.5f;
+		}
+		else {
+			m_Camera->m_RigidBodyState.velocity.x = 0.0f;
+		}
+
+		if (UserInput::IsKeyPressed(UserInput::KeyCodes::Down))
+		{
+			m_Camera->m_RigidBodyState.velocity.y = -0.5f;
+		}
+		else if (UserInput::IsKeyPressed(UserInput::KeyCodes::Up)) {
+			m_Camera->m_RigidBodyState.velocity.y = 0.5f;
+		}
+		else {
+			m_Camera->m_RigidBodyState.velocity.y = 0.0f;
+		}
+
+		if (UserInput::IsKeyPressed(UserInput::KeyCodes::Control))
+		{
+			m_Camera->m_RigidBodyState.velocity.z = -0.5f;
+		}
+		else if (UserInput::IsKeyPressed(UserInput::KeyCodes::Shift)) {
+			m_Camera->m_RigidBodyState.velocity.z = 0.5f;
+		}
+		else {
+			m_Camera->m_RigidBodyState.velocity.z = 0.0f;
+		}
 	}
-	else
+
+	// Move game object
 	{
-		m_spaceKeyPressed = false;
+		if (UserInput::IsKeyPressed('A'))
+		{
+			m_gameObject->m_RigidBodyState.velocity.x = -0.5f;
+		}
+		else if (UserInput::IsKeyPressed('D')) {
+			m_gameObject->m_RigidBodyState.velocity.x = 0.5f;
+		}
+		else {
+			m_gameObject->m_RigidBodyState.velocity.x = 0.0f;
+		}
+
+		if (UserInput::IsKeyPressed('S'))
+		{
+			m_gameObject->m_RigidBodyState.velocity.y = -0.5f;
+		}
+		else if (UserInput::IsKeyPressed('W')) {
+			m_gameObject->m_RigidBodyState.velocity.y = 0.5f;
+		}
+		else {
+			m_gameObject->m_RigidBodyState.velocity.y = 0.0f;
+		}
 	}
+
 }
 
 // Initialize / Clean Up
@@ -52,36 +109,43 @@ eae6320::cResult eae6320::cMyGame::Initialize()
 
 	auto result = Results::Success;
 
-	// background co
+	// background color
 	m_backgroundColor[0] = 1.0f;
 	m_backgroundColor[1] = 0.0f;
 	m_backgroundColor[2] = 1.0f;
 
+	// camera
+	m_Camera = new Graphics::sCamera();
+	m_Camera->m_verticalFieldOfView_inRadians = Math::ConvertDegreesToRadians(45.0f);
+	m_Camera->m_z_nearPlane = 0.1f;
+	m_Camera->m_z_farPlane = 10.0f;
+	m_Camera->m_RigidBodyState = Physics::sRigidBodyState();
+	m_Camera->m_RigidBodyState.position = Math::sVector(0.0f, 0.0f, 8.0f);
+	//m_Camera->m_cameraPosition = m_Camera->m_RigidBodyState.position;
+	//m_Camera->m_RigidBodyState.velocity = Math::sVector(-0.1f, 0.0f, 0.0f);
+
+	// game object
+	m_gameObject = new Assets::sGameObject();
+	m_gameObject->m_RigidBodyState = Physics::sRigidBodyState();
+	//m_gameObject->m_RigidBodyState.velocity = Math::sVector(-0.1f, 0.0f, 0.0f);
+
 	// Initialize the shading data
 	{
-
-		// release-to-show effect
+		if (!(result = Graphics::cEffect::Load("standard", "myshader", m_myShaderEffect)))
 		{
-			if (!(result = Graphics::cEffect::Load("standard", "myshader", m_EffectReleaseToShow)))
-			{
-				EAE6320_ASSERTF(false, "Can't initialize Graphics without the shading data");
-				return result;
-			}
+			EAE6320_ASSERTF(false, "Can't initialize Graphics without the shading data");
+			return result;
 		}
 
-		// press-to-show effect
+		if (!(result = Graphics::cEffect::Load("standard", "standard", m_standardShaderEffect)))
 		{
-			if (!(result = Graphics::cEffect::Load("standard", "standard", m_EffectPressToShow)))
-			{
-				EAE6320_ASSERTF(false, "Can't initialize Graphics without the shading data");
-				return result;
-			}
+			EAE6320_ASSERTF(false, "Can't initialize Graphics without the shading data");
+			return result;
 		}
+		m_gameObject->m_Effect = m_myShaderEffect;
 	}
 	// Initialize the geometry
 	{
-
-		// release-to-show mesh
 		{
 			eae6320::Graphics::VertexFormats::sVertex_mesh* i_vertexData = new eae6320::Graphics::VertexFormats::sVertex_mesh[6];
 			{
@@ -113,14 +177,14 @@ eae6320::cResult eae6320::cMyGame::Initialize()
 
 			uint16_t* i_indices = new uint16_t[6]{ 0, 1, 2, 3, 4, 5 };
 
-			if (!(result = Graphics::cMesh::Load(static_cast<unsigned int>(2), static_cast<unsigned int>(3), i_vertexData, i_indices, m_MeshReleaseToShow)))
+
+			if (!(result = Graphics::cMesh::Load(static_cast<unsigned int>(2), static_cast<unsigned int>(3), i_vertexData, i_indices, m_squareMesh)))
 			{
 				EAE6320_ASSERTF(false, "Can't initialize Graphics without the geometry data");
 				return result;
 			}
 		}
 
-		// press-to-show mesh
 		{
 			eae6320::Graphics::VertexFormats::sVertex_mesh* i_vertexData = new eae6320::Graphics::VertexFormats::sVertex_mesh[3];
 			{
@@ -129,27 +193,30 @@ eae6320::cResult eae6320::cMyGame::Initialize()
 				i_vertexData[0].y = 0.0f;
 				i_vertexData[0].z = 0.0f;
 
-				i_vertexData[1].x = -1.5f;
-				i_vertexData[1].y = 1.0f;
+				i_vertexData[1].x = 1.0f;
+				i_vertexData[1].y = 0.0f;
 				i_vertexData[1].z = 0.0f;
 
-				i_vertexData[2].x = -1.5f;
-				i_vertexData[2].y = 0.0f;
+				i_vertexData[2].x = 1.0f;
+				i_vertexData[2].y = 1.0f;
 				i_vertexData[2].z = 0.0f;
 			}
 
 			uint16_t* i_indices = new uint16_t[3]{ 0, 1, 2 };
 
-			if (!(result = Graphics::cMesh::Load(static_cast<unsigned int>(1), static_cast<unsigned int>(3), i_vertexData, i_indices, m_MeshPressToShow)))
+
+			if (!(result = Graphics::cMesh::Load(static_cast<unsigned int>(1), static_cast<unsigned int>(3), i_vertexData, i_indices, m_triangleMesh)))
 			{
 				EAE6320_ASSERTF(false, "Can't initialize Graphics without the geometry data");
 				return result;
 			}
 		}
 
+
+		m_gameObject->m_Mesh = m_squareMesh;
 	}
 	
-
+	
 	Logging::OutputMessage("Junxuan-Hu's Game Initializd!");
 
 	return Results::Success;
@@ -157,87 +224,71 @@ eae6320::cResult eae6320::cMyGame::Initialize()
 
 eae6320::cResult eae6320::cMyGame::CleanUp()
 {
-	if (m_EffectReleaseToShow)
+	if (m_myShaderEffect)
 	{
-		m_EffectReleaseToShow->DecrementReferenceCount();
-		m_EffectReleaseToShow = nullptr;
+		m_myShaderEffect->DecrementReferenceCount();
+		m_myShaderEffect = nullptr;
 	}
 
-	if (m_EffectPressToShow)
+	if (m_standardShaderEffect)
 	{
-		m_EffectPressToShow->DecrementReferenceCount();
-		m_EffectPressToShow = nullptr;
+		m_standardShaderEffect->DecrementReferenceCount();
+		m_standardShaderEffect = nullptr;
 	}
 
-	if (m_MeshReleaseToShow)
+	if (m_squareMesh)
 	{
-		m_MeshReleaseToShow->DecrementReferenceCount();
-		m_MeshReleaseToShow = nullptr;
+		m_squareMesh->DecrementReferenceCount();
+		m_squareMesh = nullptr;
 	}
 
-	if (m_MeshPressToShow)
+	if (m_triangleMesh)
 	{
-		m_MeshPressToShow->DecrementReferenceCount();
-		m_MeshPressToShow = nullptr;
+		m_triangleMesh->DecrementReferenceCount();
+		m_triangleMesh = nullptr;
 	}
+
+
+	delete m_gameObject;
 
 	Logging::OutputMessage("Junxuan-Hu's Game Cleaning Up!");
 	return Results::Success;
 }
 
-void eae6320::cMyGame::SubmitDataToBeRendered(const float i_elapsedSecondCount_systemTime, const float i_elapsedSecondCount_sinceLastSimulationUpdate)
+void eae6320::cMyGame::UpdateSimulationBasedOnTime(const float i_elapsedSecondCount_sinceLastUpdate)
 {
-	eae6320::Graphics::cMesh** i_meshToSubmit;
-	eae6320::Graphics::cEffect** i_effectToSubmit;
-	uint16_t i_count = 0;
+	m_Camera->m_RigidBodyState.Update(i_elapsedSecondCount_sinceLastUpdate);
+	m_gameObject->m_RigidBodyState.Update(i_elapsedSecondCount_sinceLastUpdate);
+}
 
-	// situations with key pressed or not
-	{
-		// press space, release shift: show two meshes
-		if (!m_shiftKeyPressed && m_spaceKeyPressed) {
-			i_meshToSubmit = new eae6320::Graphics::cMesh * [2];
-			i_meshToSubmit[0] = m_MeshReleaseToShow;
-			i_meshToSubmit[1] = m_MeshPressToShow;
+void eae6320::cMyGame::SubmitGameObjectsRenderData
+(
+	Graphics::sCamera* i_camera,
+	float i_background[],
+	uint16_t i_cnt, Assets::sGameObject** i_gameObjects,
+	const float i_elapsedSecondCount_sinceLastSimulationUpdate
+)
+{
+	Graphics::cMesh** i_meshArrToSubmit = new Graphics::cMesh * [i_cnt];
+	Graphics::cEffect** i_effectArrToSubmit = new Graphics::cEffect * [i_cnt];
+	Math::cMatrix_transformation* i_localToWorldMatrixArrToSubmit = new Math::cMatrix_transformation[i_cnt];
 
-			i_effectToSubmit = new eae6320::Graphics::cEffect * [2];
-			i_effectToSubmit[0] = m_EffectReleaseToShow;
-			i_effectToSubmit[1] = m_EffectPressToShow;
-
-			i_count = 2;
-		}
-
-		// press space, press shift: show press-to-show mesh
-		if (m_shiftKeyPressed && m_spaceKeyPressed) {
-			i_meshToSubmit = new eae6320::Graphics::cMesh * [1];
-			i_meshToSubmit[0] = m_MeshPressToShow;
-
-			i_effectToSubmit = new eae6320::Graphics::cEffect * [1];
-			i_effectToSubmit[0] = m_EffectPressToShow;
-
-			i_count = 1;
-		}
-
-		// release space, release shift: show release-to-show mesh
-		if (!m_shiftKeyPressed && !m_spaceKeyPressed) {
-			i_meshToSubmit = new eae6320::Graphics::cMesh * [1];
-			i_meshToSubmit[0] = m_MeshReleaseToShow;
-
-			i_effectToSubmit = new eae6320::Graphics::cEffect * [1];
-			i_effectToSubmit[0] = m_EffectReleaseToShow;
-
-			i_count = 1;
-		}
-
-		// release space, press shift: show no mesh
-		if (m_shiftKeyPressed && !m_spaceKeyPressed) {
-			i_meshToSubmit = nullptr;
-			i_effectToSubmit = nullptr;
-
-			i_count = 0;
-		}
+	for (int i = 0; i < i_cnt; i++) {
+		i_meshArrToSubmit[i] = i_gameObjects[i]->m_Mesh;
+		i_effectArrToSubmit[i] = i_gameObjects[i]->m_Effect;
+		i_localToWorldMatrixArrToSubmit[i] = i_gameObjects[i]->m_RigidBodyState.PredictFutureTransform(i_elapsedSecondCount_sinceLastSimulationUpdate);
 	}
 
+	m_Camera->m_cameraPositionPredicted = m_Camera->m_RigidBodyState.PredictFuturePosition(i_elapsedSecondCount_sinceLastSimulationUpdate);
 
-	Graphics::SubmitRenderData(m_backgroundColor, i_count, i_meshToSubmit, i_effectToSubmit);
+	Graphics::SubmitRenderData(i_camera, i_background,
+		i_cnt, i_meshArrToSubmit, i_effectArrToSubmit, i_localToWorldMatrixArrToSubmit);
+}
+
+void eae6320::cMyGame::SubmitDataToBeRendered(const float i_elapsedSecondCount_systemTime, const float i_elapsedSecondCount_sinceLastSimulationUpdate)
+{
+	Assets::sGameObject** i_gameObjectsToSubmit = new Assets::sGameObject * [1];
+	i_gameObjectsToSubmit[0] = m_gameObject;
+	SubmitGameObjectsRenderData(m_Camera, m_backgroundColor, 1, i_gameObjectsToSubmit, i_elapsedSecondCount_sinceLastSimulationUpdate);
 
 }
