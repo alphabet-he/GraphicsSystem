@@ -12,4 +12,10 @@ return
 
 		{ path = "Shaders/Vertex/vertexInputLayout_mesh.shader", arguments = { "vertex" } },
 	},
+
+	meshes = 
+	{
+		"Meshes/rectangle.json",
+		"Meshes/triangle.json",
+	}
 }

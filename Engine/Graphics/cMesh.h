@@ -64,6 +64,8 @@ namespace eae6320
 				uint16_t i_indices[], 
 				cMesh*& o_mesh);
 
+			static cResult Load(const char* i_meshDataFileName, cMesh*& o_mesh);
+
 			void DrawMesh();
 
 		private:

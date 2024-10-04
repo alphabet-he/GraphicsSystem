@@ -146,72 +146,17 @@ eae6320::cResult eae6320::cMyGame::Initialize()
 	}
 	// Initialize the geometry
 	{
+		if (!(result = Graphics::cMesh::Load("triangle", m_triangleMesh)))
 		{
-			eae6320::Graphics::VertexFormats::sVertex_mesh* i_vertexData = new eae6320::Graphics::VertexFormats::sVertex_mesh[6];
-			{
-				// clockwise
-				i_vertexData[0].x = 0.0f;
-				i_vertexData[0].y = 0.0f;
-				i_vertexData[0].z = 0.0f;
-
-				i_vertexData[1].x = 1.0f;
-				i_vertexData[1].y = 0.0f;
-				i_vertexData[1].z = 0.0f;
-
-				i_vertexData[2].x = 1.0f;
-				i_vertexData[2].y = 1.0f;
-				i_vertexData[2].z = 0.0f;
-
-				i_vertexData[3].x = 0.0f;
-				i_vertexData[3].y = 0.0f;
-				i_vertexData[3].z = 0.0f;
-
-				i_vertexData[4].x = 1.0f;
-				i_vertexData[4].y = 1.0f;
-				i_vertexData[4].z = 0.0f;
-
-				i_vertexData[5].x = 0.0f;
-				i_vertexData[5].y = 1.0f;
-				i_vertexData[5].z = 0.0f;
-			}
-
-			uint16_t* i_indices = new uint16_t[6]{ 0, 1, 2, 3, 4, 5 };
-
-
-			if (!(result = Graphics::cMesh::Load(static_cast<unsigned int>(2), static_cast<unsigned int>(3), i_vertexData, i_indices, m_squareMesh)))
-			{
-				EAE6320_ASSERTF(false, "Can't initialize Graphics without the geometry data");
-				return result;
-			}
+			EAE6320_ASSERTF(false, "Can't initialize Graphics without the geometry data");
+			return result;
 		}
 
+		if (!(result = Graphics::cMesh::Load("rectangle", m_squareMesh)))
 		{
-			eae6320::Graphics::VertexFormats::sVertex_mesh* i_vertexData = new eae6320::Graphics::VertexFormats::sVertex_mesh[3];
-			{
-				// clockwise
-				i_vertexData[0].x = 0.0f;
-				i_vertexData[0].y = 0.0f;
-				i_vertexData[0].z = 0.0f;
-
-				i_vertexData[1].x = 1.0f;
-				i_vertexData[1].y = 0.0f;
-				i_vertexData[1].z = 0.0f;
-
-				i_vertexData[2].x = 1.0f;
-				i_vertexData[2].y = 1.0f;
-				i_vertexData[2].z = 0.0f;
-			}
-
-			uint16_t* i_indices = new uint16_t[3]{ 0, 1, 2 };
-
-
-			if (!(result = Graphics::cMesh::Load(static_cast<unsigned int>(1), static_cast<unsigned int>(3), i_vertexData, i_indices, m_triangleMesh)))
-			{
-				EAE6320_ASSERTF(false, "Can't initialize Graphics without the geometry data");
-				return result;
-			}
+			EAE6320_ASSERTF(false, "Can't initialize Graphics without the geometry data");
+			return result;
 		}
-
 
 		m_gameObject->m_Mesh = m_squareMesh;
 	}
