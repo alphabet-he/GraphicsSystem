@@ -8,5 +8,5 @@ eae6320::cResult eae6320::Assets::cMeshBuilder::Build(const std::vector<std::str
     if (!result) {
         OutputErrorMessageWithFileInfo(m_path_source, "Copy mesh file failed.");
     }
-    return cResult();
+    return result;
 }

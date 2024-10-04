@@ -31,16 +31,6 @@ namespace eae6320
 			//------
 
 			cResult Build(const std::vector<std::string>& i_arguments) final;
-
-			// Implementation
-			//===============
-
-		private:
-
-			// Build
-			//------
-
-			cResult Build(const Graphics::eShaderType i_shaderType, const std::vector<std::string>& i_arguments);
 		};
 	}
 }
