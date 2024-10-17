@@ -26,18 +26,6 @@ void eae6320::cMyGame::UpdateBasedOnInput()
 		EAE6320_ASSERT( result );
 	}
 
-	// Change effect
-	if (UserInput::IsKeyPressed('Z'))
-	{
-		m_gameObject->m_Effect = m_standardShaderEffect;
-		m_gameObject->m_Mesh = m_triangleMesh;
-	}
-	else {
-		m_gameObject->m_Effect = m_myShaderEffect;
-		m_gameObject->m_Mesh = m_squareMesh;
-
-	}
-
 	// Move camera
 	{
 		if (UserInput::IsKeyPressed(UserInput::KeyCodes::Left))
@@ -78,24 +66,24 @@ void eae6320::cMyGame::UpdateBasedOnInput()
 	{
 		if (UserInput::IsKeyPressed('A'))
 		{
-			m_gameObject->m_RigidBodyState.velocity.x = -0.5f;
+			m_coneGameObject->m_RigidBodyState.velocity.x = -0.5f;
 		}
 		else if (UserInput::IsKeyPressed('D')) {
-			m_gameObject->m_RigidBodyState.velocity.x = 0.5f;
+			m_coneGameObject->m_RigidBodyState.velocity.x = 0.5f;
 		}
 		else {
-			m_gameObject->m_RigidBodyState.velocity.x = 0.0f;
+			m_coneGameObject->m_RigidBodyState.velocity.x = 0.0f;
 		}
 
 		if (UserInput::IsKeyPressed('S'))
 		{
-			m_gameObject->m_RigidBodyState.velocity.y = -0.5f;
+			m_coneGameObject->m_RigidBodyState.velocity.y = -0.5f;
 		}
 		else if (UserInput::IsKeyPressed('W')) {
-			m_gameObject->m_RigidBodyState.velocity.y = 0.5f;
+			m_coneGameObject->m_RigidBodyState.velocity.y = 0.5f;
 		}
 		else {
-			m_gameObject->m_RigidBodyState.velocity.y = 0.0f;
+			m_coneGameObject->m_RigidBodyState.velocity.y = 0.0f;
 		}
 	}
 
@@ -120,13 +108,17 @@ eae6320::cResult eae6320::cMyGame::Initialize()
 	m_Camera->m_z_nearPlane = 0.1f;
 	m_Camera->m_z_farPlane = 10.0f;
 	m_Camera->m_RigidBodyState = Physics::sRigidBodyState();
-	m_Camera->m_RigidBodyState.position = Math::sVector(0.0f, 0.0f, 8.0f);
+	m_Camera->m_RigidBodyState.position = Math::sVector(0.0f, 0.0f, 5.0f);
 	//m_Camera->m_cameraPosition = m_Camera->m_RigidBodyState.position;
 	//m_Camera->m_RigidBodyState.velocity = Math::sVector(-0.1f, 0.0f, 0.0f);
 
 	// game object
-	m_gameObject = new Assets::sGameObject();
-	m_gameObject->m_RigidBodyState = Physics::sRigidBodyState();
+	m_planeGameObject = new Assets::sGameObject();
+	m_planeGameObject->m_RigidBodyState = Physics::sRigidBodyState();
+	m_coneGameObject = new Assets::sGameObject();
+	m_coneGameObject->m_RigidBodyState = Physics::sRigidBodyState();
+	m_torusGameObject = new Assets::sGameObject();
+	m_torusGameObject->m_RigidBodyState = Physics::sRigidBodyState();
 	//m_gameObject->m_RigidBodyState.velocity = Math::sVector(-0.1f, 0.0f, 0.0f);
 
 	// Initialize the shading data
@@ -142,23 +134,35 @@ eae6320::cResult eae6320::cMyGame::Initialize()
 			EAE6320_ASSERTF(false, "Can't initialize Graphics without the shading data");
 			return result;
 		}
-		m_gameObject->m_Effect = m_myShaderEffect;
+
+		m_planeGameObject->m_Effect = m_standardShaderEffect;
+		m_torusGameObject->m_Effect = m_standardShaderEffect;
+		m_coneGameObject->m_Effect = m_myShaderEffect;
 	}
 	// Initialize the geometry
 	{
-		if (!(result = Graphics::cMesh::Load("triangle", m_triangleMesh)))
+
+		if (!(result = Graphics::cMesh::Load("plane", m_planeMesh)))
 		{
 			EAE6320_ASSERTF(false, "Can't initialize Graphics without the geometry data");
 			return result;
 		}
 
-		if (!(result = Graphics::cMesh::Load("rectangle", m_squareMesh)))
+		if (!(result = Graphics::cMesh::Load("cone", m_coneMesh)))
 		{
 			EAE6320_ASSERTF(false, "Can't initialize Graphics without the geometry data");
 			return result;
 		}
 
-		m_gameObject->m_Mesh = m_squareMesh;
+		if (!(result = Graphics::cMesh::Load("torus", m_torusMesh)))
+		{
+			EAE6320_ASSERTF(false, "Can't initialize Graphics without the geometry data");
+			return result;
+		}
+
+		m_planeGameObject->m_Mesh = m_planeMesh;
+		m_coneGameObject->m_Mesh = m_coneMesh;
+		m_torusGameObject->m_Mesh = m_torusMesh;
 	}
 	
 	
@@ -181,20 +185,28 @@ eae6320::cResult eae6320::cMyGame::CleanUp()
 		m_standardShaderEffect = nullptr;
 	}
 
-	if (m_squareMesh)
+	if (m_planeMesh)
 	{
-		m_squareMesh->DecrementReferenceCount();
-		m_squareMesh = nullptr;
+		m_planeMesh->DecrementReferenceCount();
+		m_planeMesh = nullptr;
 	}
 
-	if (m_triangleMesh)
+	if (m_coneMesh)
 	{
-		m_triangleMesh->DecrementReferenceCount();
-		m_triangleMesh = nullptr;
+		m_coneMesh->DecrementReferenceCount();
+		m_coneMesh = nullptr;
+	}
+
+	if (m_torusMesh)
+	{
+		m_torusMesh->DecrementReferenceCount();
+		m_torusMesh = nullptr;
 	}
 
 
-	delete m_gameObject;
+	delete m_planeGameObject;
+	delete m_coneGameObject;
+	delete m_torusGameObject;
 
 	Logging::OutputMessage("Junxuan-Hu's Game Cleaning Up!");
 	return Results::Success;
@@ -203,7 +215,7 @@ eae6320::cResult eae6320::cMyGame::CleanUp()
 void eae6320::cMyGame::UpdateSimulationBasedOnTime(const float i_elapsedSecondCount_sinceLastUpdate)
 {
 	m_Camera->m_RigidBodyState.Update(i_elapsedSecondCount_sinceLastUpdate);
-	m_gameObject->m_RigidBodyState.Update(i_elapsedSecondCount_sinceLastUpdate);
+	m_coneGameObject->m_RigidBodyState.Update(i_elapsedSecondCount_sinceLastUpdate);
 }
 
 void eae6320::cMyGame::SubmitGameObjectsRenderData
@@ -232,8 +244,10 @@ void eae6320::cMyGame::SubmitGameObjectsRenderData
 
 void eae6320::cMyGame::SubmitDataToBeRendered(const float i_elapsedSecondCount_systemTime, const float i_elapsedSecondCount_sinceLastSimulationUpdate)
 {
-	Assets::sGameObject** i_gameObjectsToSubmit = new Assets::sGameObject * [1];
-	i_gameObjectsToSubmit[0] = m_gameObject;
-	SubmitGameObjectsRenderData(m_Camera, m_backgroundColor, 1, i_gameObjectsToSubmit, i_elapsedSecondCount_sinceLastSimulationUpdate);
+	Assets::sGameObject** i_gameObjectsToSubmit = new Assets::sGameObject * [3];
+	i_gameObjectsToSubmit[0] = m_planeGameObject;
+	i_gameObjectsToSubmit[1] = m_coneGameObject;
+	i_gameObjectsToSubmit[2] = m_torusGameObject;
+	SubmitGameObjectsRenderData(m_Camera, m_backgroundColor, 3, i_gameObjectsToSubmit, i_elapsedSecondCount_sinceLastSimulationUpdate);
 
 }

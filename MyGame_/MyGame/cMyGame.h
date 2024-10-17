@@ -94,14 +94,19 @@ namespace eae6320
 		//---
 		float m_backgroundColor[3];
 
-		Assets::sGameObject* m_gameObject;
+		Assets::sGameObject* m_planeGameObject;
+		Assets::sGameObject* m_coneGameObject;
+		Assets::sGameObject* m_torusGameObject;
+
 		Graphics::sCamera* m_Camera;
 
 		Graphics::cEffect* m_myShaderEffect;
 		Graphics::cEffect* m_standardShaderEffect;
 
-		Graphics::cMesh* m_squareMesh;
-		Graphics::cMesh* m_triangleMesh;
+		Graphics::cMesh* m_planeMesh;
+		Graphics::cMesh* m_coneMesh;
+		Graphics::cMesh* m_torusMesh;
+
 	};
 }
 

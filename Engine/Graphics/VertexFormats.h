@@ -40,6 +40,9 @@ namespace eae6320
 				// 3 floats == 12 bytes
 				// Offset = 0
 				float x, y, z;
+
+				// COLOR
+				float r, g, b, a;
 			};
 		}
 	}

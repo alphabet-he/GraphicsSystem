@@ -1,0 +1,27 @@
+{
+  "vertex_count_per_triangle": 3,
+  "vertex_data_count": 4,
+  "indice_data_count": 6,
+  "vertex_data": [
+    {
+      "vertex_position": [-0.65, 0.00620816, -0.437083],
+      "vertex_color": [1, 0, 0]
+    },
+    {
+      "vertex_position": [0.65, 0.00620816, -0.437083],
+      "vertex_color": [0, 0, 1]
+    },
+    {
+      "vertex_position": [-0.65, 0.656208, -1.56292],
+      "vertex_color": [1, 0, 0]
+    },
+    {
+      "vertex_position": [0.65, 0.656208, -1.56292],
+      "vertex_color": [0, 0, 1]
+    }  
+],
+  "indice_data": [
+    0, 1, 2,
+    2, 1, 3
+  ]
+}
