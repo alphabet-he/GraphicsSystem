@@ -105,17 +105,18 @@ eae6320::cResult eae6320::Graphics::cMesh::Load(const char* i_meshDataFileName, 
 						}
 
 						// color
-						//const auto i_curr_vertex_color = i_curr_vertex_data["vertex_color"];
-						//if (i_curr_vertex_color.is_array()) {
-						//	newMesh->m_vertexData[i].x = i_curr_vertex_color[0].get<float>();
-						//	newMesh->m_vertexData[i].y = i_curr_vertex_color[1].get<float>();
-						//	newMesh->m_vertexData[i].z = i_curr_vertex_color[2].get<float>();
-						//}
-						//else {
-						//	EAE6320_ASSERTF(false, "vertex_position is not array.");
-						//	result = eae6320::Results::Failure;
-						//	return result;
-						//}
+						const auto i_curr_vertex_color = i_curr_vertex_data["vertex_color"];
+						if (i_curr_vertex_color.is_array()) {
+							newMesh->m_vertexData[i].r = i_curr_vertex_color[0].get<float>();
+							newMesh->m_vertexData[i].g = i_curr_vertex_color[1].get<float>();
+							newMesh->m_vertexData[i].b = i_curr_vertex_color[2].get<float>();
+							newMesh->m_vertexData[i].a = i_curr_vertex_color[3].get<float>();
+						}
+						else {
+							EAE6320_ASSERTF(false, "vertex_color is not array.");
+							result = eae6320::Results::Failure;
+							return result;
+						}
 						
 					}
 					else {

@@ -808,7 +808,7 @@ namespace
 					<< vertex.r << ", " << vertex.g << ", " << vertex.b << ", " << vertex.a << "]\n";
 				fout << "    },\n";
 			}
-			fout.seekp(-3, std::ios_base::end);  // Remove the last comma
+			fout.seekp(-2, std::ios_base::end);  // Remove the last comma
 			fout << "  \n],\n";
 
 			fout << "  \"indice_data\": [\n";
@@ -817,7 +817,7 @@ namespace
 				// Swap the second and third indices to convert triangle winding order
 				fout << "    " << i_indexArray[i] << ", " << i_indexArray[i + 1] << ", " << i_indexArray[i + 2] << ",\n";
 			}
-			fout.seekp(-3, std::ios_base::end);  // Remove the last comma
+			fout.seekp(-2, std::ios_base::end);  // Remove the last comma
 			fout << "\n  ]\n";
 
 			fout << "}\n";

@@ -5,323 +5,323 @@
   "vertex_data": [
     {
       "vertex_position": [0.475529, 0.561468, -1.15451],
-      "vertex_color": [0, 1, 1]
+      "vertex_color": [0, 1, 1, 1]
     },
     {
       "vertex_position": [0.475529, 0.561468, -1.15451],
-      "vertex_color": [0, 1, 1]
+      "vertex_color": [0, 1, 1, 1]
     },
     {
       "vertex_position": [0.475529, 0.561468, -1.15451],
-      "vertex_color": [0, 1, 1]
+      "vertex_color": [0, 1, 1, 1]
     },
     {
       "vertex_position": [-0.475528, 0.561468, -0.845491],
-      "vertex_color": [0, 1, 1]
+      "vertex_color": [0, 1, 1, 1]
     },
     {
       "vertex_position": [-0.475528, 0.561468, -0.845491],
-      "vertex_color": [0, 1, 1]
+      "vertex_color": [0, 1, 1, 1]
     },
     {
       "vertex_position": [-0.475528, 0.561468, -0.845491],
-      "vertex_color": [0, 1, 1]
+      "vertex_color": [0, 1, 1, 1]
     },
     {
       "vertex_position": [-0.404509, 0.561468, -0.706107],
-      "vertex_color": [0, 1, 1]
+      "vertex_color": [0, 1, 1, 1]
     },
     {
       "vertex_position": [-0.404509, 0.561468, -0.706107],
-      "vertex_color": [0, 1, 1]
+      "vertex_color": [0, 1, 1, 1]
     },
     {
       "vertex_position": [-0.404509, 0.561468, -0.706107],
-      "vertex_color": [0, 1, 1]
+      "vertex_color": [0, 1, 1, 1]
     },
     {
       "vertex_position": [-0.293893, 0.561468, -0.595491],
-      "vertex_color": [0, 1, 1]
+      "vertex_color": [0, 1, 1, 1]
     },
     {
       "vertex_position": [-0.293893, 0.561468, -0.595491],
-      "vertex_color": [0, 1, 1]
+      "vertex_color": [0, 1, 1, 1]
     },
     {
       "vertex_position": [-0.293893, 0.561468, -0.595491],
-      "vertex_color": [0, 1, 1]
+      "vertex_color": [0, 1, 1, 1]
     },
     {
       "vertex_position": [-0.154509, 0.561468, -0.524472],
-      "vertex_color": [0, 1, 1]
+      "vertex_color": [0, 1, 1, 1]
     },
     {
       "vertex_position": [-0.154509, 0.561468, -0.524472],
-      "vertex_color": [0, 1, 1]
+      "vertex_color": [0, 1, 1, 1]
     },
     {
       "vertex_position": [-0.154509, 0.561468, -0.524472],
-      "vertex_color": [0, 1, 1]
+      "vertex_color": [0, 1, 1, 1]
     },
     {
       "vertex_position": [-1.49012e-08, 0.561468, -0.5],
-      "vertex_color": [0, 1, 1]
+      "vertex_color": [0, 1, 1, 1]
     },
     {
       "vertex_position": [-1.49012e-08, 0.561468, -0.5],
-      "vertex_color": [0, 1, 1]
+      "vertex_color": [0, 1, 1, 1]
     },
     {
       "vertex_position": [-1.49012e-08, 0.561468, -0.5],
-      "vertex_color": [0, 1, 1]
+      "vertex_color": [0, 1, 1, 1]
     },
     {
       "vertex_position": [0.154508, 0.561468, -0.524472],
-      "vertex_color": [0, 1, 1]
+      "vertex_color": [0, 1, 1, 1]
     },
     {
       "vertex_position": [0.154508, 0.561468, -0.524472],
-      "vertex_color": [0, 1, 1]
+      "vertex_color": [0, 1, 1, 1]
     },
     {
       "vertex_position": [0.154508, 0.561468, -0.524472],
-      "vertex_color": [0, 1, 1]
+      "vertex_color": [0, 1, 1, 1]
     },
     {
       "vertex_position": [0.293893, 0.561468, -0.595491],
-      "vertex_color": [0, 1, 1]
+      "vertex_color": [0, 1, 1, 1]
     },
     {
       "vertex_position": [0.293893, 0.561468, -0.595491],
-      "vertex_color": [0, 1, 1]
+      "vertex_color": [0, 1, 1, 1]
     },
     {
       "vertex_position": [0.293893, 0.561468, -0.595491],
-      "vertex_color": [0, 1, 1]
+      "vertex_color": [0, 1, 1, 1]
     },
     {
       "vertex_position": [0.404509, 0.561468, -0.706107],
-      "vertex_color": [0, 1, 1]
+      "vertex_color": [0, 1, 1, 1]
     },
     {
       "vertex_position": [0.404509, 0.561468, -0.706107],
-      "vertex_color": [0, 1, 1]
+      "vertex_color": [0, 1, 1, 1]
     },
     {
       "vertex_position": [0.404509, 0.561468, -0.706107],
-      "vertex_color": [0, 1, 1]
+      "vertex_color": [0, 1, 1, 1]
     },
     {
       "vertex_position": [0.475528, 0.561468, -0.845492],
-      "vertex_color": [0, 1, 1]
+      "vertex_color": [0, 1, 1, 1]
     },
     {
       "vertex_position": [0.475528, 0.561468, -0.845492],
-      "vertex_color": [0, 1, 1]
+      "vertex_color": [0, 1, 1, 1]
     },
     {
       "vertex_position": [0.475528, 0.561468, -0.845492],
-      "vertex_color": [0, 1, 1]
+      "vertex_color": [0, 1, 1, 1]
     },
     {
       "vertex_position": [0.5, 0.561468, -1],
-      "vertex_color": [0, 1, 1]
+      "vertex_color": [0, 1, 1, 1]
     },
     {
       "vertex_position": [0.5, 0.561468, -1],
-      "vertex_color": [0, 1, 1]
+      "vertex_color": [0, 1, 1, 1]
     },
     {
       "vertex_position": [0.5, 0.561468, -1],
-      "vertex_color": [0, 1, 1]
+      "vertex_color": [0, 1, 1, 1]
     },
     {
       "vertex_position": [0.404509, 0.561468, -1.29389],
-      "vertex_color": [0, 1, 1]
+      "vertex_color": [0, 1, 1, 1]
     },
     {
       "vertex_position": [0.404509, 0.561468, -1.29389],
-      "vertex_color": [0, 1, 1]
+      "vertex_color": [0, 1, 1, 1]
     },
     {
       "vertex_position": [0.404509, 0.561468, -1.29389],
-      "vertex_color": [0, 1, 1]
+      "vertex_color": [0, 1, 1, 1]
     },
     {
       "vertex_position": [0, 1.36147, -1],
-      "vertex_color": [1, 1, 0]
+      "vertex_color": [1, 1, 0, 1]
     },
     {
       "vertex_position": [0, 1.36147, -1],
-      "vertex_color": [1, 1, 0]
+      "vertex_color": [1, 1, 0, 1]
     },
     {
       "vertex_position": [0, 1.36147, -1],
-      "vertex_color": [1, 1, 0]
+      "vertex_color": [1, 1, 0, 1]
     },
     {
       "vertex_position": [0, 1.36147, -1],
-      "vertex_color": [1, 1, 0]
+      "vertex_color": [1, 1, 0, 1]
     },
     {
       "vertex_position": [0, 1.36147, -1],
-      "vertex_color": [1, 1, 0]
+      "vertex_color": [1, 1, 0, 1]
     },
     {
       "vertex_position": [0, 1.36147, -1],
-      "vertex_color": [1, 1, 0]
+      "vertex_color": [1, 1, 0, 1]
     },
     {
       "vertex_position": [0, 1.36147, -1],
-      "vertex_color": [1, 1, 0]
+      "vertex_color": [1, 1, 0, 1]
     },
     {
       "vertex_position": [0, 1.36147, -1],
-      "vertex_color": [1, 1, 0]
+      "vertex_color": [1, 1, 0, 1]
     },
     {
       "vertex_position": [0, 1.36147, -1],
-      "vertex_color": [1, 1, 0]
+      "vertex_color": [1, 1, 0, 1]
     },
     {
       "vertex_position": [0, 1.36147, -1],
-      "vertex_color": [1, 1, 0]
+      "vertex_color": [1, 1, 0, 1]
     },
     {
       "vertex_position": [0, 1.36147, -1],
-      "vertex_color": [1, 1, 0]
+      "vertex_color": [1, 1, 0, 1]
     },
     {
       "vertex_position": [0, 1.36147, -1],
-      "vertex_color": [1, 1, 0]
+      "vertex_color": [1, 1, 0, 1]
     },
     {
       "vertex_position": [0, 1.36147, -1],
-      "vertex_color": [1, 1, 0]
+      "vertex_color": [1, 1, 0, 1]
     },
     {
       "vertex_position": [0, 1.36147, -1],
-      "vertex_color": [1, 1, 0]
+      "vertex_color": [1, 1, 0, 1]
     },
     {
       "vertex_position": [0, 1.36147, -1],
-      "vertex_color": [1, 1, 0]
+      "vertex_color": [1, 1, 0, 1]
     },
     {
       "vertex_position": [0, 1.36147, -1],
-      "vertex_color": [1, 1, 0]
+      "vertex_color": [1, 1, 0, 1]
     },
     {
       "vertex_position": [0, 1.36147, -1],
-      "vertex_color": [1, 1, 0]
+      "vertex_color": [1, 1, 0, 1]
     },
     {
       "vertex_position": [0, 1.36147, -1],
-      "vertex_color": [1, 1, 0]
+      "vertex_color": [1, 1, 0, 1]
     },
     {
       "vertex_position": [0, 1.36147, -1],
-      "vertex_color": [1, 1, 0]
+      "vertex_color": [1, 1, 0, 1]
     },
     {
       "vertex_position": [0, 1.36147, -1],
-      "vertex_color": [1, 1, 0]
+      "vertex_color": [1, 1, 0, 1]
     },
     {
       "vertex_position": [0.293893, 0.561468, -1.40451],
-      "vertex_color": [0, 1, 1]
+      "vertex_color": [0, 1, 1, 1]
     },
     {
       "vertex_position": [0.293893, 0.561468, -1.40451],
-      "vertex_color": [0, 1, 1]
+      "vertex_color": [0, 1, 1, 1]
     },
     {
       "vertex_position": [0.293893, 0.561468, -1.40451],
-      "vertex_color": [0, 1, 1]
+      "vertex_color": [0, 1, 1, 1]
     },
     {
       "vertex_position": [0.154509, 0.561468, -1.47553],
-      "vertex_color": [0, 1, 1]
+      "vertex_color": [0, 1, 1, 1]
     },
     {
       "vertex_position": [0.154509, 0.561468, -1.47553],
-      "vertex_color": [0, 1, 1]
+      "vertex_color": [0, 1, 1, 1]
     },
     {
       "vertex_position": [0.154509, 0.561468, -1.47553],
-      "vertex_color": [0, 1, 1]
+      "vertex_color": [0, 1, 1, 1]
     },
     {
       "vertex_position": [0, 0.561468, -1.5],
-      "vertex_color": [0, 1, 1]
+      "vertex_color": [0, 1, 1, 1]
     },
     {
       "vertex_position": [0, 0.561468, -1.5],
-      "vertex_color": [0, 1, 1]
+      "vertex_color": [0, 1, 1, 1]
     },
     {
       "vertex_position": [0, 0.561468, -1.5],
-      "vertex_color": [0, 1, 1]
+      "vertex_color": [0, 1, 1, 1]
     },
     {
       "vertex_position": [-0.154509, 0.561468, -1.47553],
-      "vertex_color": [0, 1, 1]
+      "vertex_color": [0, 1, 1, 1]
     },
     {
       "vertex_position": [-0.154509, 0.561468, -1.47553],
-      "vertex_color": [0, 1, 1]
+      "vertex_color": [0, 1, 1, 1]
     },
     {
       "vertex_position": [-0.154509, 0.561468, -1.47553],
-      "vertex_color": [0, 1, 1]
+      "vertex_color": [0, 1, 1, 1]
     },
     {
       "vertex_position": [-0.293893, 0.561468, -1.40451],
-      "vertex_color": [0, 1, 1]
+      "vertex_color": [0, 1, 1, 1]
     },
     {
       "vertex_position": [-0.293893, 0.561468, -1.40451],
-      "vertex_color": [0, 1, 1]
+      "vertex_color": [0, 1, 1, 1]
     },
     {
       "vertex_position": [-0.293893, 0.561468, -1.40451],
-      "vertex_color": [0, 1, 1]
+      "vertex_color": [0, 1, 1, 1]
     },
     {
       "vertex_position": [-0.404509, 0.561468, -1.29389],
-      "vertex_color": [0, 1, 1]
+      "vertex_color": [0, 1, 1, 1]
     },
     {
       "vertex_position": [-0.404509, 0.561468, -1.29389],
-      "vertex_color": [0, 1, 1]
+      "vertex_color": [0, 1, 1, 1]
     },
     {
       "vertex_position": [-0.404509, 0.561468, -1.29389],
-      "vertex_color": [0, 1, 1]
+      "vertex_color": [0, 1, 1, 1]
     },
     {
       "vertex_position": [-0.475528, 0.561468, -1.15451],
-      "vertex_color": [0, 1, 1]
+      "vertex_color": [0, 1, 1, 1]
     },
     {
       "vertex_position": [-0.475528, 0.561468, -1.15451],
-      "vertex_color": [0, 1, 1]
+      "vertex_color": [0, 1, 1, 1]
     },
     {
       "vertex_position": [-0.475528, 0.561468, -1.15451],
-      "vertex_color": [0, 1, 1]
+      "vertex_color": [0, 1, 1, 1]
     },
     {
       "vertex_position": [-0.5, 0.561468, -1],
-      "vertex_color": [0, 1, 1]
+      "vertex_color": [0, 1, 1, 1]
     },
     {
       "vertex_position": [-0.5, 0.561468, -1],
-      "vertex_color": [0, 1, 1]
+      "vertex_color": [0, 1, 1, 1]
     },
     {
       "vertex_position": [-0.5, 0.561468, -1],
-      "vertex_color": [0, 1, 1]
+      "vertex_color": [0, 1, 1, 1]
     }  
 ],
   "indice_data": [
