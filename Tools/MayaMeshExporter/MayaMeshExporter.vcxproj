@@ -18,6 +18,11 @@
     <ClInclude Include="cMayaMeshExporter.h" />
     <ClInclude Include="Windows\ExternalLibraries.win.h" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Engine\Windows\Windows.vcxproj">
+      <Project>{6ff846d1-2377-4601-b2f6-83e31748cb16}</Project>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
