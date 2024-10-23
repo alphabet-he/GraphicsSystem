@@ -25,9 +25,9 @@ namespace eae6320
 		{
 			// variables
 
-			unsigned int m_vertexCountPerTriangle;
-			unsigned int m_vertexDataCount;
-			unsigned int m_indiceDataCount;
+			uint8_t m_vertexCountPerTriangle;
+			uint16_t m_vertexDataCount;
+			uint16_t m_indiceDataCount;
 			eae6320::Graphics::VertexFormats::sVertex_mesh* m_vertexData = nullptr;
 			uint16_t* m_indices = nullptr;
 
@@ -60,9 +60,9 @@ namespace eae6320
 			EAE6320_ASSETS_DECLAREREFERENCECOUNTINGFUNCTIONS();
 
 			static cResult Load(
-				unsigned int i_vertexCountPerTriangle,
-				unsigned int i_vertexDataCount,
-				unsigned int i_indiceDataCount,
+				uint8_t i_vertexCountPerTriangle,
+				uint16_t i_vertexDataCount,
+				uint16_t i_indiceDataCount,
 				eae6320::Graphics::VertexFormats::sVertex_mesh i_vertexData[],
 				uint16_t i_indices[], 
 				cMesh*& o_mesh);
@@ -81,9 +81,9 @@ namespace eae6320
 
 			cMesh();
 			cMesh(
-				unsigned int i_vertexCountPerTriangle,
-				unsigned int i_vertexDataCount,
-				unsigned int i_indiceDataCount,
+				uint8_t i_vertexCountPerTriangle,
+				uint16_t i_vertexDataCount,
+				uint16_t i_indiceDataCount,
 				eae6320::Graphics::VertexFormats::sVertex_mesh i_vertexData[],
 				uint16_t i_indices[]); // use OpenGL right handed winding order (counter clockwise)
 			~cMesh();

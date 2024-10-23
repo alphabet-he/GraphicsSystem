@@ -786,6 +786,10 @@ namespace
 		std::ofstream fout( i_fileName.asChar() );
 		if ( fout.is_open() )
 		{
+			if (i_vertexArray.size() > 65535 || i_indexArray.size() > 65535) { // do not exceed uint16 range
+				return MStatus::kFailure;
+			}
+
 			// Lua should be able to parse scientific notation,
 			// but if you run into problems you can uncomment the line below to always used fixed notation
 //			fout << std::fixed;
