@@ -97,6 +97,8 @@ namespace eae6320
 		Assets::sGameObject* m_planeGameObject;
 		Assets::sGameObject* m_coneGameObject;
 		Assets::sGameObject* m_torusGameObject;
+		Assets::sGameObject* m_helixGameObject;
+
 
 		Graphics::sCamera* m_Camera;
 
@@ -106,6 +108,7 @@ namespace eae6320
 		Graphics::cMesh* m_planeMesh;
 		Graphics::cMesh* m_coneMesh;
 		Graphics::cMesh* m_torusMesh;
+		Graphics::cMesh* m_helixMesh;
 
 	};
 }

@@ -19,6 +19,7 @@ return
 		"Meshes/triangle.json",
 		"Meshes/plane.json",
 		"Meshes/cone.json",
-		"Meshes/torus.json"
+		"Meshes/torus.json",
+		"Meshes/helix.json"
 	}
 }
