@@ -12,6 +12,9 @@
 
 #if defined(EAE6320_PLATFORM_GL)
 	layout( location = 0 ) in vec3 i_vertexPosition_local;
+
+	layout( location = 1 ) in vec4 i_vertexColor;
+	layout( location = 0 ) out vec4 o_vertexColor;
 #endif
 
 PLATFORM_OutputVertexShader(main)
@@ -38,4 +41,7 @@ PLATFORM_OutputVertexShader(main)
 		#endif
 			
 	}
+
+	// color
+	o_vertexColor = i_vertexColor;
 }

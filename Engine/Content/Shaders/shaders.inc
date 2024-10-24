@@ -46,7 +46,7 @@ DeclareConstantBuffer( g_constantBuffer_frame, 0 )
 //=================
 
 #if defined( EAE6320_PLATFORM_D3D )
-    #define PLATFORM_OutputFragmentShader(i_name) void i_name(in const float4 i_fragmentPosition : SV_POSITION, out float4 o_color : SV_TARGET)
+    #define PLATFORM_OutputFragmentShader(i_name) void i_name(in const float4 i_fragmentPosition : SV_POSITION, in const float4 i_fragmentColor : COLOR, out float4 o_color : SV_TARGET)
 
 #elif defined( EAE6320_PLATFORM_GL )
     #define PLATFORM_OutputFragmentShader(i_name) void i_name()
@@ -58,7 +58,7 @@ DeclareConstantBuffer( g_constantBuffer_frame, 0 )
 
 #if defined( EAE6320_PLATFORM_D3D )
     #define PLATFORM_Mul(matrix, vector) mul( matrix, vector )
-    #define PLATFORM_OutputVertexShader(i_name) void i_name(in const float3 i_vertexPosition_local : POSITION, out float4 o_vertexPosition_projected : SV_POSITION)
+    #define PLATFORM_OutputVertexShader(i_name) void i_name(in const float3 i_vertexPosition_local : POSITION, in const float4 i_vertexColor : COLOR, out float4 o_vertexPosition_projected : SV_POSITION, out float4 o_vertexColor : COLOR)
 	#define DeclareConstantBufferDrawCall( i_name, i_id ) cbuffer i_name : register( b##i_id )
 
 #elif defined( EAE6320_PLATFORM_GL )

@@ -46,7 +46,7 @@ void eae6320::Graphics::cMesh::DrawMesh()
 		// It's possible to start rendering primitives in the middle of the stream
 		constexpr unsigned int indexOfFirstIndexToUse = 0;
 		constexpr unsigned int offsetToAddToEachIndex = 0;
-		direct3dImmediateContext->DrawIndexed(static_cast<unsigned int>(m_triangleCount * m_vertexCountPerTriangle), 
+		direct3dImmediateContext->DrawIndexed(static_cast<unsigned int>(m_indiceDataCount), 
 			indexOfFirstIndexToUse, offsetToAddToEachIndex);
 	}
 }
@@ -69,9 +69,8 @@ eae6320::cResult eae6320::Graphics::cMesh::InitializeGeometry()
 	}
 	// Vertex Buffer
 	{
-		const auto vertexCount = m_triangleCount * m_vertexCountPerTriangle;
 
-		const auto bufferSize = sizeof(m_vertexData[0]) * vertexCount;
+		const auto bufferSize = sizeof(m_vertexData[0]) * m_vertexDataCount;
 		EAE6320_ASSERT(bufferSize <= std::numeric_limits<decltype(D3D11_BUFFER_DESC::ByteWidth)>::max());
 		const auto bufferDescription = [bufferSize]
 			{
@@ -117,14 +116,12 @@ eae6320::cResult eae6320::Graphics::cMesh::InitializeGeometry()
 	// Index Buffer
 	{
 
-		const auto vertexCount = m_triangleCount * m_vertexCountPerTriangle;
-
 		// reverse the index buffer
-		for (int i = 0; i < static_cast<int>(vertexCount) / 2; i++) {
-			std::swap(m_indices[i], m_indices[vertexCount - 1 - i]);
+		for (int i = 0; i < static_cast<int>(m_indiceDataCount) / 2; i++) {
+			std::swap(m_indices[i], m_indices[m_indiceDataCount - 1 - i]);
 		}
 
-		const auto bufferSize = sizeof(m_indices[0]) * vertexCount;
+		const auto bufferSize = sizeof(m_indices[0]) * m_indiceDataCount;
 		EAE6320_ASSERT(bufferSize <= std::numeric_limits<decltype(D3D11_BUFFER_DESC::ByteWidth)>::max());
 		const auto bufferDescription = [bufferSize]
 			{

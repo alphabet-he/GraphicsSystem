@@ -121,6 +121,9 @@
     <None Include="cRenderState.inl" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\External\JSON\JSON.vcxproj">
+      <Project>{a5b86626-9cbf-461e-8440-4d2e12af20e0}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\..\External\OpenGlExtensions\OpenGlExtensions.vcxproj">
       <Project>{433f6d20-943a-4d7b-bffe-bc9dfc932e6e}</Project>
     </ProjectReference>

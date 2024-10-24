@@ -17,7 +17,7 @@ void eae6320::Graphics::cMesh::DrawMesh()
 		constexpr GLenum mode = GL_TRIANGLES;
 		// It's possible to start rendering primitives in the middle of the stream
 		const GLvoid* const offset = 0;
-		glDrawElements(mode, static_cast<GLsizei>(m_triangleCount * m_vertexCountPerTriangle), GL_UNSIGNED_SHORT, offset);
+		glDrawElements(mode, static_cast<GLsizei>(m_indiceDataCount), GL_UNSIGNED_SHORT, offset);
 		EAE6320_ASSERT(glGetError() == GL_NO_ERROR);
 	}
 }
@@ -82,9 +82,8 @@ eae6320::cResult eae6320::Graphics::cMesh::InitializeGeometry()
 	}
 	// Assign the data to the buffer
 	{
-		const auto vertexCount = m_triangleCount * m_vertexCountPerTriangle;
 
-		const auto bufferSize = sizeof(m_vertexData[0]) * vertexCount;
+		const auto bufferSize = sizeof(m_vertexData[0]) * m_vertexDataCount;
 		EAE6320_ASSERT(static_cast<GLsizeiptr>(bufferSize) <= std::numeric_limits<GLsizeiptr>::max());
 		glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizeiptr>(bufferSize), reinterpret_cast<GLvoid*>(m_vertexData),
 			// In our class we won't ever read from the buffer
@@ -129,9 +128,8 @@ eae6320::cResult eae6320::Graphics::cMesh::InitializeGeometry()
 	}
 	// Assign the data to the index buffer
 	{
-		const auto vertexCount = m_triangleCount * m_vertexCountPerTriangle;
 
-		const auto bufferSize = sizeof(m_indices[0]) * vertexCount;
+		const auto bufferSize = sizeof(m_indices[0]) * m_indiceDataCount;
 		EAE6320_ASSERT(static_cast<GLsizeiptr>(bufferSize) <= std::numeric_limits<GLsizeiptr>::max());
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, static_cast<GLsizeiptr>(bufferSize), reinterpret_cast<GLvoid*>(m_indices),
 			// In our class we won't ever read from the buffer
@@ -181,6 +179,37 @@ eae6320::cResult eae6320::Graphics::cMesh::InitializeGeometry()
 				result = eae6320::Results::Failure;
 				EAE6320_ASSERTF(false, reinterpret_cast<const char*>(gluErrorString(errorCode)));
 				eae6320::Logging::OutputError("OpenGL failed to set the POSITION vertex attribute at location %u: %s",
+					vertexElementLocation, reinterpret_cast<const char*>(gluErrorString(errorCode)));
+				return result;
+			}
+		}
+
+		// Color (1)
+		{
+			constexpr GLuint vertexElementLocation = 1;
+			constexpr GLint elementCount = 4;
+			constexpr GLboolean notNormalized = GL_FALSE;	// The given floats should be used as-is, I set rgba also float
+			glVertexAttribPointer(vertexElementLocation, elementCount, GL_FLOAT, notNormalized, stride,
+				reinterpret_cast<GLvoid*>(offsetof(eae6320::Graphics::VertexFormats::sVertex_mesh, r)));
+			const auto errorCode = glGetError();
+			if (errorCode == GL_NO_ERROR)
+			{
+				glEnableVertexAttribArray(vertexElementLocation);
+				const GLenum errorCode = glGetError();
+				if (errorCode != GL_NO_ERROR)
+				{
+					result = eae6320::Results::Failure;
+					EAE6320_ASSERTF(false, reinterpret_cast<const char*>(gluErrorString(errorCode)));
+					eae6320::Logging::OutputError("OpenGL failed to enable the COLOR vertex attribute at location %u: %s",
+						vertexElementLocation, reinterpret_cast<const char*>(gluErrorString(errorCode)));
+					return result;
+				}
+			}
+			else
+			{
+				result = eae6320::Results::Failure;
+				EAE6320_ASSERTF(false, reinterpret_cast<const char*>(gluErrorString(errorCode)));
+				eae6320::Logging::OutputError("OpenGL failed to set the COLOR vertex attribute at location %u: %s",
 					vertexElementLocation, reinterpret_cast<const char*>(gluErrorString(errorCode)));
 				return result;
 			}
