@@ -45,7 +45,9 @@ eae6320::cResult eae6320::Graphics::cMesh::Load(const char* i_meshDataFileName, 
 		return result;
 	}
 
-	newMesh->m_vertexCountPerTriangle = 3;
+	// as now we don't build binary files with vertex count per triangle, 
+	// we set it as 3 by default
+	newMesh->m_vertexCountPerTriangle = 3; 
 
 	auto currentOffset = reinterpret_cast<uintptr_t>(dataFromFile.data);
 	const auto finalOffset = currentOffset + dataFromFile.size;

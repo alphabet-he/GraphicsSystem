@@ -55,6 +55,24 @@ namespace
 			delete[] m_localToWorldMatrixArr;
 		}
 	};
+
+	// Skylar:
+	// There are meshes that does not change frequently such as terrain, level layouts
+	// These meshes does not need to be submitted every frame, so there is no need to Update() or so
+	// This can improve performance, especially when there are many such terrain meshes 
+	struct sDataStaticObject {
+		uint16_t m_staticMeshCount = 0;
+		eae6320::Graphics::cMesh** m_staticMeshArr;
+		eae6320::Graphics::cEffect** m_staticEffectArr;
+
+		void CleanUp() {
+			m_staticMeshCount = 0;
+			delete[] m_staticMeshArr;
+			delete[] m_staticEffectArr;
+		}
+	};
+	sDataStaticObject s_dataStaticObjects;
+
 	// In our class there will be two copies of the data required to render a frame:
 	//	* One of them will be in the process of being populated by the data currently being submitted by the application loop thread
 	//	* One of them will be fully populated and in the process of being rendered from in the render thread
@@ -122,6 +140,13 @@ void eae6320::Graphics::SubmitRenderData(sCamera* i_Camera,
 	s_dataBeingSubmittedByApplicationThread->m_effectArr = i_effectArr;
 	s_dataBeingSubmittedByApplicationThread->m_localToWorldMatrixArr = i_localToWorldMatrixArr;
 
+}
+
+void eae6320::Graphics::SubmitStaticObjectData(uint16_t i_staticMeshCount, eae6320::Graphics::cMesh** i_staticMeshArr, eae6320::Graphics::cEffect** i_staticEffectArr)
+{
+	s_dataStaticObjects.m_staticMeshCount = i_staticMeshCount;
+	s_dataStaticObjects.m_staticEffectArr = i_staticEffectArr;
+	s_dataStaticObjects.m_staticMeshArr = i_staticMeshArr;
 }
 
 
@@ -196,16 +221,26 @@ void eae6320::Graphics::RenderFrame()
 
 	// draw mesh
 	{
-		uint16_t i_meshCount = s_dataBeingRenderedByRenderThread->m_gameObjectCount;
-		for (int i = 0; i < i_meshCount; i++) {
-
-			eae6320::Graphics::ConstantBufferFormats::sDrawCall constantData_drawCall;
-			constantData_drawCall.g_transform_localToWorld =
-				s_dataBeingRenderedByRenderThread->m_localToWorldMatrixArr[i];
+		eae6320::Graphics::ConstantBufferFormats::sDrawCall constantData_drawCall;
+		// static meshes
+		{
 			s_constantBuffer_drawCall.Update(&constantData_drawCall);
+			for (int i = 0; i < s_dataStaticObjects.m_staticMeshCount; i++) {
+				s_dataStaticObjects.m_staticEffectArr[i]->BindEffect();
+				s_dataStaticObjects.m_staticMeshArr[i]->DrawMesh();
+			}
+		}
+		// dynamic meshes
+		{
+			uint16_t i_meshCount = s_dataBeingRenderedByRenderThread->m_gameObjectCount;
+			for (int i = 0; i < i_meshCount; i++) {
+				constantData_drawCall.g_transform_localToWorld =
+					s_dataBeingRenderedByRenderThread->m_localToWorldMatrixArr[i];
+				s_constantBuffer_drawCall.Update(&constantData_drawCall);
 
-			s_dataBeingRenderedByRenderThread->m_effectArr[i]->BindEffect();
-			s_dataBeingRenderedByRenderThread->m_meshArr[i]->DrawMesh();
+				s_dataBeingRenderedByRenderThread->m_effectArr[i]->BindEffect();
+				s_dataBeingRenderedByRenderThread->m_meshArr[i]->DrawMesh();
+			}
 		}
 		
 	}

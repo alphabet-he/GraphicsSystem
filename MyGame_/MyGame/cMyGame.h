@@ -94,10 +94,8 @@ namespace eae6320
 		//---
 		float m_backgroundColor[3];
 
-		Assets::sGameObject* m_planeGameObject;
 		Assets::sGameObject* m_coneGameObject;
 		Assets::sGameObject* m_torusGameObject;
-		Assets::sGameObject* m_helixGameObject;
 
 
 		Graphics::sCamera* m_Camera;

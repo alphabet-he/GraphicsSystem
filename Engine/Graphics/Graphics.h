@@ -48,6 +48,13 @@ namespace eae6320
 			Math::cMatrix_transformation* i_localToWorldMatrixArr
 		);
 
+		// Submit Static Objects Data
+		void SubmitStaticObjectData(
+			uint16_t i_staticMeshCount,
+			eae6320::Graphics::cMesh** i_staticMeshArr,
+			eae6320::Graphics::cEffect** i_staticEffectArr
+		);
+
 		// When the application is ready to submit data for a new frame
 		// it should call this before submitting anything
 		// (or, said another way, it is not safe to submit data for a new frame

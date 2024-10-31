@@ -113,14 +113,10 @@ eae6320::cResult eae6320::cMyGame::Initialize()
 	//m_Camera->m_RigidBodyState.velocity = Math::sVector(-0.1f, 0.0f, 0.0f);
 
 	// game object
-	m_planeGameObject = new Assets::sGameObject();
-	m_planeGameObject->m_RigidBodyState = Physics::sRigidBodyState();
 	m_coneGameObject = new Assets::sGameObject();
 	m_coneGameObject->m_RigidBodyState = Physics::sRigidBodyState();
 	m_torusGameObject = new Assets::sGameObject();
 	m_torusGameObject->m_RigidBodyState = Physics::sRigidBodyState();
-	m_helixGameObject = new Assets::sGameObject();
-	m_helixGameObject->m_RigidBodyState = Physics::sRigidBodyState();
 	//m_gameObject->m_RigidBodyState.velocity = Math::sVector(-0.1f, 0.0f, 0.0f);
 
 	// Initialize the shading data
@@ -137,10 +133,8 @@ eae6320::cResult eae6320::cMyGame::Initialize()
 			return result;
 		}
 
-		m_planeGameObject->m_Effect = m_standardShaderEffect;
 		m_torusGameObject->m_Effect = m_standardShaderEffect;
 		m_coneGameObject->m_Effect = m_myShaderEffect;
-		m_helixGameObject->m_Effect = m_standardShaderEffect;
 	}
 	// Initialize the geometry
 	{
@@ -169,13 +163,19 @@ eae6320::cResult eae6320::cMyGame::Initialize()
 			return result;
 		}
 
-		m_planeGameObject->m_Mesh = m_planeMesh;
 		m_coneGameObject->m_Mesh = m_coneMesh;
 		m_torusGameObject->m_Mesh = m_torusMesh;
-		m_helixGameObject->m_Mesh = m_helixMesh;
 	}
 	
-	
+	// when game starts, submit the static objects
+	Graphics::cEffect** i_staticEffectToSubmit = new Graphics::cEffect * [2];
+	i_staticEffectToSubmit[0] = m_standardShaderEffect;
+	i_staticEffectToSubmit[1] = m_standardShaderEffect;
+	Graphics::cMesh** i_staticMeshToSubmit = new Graphics::cMesh * [2];
+	i_staticMeshToSubmit[0] = m_planeMesh;
+	i_staticMeshToSubmit[1] = m_helixMesh;
+	Graphics::SubmitStaticObjectData(2, i_staticMeshToSubmit, i_staticEffectToSubmit);
+
 	Logging::OutputMessage("Junxuan-Hu's Game Initializd!");
 
 	return Results::Success;
@@ -219,11 +219,8 @@ eae6320::cResult eae6320::cMyGame::CleanUp()
 		m_helixMesh = nullptr;
 	}
 
-
-	delete m_planeGameObject;
 	delete m_coneGameObject;
 	delete m_torusGameObject;
-	delete m_helixGameObject;
 
 	Logging::OutputMessage("Junxuan-Hu's Game Cleaning Up!");
 	return Results::Success;
@@ -261,11 +258,9 @@ void eae6320::cMyGame::SubmitGameObjectsRenderData
 
 void eae6320::cMyGame::SubmitDataToBeRendered(const float i_elapsedSecondCount_systemTime, const float i_elapsedSecondCount_sinceLastSimulationUpdate)
 {
-	Assets::sGameObject** i_gameObjectsToSubmit = new Assets::sGameObject * [4];
-	i_gameObjectsToSubmit[0] = m_planeGameObject;
-	i_gameObjectsToSubmit[1] = m_coneGameObject;
-	i_gameObjectsToSubmit[2] = m_torusGameObject;
-	i_gameObjectsToSubmit[3] = m_helixGameObject;
-	SubmitGameObjectsRenderData(m_Camera, m_backgroundColor, 4, i_gameObjectsToSubmit, i_elapsedSecondCount_sinceLastSimulationUpdate);
+	Assets::sGameObject** i_gameObjectsToSubmit = new Assets::sGameObject * [2];
+	i_gameObjectsToSubmit[0] = m_coneGameObject;
+	i_gameObjectsToSubmit[1] = m_torusGameObject;
+	SubmitGameObjectsRenderData(m_Camera, m_backgroundColor, 2, i_gameObjectsToSubmit, i_elapsedSecondCount_sinceLastSimulationUpdate);
 
 }
