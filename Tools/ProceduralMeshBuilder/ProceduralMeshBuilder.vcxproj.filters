@@ -14,12 +14,12 @@
     <ClCompile Include="EntryPoint.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="cMeshBuilder.cpp">
+    <ClCompile Include="cProceduralMeshBuilder.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="cMeshBuilder.h">
+    <ClInclude Include="cProceduralMeshBuilder.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

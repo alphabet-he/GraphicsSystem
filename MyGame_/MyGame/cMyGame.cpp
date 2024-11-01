@@ -228,7 +228,7 @@ eae6320::cResult eae6320::cMyGame::CleanUp()
 
 void eae6320::cMyGame::UpdateSimulationBasedOnTime(const float i_elapsedSecondCount_sinceLastUpdate)
 {
-	m_Camera->m_RigidBodyState.Update(i_elapsedSecondCount_sinceLastUpdate);
+	m_Camera->m_RigidBodyState.Update(i_elapsedSecondCount_sinceLastUpdate);   
 	m_coneGameObject->m_RigidBodyState.Update(i_elapsedSecondCount_sinceLastUpdate);
 }
 
