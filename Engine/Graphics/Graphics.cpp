@@ -142,7 +142,8 @@ void eae6320::Graphics::SubmitRenderData(sCamera* i_Camera,
 
 }
 
-void eae6320::Graphics::SubmitStaticObjectData(uint16_t i_staticMeshCount, eae6320::Graphics::cMesh** i_staticMeshArr, eae6320::Graphics::cEffect** i_staticEffectArr)
+void eae6320::Graphics::SubmitStaticObjectData(uint16_t i_staticMeshCount, 
+	eae6320::Graphics::cMesh** i_staticMeshArr, eae6320::Graphics::cEffect** i_staticEffectArr)
 {
 	s_dataStaticObjects.m_staticMeshCount = i_staticMeshCount;
 	s_dataStaticObjects.m_staticEffectArr = i_staticEffectArr;
