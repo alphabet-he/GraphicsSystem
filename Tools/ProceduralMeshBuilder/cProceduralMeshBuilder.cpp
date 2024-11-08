@@ -7,19 +7,289 @@
 
 eae6320::cResult eae6320::Assets::cProceduralMeshBuilder::Build(const std::vector<std::string>& i_arguments)
 {
-	float x_start, x_end, y_start, y_end; // the border of the terrain
-	float step; // length of each grid
-	uint8_t seed; // the stb perlin noise library always wrap at 256
-	float lacunarity, gain, octaves; // fbm parameters
-	float max_height, min_height; // normalize generated height
+	auto result = eae6320::Results::Success;
 
+	float i_x_start, i_x_end, i_y_start, i_y_end; // the border of the terrain
+	float i_step; // length of each grid
+	float i_seed; // the stb perlin noise library always wrap at 256
+	float i_scale;
+	float i_lacunarity, i_gain; uint8_t i_octaves; // fbm parameters
+	float i_max_height, i_min_height; // normalize generated height
+
+	// load file
+	std::string i_pgsFilePath = m_path_source;
+	eae6320::Platform::sDataFromFile dataFromFile;
+	result = eae6320::Platform::LoadBinaryFile(i_pgsFilePath.c_str(), dataFromFile);
+	if (!result) {
+		eae6320::Assets::OutputErrorMessageWithFileInfo(i_pgsFilePath.c_str(), "Can't load PGS data");
+		return result;
+	}
 
 	// read json
-	// TODO
+	const auto parsedFile = nlohmann::json::parse(static_cast<const char*>(dataFromFile.data),
+		static_cast<const char*>(dataFromFile.data) + dataFromFile.size);
+	if (parsedFile.is_object()) {
 
-	// generate fbm map
-	uint16_t i_x_gridCnt, i_y_gridCnt;
-	i_x_gridCnt = abs(x_start - x_end) / step;
-	std::vector<std::vector<float>> height(width, std::vector<float>(height))
-	return cResult();
+		// x_border
+		const auto x_border = parsedFile["x_border"];
+		if (x_border.is_array()) {
+			if (x_border[0].is_number_float() && x_border[1].is_number_float()) {
+				i_x_start = x_border[0].get<float>();
+				i_x_end = x_border[1].get<float>();
+			}
+			else {
+				eae6320::Assets::OutputErrorMessageWithFileInfo(i_pgsFilePath.c_str(), "x_border is not float.");
+				result = eae6320::Results::Failure;
+				return result;
+			}
+		}
+		else {
+			eae6320::Assets::OutputErrorMessageWithFileInfo(i_pgsFilePath.c_str(), "x_border is not array.");
+			result = eae6320::Results::Failure;
+			return result;
+		}
+
+		// y_border
+		const auto y_border = parsedFile["y_border"];
+		if (y_border.is_array()) {
+			if (y_border[0].is_number_float() && y_border[1].is_number_float()) {
+				i_y_start = y_border[0].get<float>();
+				i_y_end = y_border[1].get<float>();
+			}
+			else {
+				eae6320::Assets::OutputErrorMessageWithFileInfo(i_pgsFilePath.c_str(), "y_border is not float.");
+				result = eae6320::Results::Failure;
+				return result;
+			}
+		}
+		else {
+			eae6320::Assets::OutputErrorMessageWithFileInfo(i_pgsFilePath.c_str(), "y_border is not array.");
+			result = eae6320::Results::Failure;
+			return result;
+		}
+
+		// step
+		const auto step = parsedFile["step"];
+		if (step.is_number_float()) {
+			i_step = step.get<float>();
+		}
+		else {
+			eae6320::Assets::OutputErrorMessageWithFileInfo(i_pgsFilePath.c_str(), "step is not array.");
+			result = eae6320::Results::Failure;
+			return result;
+		}
+
+		// seed
+		const auto seed = parsedFile["seed"];
+		if (seed.is_number()) {
+			i_seed = seed.get<float>();
+			if (i_seed < 0) {
+				// use random seed
+				i_seed = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / 256.0f));
+				std::string output = "Using random seed: " + std::to_string(i_seed);
+				eae6320::Assets::OutputWarningMessageWithFileInfo(i_pgsFilePath.c_str(), "Using random seed.");
+			}
+		}
+		else {
+			eae6320::Assets::OutputErrorMessageWithFileInfo(i_pgsFilePath.c_str(), "seed is not number.");
+			result = eae6320::Results::Failure;
+			return result;
+		}
+
+		// scale
+		const auto scale = parsedFile["scale"];
+		if (scale.is_number_float()) {
+			i_scale = scale.get<float>();
+		}
+		else {
+			eae6320::Assets::OutputErrorMessageWithFileInfo(i_pgsFilePath.c_str(), "scale is not float.");
+			result = eae6320::Results::Failure;
+			return result;
+		}
+
+		// lacunarity
+		const auto lacunarity = parsedFile["lacunarity"];
+		if (lacunarity.is_number_float()) {
+			i_lacunarity = lacunarity.get<float>();
+			// Check lacunarity is within the range [0, 1]
+			if (i_lacunarity < 0.0f || i_lacunarity > 1.0f) {
+				eae6320::Assets::OutputErrorMessageWithFileInfo(i_pgsFilePath.c_str(), "lacunarity is out of range [0, 1].");
+				result = eae6320::Results::Failure;
+				return result;
+			}
+		}
+		else {
+			eae6320::Assets::OutputErrorMessageWithFileInfo(i_pgsFilePath.c_str(), "lacunarity is not float.");
+			result = eae6320::Results::Failure;
+			return result;
+		}
+
+		// gain
+		const auto gain = parsedFile["gain"];
+		if (gain.is_number_float()) {
+			i_gain = gain.get<float>();
+			// Check gain is larger than 1
+			if (i_gain <= 1.0f) {
+				eae6320::Assets::OutputErrorMessageWithFileInfo(i_pgsFilePath.c_str(), "gain must be greater than 1.");
+				result = eae6320::Results::Failure;
+				return result;
+			}
+		}
+		else {
+			eae6320::Assets::OutputErrorMessageWithFileInfo(i_pgsFilePath.c_str(), "gain is not float.");
+			result = eae6320::Results::Failure;
+			return result;
+		}
+
+		// octaves
+		const auto octaves = parsedFile["octaves"];
+		if (octaves.is_number_integer()) {
+			int temp_octaves = octaves.get<int>();
+			// Check octaves is within the range of uint8_t
+			if (temp_octaves < 0 || temp_octaves > 256) {
+				eae6320::Assets::OutputErrorMessageWithFileInfo(i_pgsFilePath.c_str(), "octaves is out of range for uint8_t.");
+				result = eae6320::Results::Failure;
+				return result;
+			}
+			i_octaves = static_cast<uint8_t>(temp_octaves);
+		}
+		else {
+			eae6320::Assets::OutputErrorMessageWithFileInfo(i_pgsFilePath.c_str(), "octaves is not integer.");
+			result = eae6320::Results::Failure;
+			return result;
+		}
+
+		// height_range
+		const auto height_range = parsedFile["height_range"];
+		if (height_range.is_array() && height_range.size() == 2) {
+			if (height_range[0].is_number_float() && height_range[1].is_number_float()) {
+				i_min_height = height_range[0].get<float>();
+				i_max_height = height_range[1].get<float>();
+			}
+			else {
+				eae6320::Assets::OutputErrorMessageWithFileInfo(i_pgsFilePath.c_str(), "height_range values are not float.");
+				result = eae6320::Results::Failure;
+				return result;
+			}
+		}
+		else {
+			eae6320::Assets::OutputErrorMessageWithFileInfo(i_pgsFilePath.c_str(), "height_range is not a valid array.");
+			result = eae6320::Results::Failure;
+			return result;
+		}
+	}
+	else {
+		eae6320::Assets::OutputErrorMessageWithFileInfo(i_pgsFilePath.c_str(), "Data in file is not json data.");
+		result = eae6320::Results::Failure;
+		return result;
+	}
+
+	// check count limit
+	if (abs(i_x_start - i_x_end) / i_step > 2048 || abs(i_y_start - i_y_end) / i_step > 2048) {
+		eae6320::Assets::OutputErrorMessageWithFileInfo(i_pgsFilePath.c_str(), "Point count exceeds limit");
+		return eae6320::Results::Failure;
+	}
+
+	// initialize fbm map
+	uint8_t i_x_gridCnt, i_y_gridCnt;
+	i_x_gridCnt = static_cast<uint8_t>(std::floor(abs(i_x_start - i_x_end) / i_step)) + 1;
+	i_y_gridCnt = static_cast<uint8_t>(std::floor(abs(i_y_start - i_y_end) / i_step)) + 1;
+	
+	std::vector<std::vector<float>> height(i_y_gridCnt, std::vector<float>(i_x_gridCnt));
+
+	// generate fbm values
+	for (int i = 0; i < i_y_gridCnt; i++) {
+		for (int j = 0; j < i_x_gridCnt; j++) {
+			height[i][j] = stb_perlin_fbm_noise3(
+				i * i_scale + i_seed, j * i_scale + i_seed, 0, i_lacunarity, i_gain, i_octaves
+			);
+		}
+	}
+
+	// generate mesh files
+	uint8_t i_split_y_gridCnt = static_cast<uint8_t>(floor(65535.0f / 6.0f / (i_x_gridCnt))) +1;
+	uint8_t i_split_cnt = static_cast<uint8_t>(ceil(static_cast<float>(i_y_gridCnt) / static_cast<float>(i_split_y_gridCnt)));
+	
+	// generate output binary files
+	for (uint8_t i = 0; i < i_split_cnt; i++) {
+
+		// open file
+		std::string path_str = m_path_target;
+		path_str += "_" + std::to_string(i);
+
+		std::ofstream outFile(path_str, std::ios::binary);
+		if (!outFile.is_open()) {
+			eae6320::Assets::OutputErrorMessageWithFileInfo(i_pgsFilePath.c_str(), "Failed to open file for writing.");
+			return eae6320::Results::Failure;
+		}
+
+		// write data
+		uint16_t i_vertexDataCount, i_indiceDataCount;
+
+		// vertex count
+		i_vertexDataCount = i_x_gridCnt * i_split_y_gridCnt;
+		outFile.write(reinterpret_cast<const char*>(&i_vertexDataCount), sizeof(uint16_t));
+
+		// indice count
+		i_indiceDataCount = (i_x_gridCnt - 1) * (i_split_y_gridCnt - 1) * 6;
+		outFile.write(reinterpret_cast<const char*>(&i_indiceDataCount), sizeof(uint16_t));
+
+		// vertex data
+		eae6320::Graphics::VertexFormats::sVertex_mesh* i_vertexData = new eae6320::Graphics::VertexFormats::sVertex_mesh[i_vertexDataCount];
+		uint16_t curr_vertex = 0;
+		for (uint8_t j = 0; j < i_split_y_gridCnt; j++) {
+			for (uint8_t k = 0; k < i_x_gridCnt; k++) {
+
+				uint8_t row_ind = i_split_y_gridCnt * i + j;
+				uint8_t col_ind = k;
+
+				i_vertexData[curr_vertex].x = i_x_start + i_step * col_ind;
+				i_vertexData[curr_vertex].y = i_y_start + i_step * row_ind;
+				i_vertexData[curr_vertex].z = height[row_ind][col_ind];
+
+				i_vertexData[curr_vertex].r = 0;
+				i_vertexData[curr_vertex].g = 0;
+				i_vertexData[curr_vertex].b = 0;
+				i_vertexData[curr_vertex].a = 0;
+
+				curr_vertex++;
+			}
+		}
+		outFile.write(reinterpret_cast<const char*>(i_vertexData),
+			i_vertexDataCount * sizeof(eae6320::Graphics::VertexFormats::sVertex_mesh));
+
+		// indice data
+		uint16_t* i_indices = new uint16_t[i_indiceDataCount];
+		uint16_t curr_index = 0;
+		for (uint8_t j = 0; j < i_split_y_gridCnt - 1; j++) {
+			for (uint8_t k = 0; k < i_x_gridCnt - 1; k++) {
+
+				uint16_t row_ind = static_cast<uint16_t>(i_split_y_gridCnt * i + j);
+				uint16_t col_ind = static_cast<uint16_t>(k);
+				// (0,0) -> (1,0) -> (0,1)
+				// (1,0) -> (1,1) -> (0,1)
+				i_indices[curr_index] = GetFlattenIndex(row_ind, col_ind, i_x_gridCnt);
+				curr_index++;
+				i_indices[curr_index] = GetFlattenIndex(row_ind+1, col_ind, i_x_gridCnt);
+				curr_index++;
+				i_indices[curr_index] = GetFlattenIndex(row_ind, col_ind+1, i_x_gridCnt);
+				curr_index++;
+				i_indices[curr_index] = GetFlattenIndex(row_ind+1, col_ind, i_x_gridCnt);
+				curr_index++;
+				i_indices[curr_index] = GetFlattenIndex(row_ind+1, col_ind+1, i_x_gridCnt);
+				curr_index++;
+				i_indices[curr_index] = GetFlattenIndex(row_ind, col_ind+1, i_x_gridCnt);
+				curr_index++;
+			}
+		}
+		outFile.write(reinterpret_cast<const char*>(i_indices), i_indiceDataCount * sizeof(uint16_t));
+
+		outFile.close();
+	}
+
+	return result;
+}
+
+uint16_t GetFlattenIndex(uint16_t row_ind, uint16_t col_ind, uint8_t row_cnt) {
+	return row_ind * row_cnt + col_ind;
 }
