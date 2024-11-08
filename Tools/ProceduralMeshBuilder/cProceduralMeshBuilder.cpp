@@ -197,12 +197,25 @@ eae6320::cResult eae6320::Assets::cProceduralMeshBuilder::Build(const std::vecto
 	
 	std::vector<std::vector<float>> height(i_y_gridCnt, std::vector<float>(i_x_gridCnt));
 
+	float min_value = std::numeric_limits<float>::max();
+	float max_value = std::numeric_limits<float>::lowest();
+
 	// generate fbm values
 	for (int i = 0; i < i_y_gridCnt; i++) {
 		for (int j = 0; j < i_x_gridCnt; j++) {
 			height[i][j] = stb_perlin_fbm_noise3(
 				i * i_scale + i_seed, j * i_scale + i_seed, 0, i_lacunarity, i_gain, i_octaves
 			);
+			if (height[i][j] < min_value) min_value = height[i][j];
+			if (height[i][j] > max_value) max_value = height[i][j];
+		}
+	}
+
+	// normalize height
+	for (int i = 0; i < i_y_gridCnt; i++) {
+		for (int j = 0; j < i_x_gridCnt; j++) {
+			height[i][j] = (height[i][j] - min_value) / (max_value - min_value);
+			height[i][j] = height[i][j] * (i_max_height - i_min_height) + i_min_height;
 		}
 	}
 
