@@ -2,8 +2,9 @@
 #include "Engine/Platform/Platform.h"
 #include <Tools/AssetBuildLibrary/Functions.h>
 #include "External/JSON/Includes.h"
-#include "stb_perlin.h"
 #include <fstream>
+#define STB_PERLIN_IMPLEMENTATION
+#include "stb_perlin.h"
 
 eae6320::cResult eae6320::Assets::cProceduralMeshBuilder::Build(const std::vector<std::string>& i_arguments)
 {
@@ -223,6 +224,11 @@ eae6320::cResult eae6320::Assets::cProceduralMeshBuilder::Build(const std::vecto
 	uint8_t i_split_y_gridCnt = static_cast<uint8_t>(floor(65535.0f / 6.0f / (i_x_gridCnt))) +1;
 	uint8_t i_split_cnt = static_cast<uint8_t>(ceil(static_cast<float>(i_y_gridCnt) / static_cast<float>(i_split_y_gridCnt)));
 	
+	// get flatten index 
+	auto GetFlattenIndex = [](uint16_t row_ind, uint16_t col_ind, uint8_t row_cnt) -> uint16_t {
+		return row_ind * row_cnt + col_ind;
+		};
+
 	// generate output binary files
 	for (uint8_t i = 0; i < i_split_cnt; i++) {
 
@@ -301,8 +307,4 @@ eae6320::cResult eae6320::Assets::cProceduralMeshBuilder::Build(const std::vecto
 	}
 
 	return result;
-}
-
-uint16_t GetFlattenIndex(uint16_t row_ind, uint16_t col_ind, uint8_t row_cnt) {
-	return row_ind * row_cnt + col_ind;
 }
