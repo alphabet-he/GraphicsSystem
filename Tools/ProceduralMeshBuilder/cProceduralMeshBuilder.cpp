@@ -186,9 +186,9 @@ eae6320::cResult eae6320::Assets::cProceduralMeshBuilder::Build(const std::vecto
 	}
 
 	// initialize fbm map
-	uint8_t i_x_gridCnt, i_y_gridCnt;
-	i_x_gridCnt = static_cast<uint8_t>(std::floor(abs(i_x_start - i_x_end) / i_step)) + 1;
-	i_y_gridCnt = static_cast<uint8_t>(std::floor(abs(i_y_start - i_y_end) / i_step)) + 1;
+	uint16_t i_x_gridCnt, i_y_gridCnt;
+	i_x_gridCnt = static_cast<uint16_t>(std::floor(abs(i_x_start - i_x_end) / i_step)) + 1;
+	i_y_gridCnt = static_cast<uint16_t>(std::floor(abs(i_y_start - i_y_end) / i_step)) + 1;
 	
 	std::vector<std::vector<float>> height(i_y_gridCnt, std::vector<float>(i_x_gridCnt));
 
@@ -215,11 +215,11 @@ eae6320::cResult eae6320::Assets::cProceduralMeshBuilder::Build(const std::vecto
 	}
 
 	// generate mesh files
-	uint8_t i_split_y_gridCnt = static_cast<uint8_t>(floor(65535.0f / 6.0f / (i_x_gridCnt))) +1;
+	uint16_t i_split_y_gridCnt = static_cast<uint16_t>(floor(65535.0f / 6.0f / (i_x_gridCnt))) +1;
 	uint8_t i_split_cnt = static_cast<uint8_t>(ceil(static_cast<float>(i_y_gridCnt) / static_cast<float>(i_split_y_gridCnt)));
 	
 	// get flatten index 
-	auto GetFlattenIndex = [](uint16_t row_ind, uint16_t col_ind, uint8_t row_cnt) -> uint16_t {
+	auto GetFlattenIndex = [](uint16_t row_ind, uint16_t col_ind, uint16_t row_cnt) -> uint16_t {
 		return row_ind * row_cnt + col_ind;
 		};
 
@@ -227,8 +227,10 @@ eae6320::cResult eae6320::Assets::cProceduralMeshBuilder::Build(const std::vecto
 	for (uint8_t i = 0; i < i_split_cnt; i++) {
 
 		// open file
+		std::string suffixStr = "_" + std::to_string(i);
 		std::string path_str = m_path_target;
-		path_str += "_" + std::to_string(i);
+		size_t dotPos = path_str.find_last_of('.');
+		path_str = path_str.substr(0, dotPos) + suffixStr + path_str.substr(dotPos);
 
 		std::ofstream outFile(path_str, std::ios::binary);
 		if (!outFile.is_open()) {
@@ -250,11 +252,12 @@ eae6320::cResult eae6320::Assets::cProceduralMeshBuilder::Build(const std::vecto
 		// vertex data
 		eae6320::Graphics::VertexFormats::sVertex_mesh* i_vertexData = new eae6320::Graphics::VertexFormats::sVertex_mesh[i_vertexDataCount];
 		uint16_t curr_vertex = 0;
-		for (uint8_t j = 0; j < i_split_y_gridCnt; j++) {
-			for (uint8_t k = 0; k < i_x_gridCnt; k++) {
+		for (uint16_t j = 0; j < i_split_y_gridCnt; j++) {
+			for (uint16_t k = 0; k < i_x_gridCnt; k++) {
 
-				uint8_t row_ind = i_split_y_gridCnt * i + j;
-				uint8_t col_ind = k;
+				uint16_t row_ind = i_split_y_gridCnt * i + j;
+				if (row_ind >= i_y_gridCnt) break;
+				uint16_t col_ind = k;
 
 				i_vertexData[curr_vertex].x = i_x_start + i_step * col_ind;
 				i_vertexData[curr_vertex].y = i_y_start + i_step * row_ind;
@@ -274,8 +277,8 @@ eae6320::cResult eae6320::Assets::cProceduralMeshBuilder::Build(const std::vecto
 		// indice data
 		uint16_t* i_indices = new uint16_t[i_indiceDataCount];
 		uint16_t curr_index = 0;
-		for (uint8_t j = 0; j < i_split_y_gridCnt - 1; j++) {
-			for (uint8_t k = 0; k < i_x_gridCnt - 1; k++) {
+		for (uint16_t j = 0; j < i_split_y_gridCnt - 1; j++) {
+			for (uint16_t k = 0; k < i_x_gridCnt - 1; k++) {
 
 				uint16_t row_ind = static_cast<uint16_t>(i_split_y_gridCnt * i + j);
 				uint16_t col_ind = static_cast<uint16_t>(k);
