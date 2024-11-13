@@ -112,12 +112,6 @@ eae6320::cResult eae6320::Assets::cProceduralMeshBuilder::Build(const std::vecto
 		const auto lacunarity = parsedFile["lacunarity"];
 		if (lacunarity.is_number_float()) {
 			i_lacunarity = lacunarity.get<float>();
-			// Check lacunarity is within the range [0, 1]
-			if (i_lacunarity < 0.0f || i_lacunarity > 1.0f) {
-				eae6320::Assets::OutputErrorMessageWithFileInfo(i_pgsFilePath.c_str(), "lacunarity is out of range [0, 1].");
-				result = eae6320::Results::Failure;
-				return result;
-			}
 		}
 		else {
 			eae6320::Assets::OutputErrorMessageWithFileInfo(i_pgsFilePath.c_str(), "lacunarity is not float.");

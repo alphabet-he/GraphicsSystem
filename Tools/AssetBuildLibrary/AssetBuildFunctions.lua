@@ -293,6 +293,27 @@ NewAssetTypeInfo( "meshes",
 	}
 )
 
+-- Procedural Asset Type
+--------------------
+
+NewAssetTypeInfo( "procedural",
+	{
+		ConvertSourceRelativePathToBuiltRelativePath = function( i_sourceRelativePath )
+			local relativeDirectory, file = i_sourceRelativePath:match( "(.-)([^/\\]+)$" )
+			local childDirectory = "procedural/"
+			local fileName, extensionWithPeriod = file:match( "([^%.]+)(.*)" )
+			-- The line below just puts the original pieces back together,
+			-- but you could change this to customize the way that you build assets
+			-- (you could, for example, use a different extension for binary shaders)
+			local newExtension = ".bin"
+			return relativeDirectory .. childDirectory .. fileName .. newExtension
+		end,
+		GetBuilderRelativePath = function()
+			return "ProceduralMeshBuilder.exe"
+		end
+	}
+)
+
 -- Local Function Definitions
 --===========================
 

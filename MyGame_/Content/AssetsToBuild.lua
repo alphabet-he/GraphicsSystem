@@ -21,5 +21,10 @@ return
 		"Meshes/cone.json",
 		"Meshes/torus.json",
 		"Meshes/helix.json"
+	},
+
+	procedural = 
+	{
+		"PGS/test.json"
 	}
 }
