@@ -12,6 +12,7 @@
 #include <Engine/Results/Results.h>
 #include <Engine/Assets/sGameObject.h>
 #include <Engine/Graphics/sCamera.h>
+#include <Engine/ProceduralGenSys/sProceduralGeneratedMesh.h>
 
 #if defined( EAE6320_PLATFORM_WINDOWS )
 	#include "Resource Files/Resource.h"
@@ -97,7 +98,6 @@ namespace eae6320
 		Assets::sGameObject* m_coneGameObject;
 		Assets::sGameObject* m_torusGameObject;
 
-
 		Graphics::sCamera* m_Camera;
 
 		Graphics::cEffect* m_myShaderEffect;
@@ -107,6 +107,8 @@ namespace eae6320
 		Graphics::cMesh* m_coneMesh;
 		Graphics::cMesh* m_torusMesh;
 		Graphics::cMesh* m_helixMesh;
+
+		Assets::sProceduralGeneratedMesh* m_pgsMeshes;
 
 	};
 }

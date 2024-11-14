@@ -10,9 +10,11 @@ namespace eae6320
 		{
 			uint16_t m_staticMeshCount = 0;
 			Graphics::cMesh** m_staticMeshArr;
+
+			static cResult Load(const char* i_meshDataDirName, sProceduralGeneratedMesh*& o_generatedMesh);
 		};
 
-		static cResult Load(const char* i_meshDataDirName, sProceduralGeneratedMesh*& o_generatedMesh);
+		
 	}
 }
 

@@ -123,7 +123,7 @@ void eae6320::Graphics::SubmitRenderData(sCamera* i_Camera,
 
 	s_dataBeingSubmittedByApplicationThread->constantData_frame.g_transform_worldToCamera =
 		Math::cMatrix_transformation::CreateWorldToCameraTransform(
-			i_Camera->m_RigidBodyState.orientation,
+			i_Camera->m_cameraOrientationPredicted,
 			i_Camera->m_cameraPositionPredicted
 		);
 

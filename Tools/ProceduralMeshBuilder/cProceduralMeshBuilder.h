@@ -1,5 +1,5 @@
 /*
-	This class builds meshes
+	This class builds procedural meshes
 */
 
 #ifndef EAE6320_CPROCEDURALMESHBUILDER_H

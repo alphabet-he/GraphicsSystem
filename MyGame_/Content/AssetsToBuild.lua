@@ -25,6 +25,6 @@ return
 
 	procedural = 
 	{
-		"PGS/test.json"
+		"PGS/terrain/test.json"
 	}
 }

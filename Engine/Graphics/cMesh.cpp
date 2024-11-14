@@ -37,7 +37,10 @@ eae6320::cResult eae6320::Graphics::cMesh::Load(const char* i_meshDataFileName, 
 	cMesh* newMesh = new cMesh();
 
 	// Load binary data
-	std::string i_meshPath = std::string("data/Meshes/") + i_meshDataFileName + std::string(".bin");
+	std::string i_meshPath = i_meshDataFileName;
+	if (i_meshPath.find("data/") == std::string::npos) {
+		i_meshPath = std::string("data/Meshes/") + i_meshDataFileName + std::string(".bin");
+	}
 	eae6320::Platform::sDataFromFile dataFromFile;
 	result = eae6320::Platform::LoadBinaryFile(i_meshPath.c_str(), dataFromFile);
 	if (!result) {

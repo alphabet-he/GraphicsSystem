@@ -94,6 +94,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MayaMeshExporter", "Tools\M
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ProceduralMeshBuilder", "Tools\ProceduralMeshBuilder\ProceduralMeshBuilder.vcxproj", "{1894C737-447B-49E3-AC66-90D9C5205C2F}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ProceduralGenSys", "Engine\ProceduralGenSys\ProceduralGenSys.vcxproj", "{8D1110B0-3C5F-487D-A6C1-37B154AE0008}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -358,6 +360,14 @@ Global
 		{1894C737-447B-49E3-AC66-90D9C5205C2F}.Release|x64.Build.0 = Release|x64
 		{1894C737-447B-49E3-AC66-90D9C5205C2F}.Release|x86.ActiveCfg = Release|Win32
 		{1894C737-447B-49E3-AC66-90D9C5205C2F}.Release|x86.Build.0 = Release|Win32
+		{8D1110B0-3C5F-487D-A6C1-37B154AE0008}.Debug|x64.ActiveCfg = Debug|x64
+		{8D1110B0-3C5F-487D-A6C1-37B154AE0008}.Debug|x64.Build.0 = Debug|x64
+		{8D1110B0-3C5F-487D-A6C1-37B154AE0008}.Debug|x86.ActiveCfg = Debug|Win32
+		{8D1110B0-3C5F-487D-A6C1-37B154AE0008}.Debug|x86.Build.0 = Debug|Win32
+		{8D1110B0-3C5F-487D-A6C1-37B154AE0008}.Release|x64.ActiveCfg = Release|x64
+		{8D1110B0-3C5F-487D-A6C1-37B154AE0008}.Release|x64.Build.0 = Release|x64
+		{8D1110B0-3C5F-487D-A6C1-37B154AE0008}.Release|x86.ActiveCfg = Release|Win32
+		{8D1110B0-3C5F-487D-A6C1-37B154AE0008}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -397,6 +407,7 @@ Global
 		{7AF4FF8D-FDE8-4C31-A16C-CF4EF0A280B7} = {31B05C03-4BB2-4A0D-B621-B41DA6B0F57E}
 		{7E1B3DFF-88C1-43F2-AE97-BE197D80EF2B} = {31B05C03-4BB2-4A0D-B621-B41DA6B0F57E}
 		{1894C737-447B-49E3-AC66-90D9C5205C2F} = {31B05C03-4BB2-4A0D-B621-B41DA6B0F57E}
+		{8D1110B0-3C5F-487D-A6C1-37B154AE0008} = {E5C51EF7-81D3-4030-A4CE-0D2D666CEF4F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A89F366F-0B7F-464F-90A8-A4828B273298}

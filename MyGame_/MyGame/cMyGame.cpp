@@ -60,6 +60,21 @@ void eae6320::cMyGame::UpdateBasedOnInput()
 		else {
 			m_Camera->m_RigidBodyState.velocity.z = 0.0f;
 		}
+
+		if (UserInput::IsKeyPressed('J'))
+		{
+			m_Camera->m_RigidBodyState.angularVelocity_axis_local = Math::sVector(0.0f, 0.0f, 1.0f);
+			m_Camera->m_RigidBodyState.angularSpeed = -0.1f;
+		}
+		else if (UserInput::IsKeyPressed('L')) {
+			m_Camera->m_RigidBodyState.angularVelocity_axis_local = Math::sVector(0.0f, 0.0f, 1.0f);
+			m_Camera->m_RigidBodyState.angularSpeed = 0.1f;
+		}
+		else {
+			m_Camera->m_RigidBodyState.angularSpeed = 0.0f;
+		}
+
+		
 	}
 
 	// Move game object
@@ -168,13 +183,22 @@ eae6320::cResult eae6320::cMyGame::Initialize()
 	}
 	
 	// when game starts, submit the static objects
-	Graphics::cEffect** i_staticEffectToSubmit = new Graphics::cEffect * [2];
-	i_staticEffectToSubmit[0] = m_standardShaderEffect;
-	i_staticEffectToSubmit[1] = m_standardShaderEffect;
-	Graphics::cMesh** i_staticMeshToSubmit = new Graphics::cMesh * [2];
-	i_staticMeshToSubmit[0] = m_planeMesh;
-	i_staticMeshToSubmit[1] = m_helixMesh;
-	Graphics::SubmitStaticObjectData(2, i_staticMeshToSubmit, i_staticEffectToSubmit);
+	//Graphics::cEffect** i_staticEffectToSubmit = new Graphics::cEffect * [2];
+	//i_staticEffectToSubmit[0] = m_standardShaderEffect;
+	//i_staticEffectToSubmit[1] = m_standardShaderEffect;
+	//Graphics::cMesh** i_staticMeshToSubmit = new Graphics::cMesh * [2];
+	//i_staticMeshToSubmit[0] = m_planeMesh;
+	//i_staticMeshToSubmit[1] = m_helixMesh;
+
+	m_pgsMeshes = new Assets::sProceduralGeneratedMesh();
+	Assets::sProceduralGeneratedMesh::Load("terrain", m_pgsMeshes);
+	Graphics::cEffect** i_staticEffectToSubmit = new Graphics::cEffect * [m_pgsMeshes->m_staticMeshCount];
+	for (int i = 0; i < m_pgsMeshes->m_staticMeshCount; i++) {
+		i_staticEffectToSubmit[i] = m_standardShaderEffect;
+	}
+
+	Graphics::SubmitStaticObjectData(m_pgsMeshes->m_staticMeshCount, m_pgsMeshes->m_staticMeshArr, i_staticEffectToSubmit);
+	//Graphics::SubmitStaticObjectData(1, i_staticMeshToSubmit, i_staticEffectToSubmit);
 
 	Logging::OutputMessage("Junxuan-Hu's Game Initializd!");
 
@@ -219,8 +243,16 @@ eae6320::cResult eae6320::cMyGame::CleanUp()
 		m_helixMesh = nullptr;
 	}
 
+	for (int i = 0; i < m_pgsMeshes->m_staticMeshCount; i++) {
+		if (m_pgsMeshes->m_staticMeshArr[i]) {
+			m_pgsMeshes->m_staticMeshArr[i]->DecrementReferenceCount();
+			m_pgsMeshes->m_staticMeshArr[i] = nullptr;
+		}
+	}
+
 	delete m_coneGameObject;
 	delete m_torusGameObject;
+	delete m_pgsMeshes;
 
 	Logging::OutputMessage("Junxuan-Hu's Game Cleaning Up!");
 	return Results::Success;
@@ -251,6 +283,7 @@ void eae6320::cMyGame::SubmitGameObjectsRenderData
 	}
 
 	m_Camera->m_cameraPositionPredicted = m_Camera->m_RigidBodyState.PredictFuturePosition(i_elapsedSecondCount_sinceLastSimulationUpdate);
+	m_Camera->m_cameraOrientationPredicted = m_Camera->m_RigidBodyState.PredictFutureOrientation(i_elapsedSecondCount_sinceLastSimulationUpdate);
 
 	Graphics::SubmitRenderData(i_camera, i_background,
 		i_cnt, i_meshArrToSubmit, i_effectArrToSubmit, i_localToWorldMatrixArrToSubmit);
