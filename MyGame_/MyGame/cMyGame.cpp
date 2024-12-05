@@ -16,6 +16,7 @@
 // Run
 //----
 
+/*
 void eae6320::cMyGame::UpdateBasedOnInput()
 {
 	// Is the user pressing the ESC key?
@@ -103,12 +104,15 @@ void eae6320::cMyGame::UpdateBasedOnInput()
 	}
 
 }
+*/
+
 
 // Initialize / Clean Up
 //----------------------
 
 eae6320::cResult eae6320::cMyGame::Initialize()
 {
+	m_playerInput = new PlayerInput();
 
 	auto result = Results::Success;
 
@@ -260,8 +264,14 @@ eae6320::cResult eae6320::cMyGame::CleanUp()
 
 void eae6320::cMyGame::UpdateSimulationBasedOnTime(const float i_elapsedSecondCount_sinceLastUpdate)
 {
+	PlayerInput::InputState i_inputState = PlayerInput::InputState();
+	m_playerInput->Update(i_inputState);
+	m_coneGameObject->m_RigidBodyState.velocity = i_inputState.objectMoveDirection;
+	m_Camera->m_RigidBodyState.velocity = i_inputState.cameraMoveDirection;
+
 	m_Camera->m_RigidBodyState.Update(i_elapsedSecondCount_sinceLastUpdate);   
 	m_coneGameObject->m_RigidBodyState.Update(i_elapsedSecondCount_sinceLastUpdate);
+
 }
 
 void eae6320::cMyGame::SubmitGameObjectsRenderData

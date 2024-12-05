@@ -13,6 +13,7 @@
 #include <Engine/Assets/sGameObject.h>
 #include <Engine/Graphics/sCamera.h>
 #include <Engine/ProceduralGenSys/sProceduralGeneratedMesh.h>
+#include <Engine/PlayerInput/PlayerInput.h>
 
 #if defined( EAE6320_PLATFORM_WINDOWS )
 	#include "Resource Files/Resource.h"
@@ -73,7 +74,7 @@ namespace eae6320
 		// Run
 		//----
 
-		void UpdateBasedOnInput() final;
+		//void UpdateBasedOnInput() final;
 		void SubmitGameObjectsRenderData(
 			Graphics::sCamera* i_camera,
 			float i_background[],
@@ -110,6 +111,7 @@ namespace eae6320
 
 		Assets::sProceduralGeneratedMesh* m_pgsMeshes;
 
+		PlayerInput* m_playerInput;
 	};
 }
 
