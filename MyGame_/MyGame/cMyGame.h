@@ -14,6 +14,7 @@
 #include <Engine/Graphics/sCamera.h>
 #include <Engine/ProceduralGenSys/sProceduralGeneratedMesh.h>
 #include <Engine/PlayerInput/PlayerInput.h>
+#include <Engine/CollisionSystem/CollisionManager.h>
 
 #if defined( EAE6320_PLATFORM_WINDOWS )
 	#include "Resource Files/Resource.h"
@@ -96,22 +97,28 @@ namespace eae6320
 		//---
 		float m_backgroundColor[3];
 
-		Assets::sGameObject* m_coneGameObject;
-		Assets::sGameObject* m_torusGameObject;
+		Assets::sGameObject* m_playerGameObject;
+		Assets::sGameObject** m_enemyGameObjectList;
+		uint8_t m_enemyCount = 4;
+		Assets::sGameObject* m_coinGameObject;
 
 		Graphics::sCamera* m_Camera;
 
 		Graphics::cEffect* m_myShaderEffect;
 		Graphics::cEffect* m_standardShaderEffect;
 
-		Graphics::cMesh* m_planeMesh;
-		Graphics::cMesh* m_coneMesh;
-		Graphics::cMesh* m_torusMesh;
-		Graphics::cMesh* m_helixMesh;
+		Graphics::cMesh* m_playerMesh;
+		Graphics::cMesh* m_enemyMesh;
+		Graphics::cMesh* m_coinMesh;
 
 		Assets::sProceduralGeneratedMesh* m_pgsMeshes;
 
+		double m_collisionTime = -1;
+
+
+		// Other systems
 		PlayerInput* m_playerInput;
+		Collision::CollisionManager* m_collisionManager;
 	};
 }
 

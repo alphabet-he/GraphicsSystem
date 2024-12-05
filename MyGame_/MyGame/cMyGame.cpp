@@ -9,6 +9,11 @@
 #include <Engine/Graphics/Graphics.h>
 #include <Engine/Math/Functions.h>
 #include <Engine/Math/cMatrix_transformation.h>
+#include <Engine/CollisionSystem/BoxCollisionComponent.h>
+#include <Engine/CollisionSystem/SphereCollisionComponent.h>
+#include <random>
+#include <thread> // For sleep_for
+#include <chrono> // For duration
 
 // Inherited Implementation
 //=========================
@@ -113,6 +118,8 @@ void eae6320::cMyGame::UpdateBasedOnInput()
 eae6320::cResult eae6320::cMyGame::Initialize()
 {
 	m_playerInput = new PlayerInput();
+	m_collisionManager = Collision::CollisionManager::GetCollisionManager();
+	m_collisionManager->Begin();
 
 	auto result = Results::Success;
 
@@ -127,16 +134,31 @@ eae6320::cResult eae6320::cMyGame::Initialize()
 	m_Camera->m_z_nearPlane = 0.1f;
 	m_Camera->m_z_farPlane = 10.0f;
 	m_Camera->m_RigidBodyState = Physics::sRigidBodyState();
-	m_Camera->m_RigidBodyState.position = Math::sVector(0.0f, 0.0f, 5.0f);
+	m_Camera->m_RigidBodyState.position = Math::sVector(0.0f, 1.0f, 5.0f);
 	//m_Camera->m_cameraPosition = m_Camera->m_RigidBodyState.position;
 	//m_Camera->m_RigidBodyState.velocity = Math::sVector(-0.1f, 0.0f, 0.0f);
 
 	// game object
-	m_coneGameObject = new Assets::sGameObject();
-	m_coneGameObject->m_RigidBodyState = Physics::sRigidBodyState();
-	m_torusGameObject = new Assets::sGameObject();
-	m_torusGameObject->m_RigidBodyState = Physics::sRigidBodyState();
-	//m_gameObject->m_RigidBodyState.velocity = Math::sVector(-0.1f, 0.0f, 0.0f);
+	m_playerGameObject = new Assets::sGameObject();
+	m_playerGameObject->m_RigidBodyState = Physics::sRigidBodyState();
+	m_playerGameObject->m_RigidBodyState.position = Math::sVector(0.0f, 0.3f, 0.0f);
+	m_playerGameObject->m_collisionComp = new Collision::BoxCollisionComponent();
+	m_playerGameObject->m_collisionComp->SetCollisionComponentType(Collision::CollisionComponentType::Dynamic);
+	static_cast<Collision::BoxCollisionComponent*>(m_playerGameObject->m_collisionComp)->SetExtend(Math::sVector(0.15f, 0.15f, 0.15f));
+	m_playerGameObject->m_collisionComp->SetPosition(m_playerGameObject->m_RigidBodyState.position);
+	m_collisionManager->AddCollisionComponent(*(m_playerGameObject->m_collisionComp));
+
+	m_coinGameObject = new Assets::sGameObject();
+	m_coinGameObject->m_RigidBodyState = Physics::sRigidBodyState();
+	m_coinGameObject->m_RigidBodyState.position = Math::sVector(0.0f, 1.5f + m_enemyCount * 2.5f, 0.0f);
+	m_coinGameObject->m_RigidBodyState.velocity = Math::sVector(0.0f, -0.3f, 0.0f);
+	m_coinGameObject->m_collisionComp = new Collision::SphereCollisionComponent();
+	m_coinGameObject->m_collisionComp->SetCollisionComponentType(Collision::CollisionComponentType::Dynamic);
+	static_cast<Collision::SphereCollisionComponent*>(m_coinGameObject->m_collisionComp)->SetRadius(0.2f);
+	m_coinGameObject->m_collisionComp->SetPosition(m_coinGameObject->m_RigidBodyState.position);
+	m_collisionManager->AddCollisionComponent(*(m_coinGameObject->m_collisionComp));
+
+	m_enemyGameObjectList = new Assets::sGameObject * [m_enemyCount];
 
 	// Initialize the shading data
 	{
@@ -151,39 +173,54 @@ eae6320::cResult eae6320::cMyGame::Initialize()
 			EAE6320_ASSERTF(false, "Can't initialize Graphics without the shading data");
 			return result;
 		}
-
-		m_torusGameObject->m_Effect = m_standardShaderEffect;
-		m_coneGameObject->m_Effect = m_myShaderEffect;
+		m_playerGameObject->m_Effect = m_myShaderEffect;
+		m_coinGameObject->m_Effect = m_standardShaderEffect;
 	}
 	// Initialize the geometry
 	{
 
-		if (!(result = Graphics::cMesh::Load("plane", m_planeMesh)))
+
+		if (!(result = Graphics::cMesh::Load("player", m_playerMesh)))
 		{
 			EAE6320_ASSERTF(false, "Can't initialize Graphics without the geometry data");
 			return result;
 		}
 
-		if (!(result = Graphics::cMesh::Load("cone", m_coneMesh)))
+		if (!(result = Graphics::cMesh::Load("enemy", m_enemyMesh)))
 		{
 			EAE6320_ASSERTF(false, "Can't initialize Graphics without the geometry data");
 			return result;
 		}
 
-		if (!(result = Graphics::cMesh::Load("torus", m_torusMesh)))
-		{
-			EAE6320_ASSERTF(false, "Can't initialize Graphics without the geometry data");
-			return result;
-		}
-		
-		if (!(result = Graphics::cMesh::Load("helix", m_helixMesh)))
+		if (!(result = Graphics::cMesh::Load("coin", m_coinMesh)))
 		{
 			EAE6320_ASSERTF(false, "Can't initialize Graphics without the geometry data");
 			return result;
 		}
 
-		m_coneGameObject->m_Mesh = m_coneMesh;
-		m_torusGameObject->m_Mesh = m_torusMesh;
+		m_playerGameObject->m_Mesh = m_playerMesh;
+		m_coinGameObject->m_Mesh = m_coinMesh;
+	}
+
+	std::random_device rd; 
+	std::mt19937 gen(rd()); 
+	std::uniform_real_distribution<float> dist(-1.5f, 1.5f);
+
+	for (int i = 0; i < m_enemyCount; i++) {
+		Assets::sGameObject* i_enemy = new Assets::sGameObject();
+		i_enemy->m_RigidBodyState = Physics::sRigidBodyState();
+		float i_rand_x = dist(gen);
+		float i_rand_z = dist(gen);
+		i_enemy->m_RigidBodyState.position = Math::sVector(i_rand_x, 2.5f + i * 2.5f, i_rand_z);
+		i_enemy->m_RigidBodyState.velocity = Math::sVector(0.0f, -0.3f, 0.0f);
+		i_enemy->m_Effect = m_standardShaderEffect;
+		i_enemy->m_Mesh = m_enemyMesh;
+		i_enemy->m_collisionComp = new Collision::SphereCollisionComponent();
+		i_enemy->m_collisionComp->SetCollisionComponentType(Collision::CollisionComponentType::Dynamic);
+		static_cast<Collision::SphereCollisionComponent*>(i_enemy->m_collisionComp)->SetRadius(0.8f);
+		i_enemy->m_collisionComp->SetPosition(i_enemy->m_RigidBodyState.position);
+		m_collisionManager->AddCollisionComponent(*(i_enemy->m_collisionComp));
+		m_enemyGameObjectList[i] = i_enemy;
 	}
 	
 	// when game starts, submit the static objects
@@ -223,28 +260,22 @@ eae6320::cResult eae6320::cMyGame::CleanUp()
 		m_standardShaderEffect = nullptr;
 	}
 
-	if (m_planeMesh)
+	if (m_playerMesh)
 	{
-		m_planeMesh->DecrementReferenceCount();
-		m_planeMesh = nullptr;
+		m_playerMesh->DecrementReferenceCount();
+		m_playerMesh = nullptr;
 	}
 
-	if (m_coneMesh)
+	if (m_enemyMesh)
 	{
-		m_coneMesh->DecrementReferenceCount();
-		m_coneMesh = nullptr;
+		m_enemyMesh->DecrementReferenceCount();
+		m_enemyMesh = nullptr;
 	}
 
-	if (m_torusMesh)
+	if (m_coinMesh)
 	{
-		m_torusMesh->DecrementReferenceCount();
-		m_torusMesh = nullptr;
-	}
-
-	if (m_helixMesh)
-	{
-		m_helixMesh->DecrementReferenceCount();
-		m_helixMesh = nullptr;
+		m_coinMesh->DecrementReferenceCount();
+		m_coinMesh = nullptr;
 	}
 
 	for (int i = 0; i < m_pgsMeshes->m_staticMeshCount; i++) {
@@ -254,9 +285,14 @@ eae6320::cResult eae6320::cMyGame::CleanUp()
 		}
 	}
 
-	delete m_coneGameObject;
-	delete m_torusGameObject;
+	delete m_playerGameObject;
+	delete m_coinGameObject;
+	for (int i = 0; i < m_enemyCount; i++) {
+		delete m_enemyGameObjectList[i];
+	}
 	delete m_pgsMeshes;
+
+	m_collisionManager->Destroy();
 
 	Logging::OutputMessage("Junxuan-Hu's Game Cleaning Up!");
 	return Results::Success;
@@ -264,13 +300,57 @@ eae6320::cResult eae6320::cMyGame::CleanUp()
 
 void eae6320::cMyGame::UpdateSimulationBasedOnTime(const float i_elapsedSecondCount_sinceLastUpdate)
 {
+	if (m_collisionTime > 0) {
+		if (GetElapsedSecondCount_simulation() - m_collisionTime >= 3.0f) {
+			const auto result = Exit(EXIT_SUCCESS);
+			EAE6320_ASSERT(result);
+		}
+		else {
+			return;
+		}
+	}
+
 	PlayerInput::InputState i_inputState = PlayerInput::InputState();
 	m_playerInput->Update(i_inputState);
-	m_coneGameObject->m_RigidBodyState.velocity = i_inputState.objectMoveDirection;
-	m_Camera->m_RigidBodyState.velocity = i_inputState.cameraMoveDirection;
+	if (i_inputState.quitGame) {
+		// Exit the application
+		const auto result = Exit(EXIT_SUCCESS);
+		EAE6320_ASSERT(result);
+	}
+	m_playerGameObject->m_RigidBodyState.velocity = i_inputState.objectMoveDirection * 0.5f;
+	m_Camera->m_RigidBodyState.velocity = i_inputState.cameraMoveDirection * 0.5f;
 
 	m_Camera->m_RigidBodyState.Update(i_elapsedSecondCount_sinceLastUpdate);   
-	m_coneGameObject->m_RigidBodyState.Update(i_elapsedSecondCount_sinceLastUpdate);
+	m_playerGameObject->m_RigidBodyState.Update(i_elapsedSecondCount_sinceLastUpdate);
+	m_coinGameObject->m_RigidBodyState.Update(i_elapsedSecondCount_sinceLastUpdate);
+
+	for (int i = 0; i < m_enemyCount; i++) {
+		m_enemyGameObjectList[i]->m_RigidBodyState.Update(i_elapsedSecondCount_sinceLastUpdate);
+	}
+
+	m_playerGameObject->m_collisionComp->SetPosition(m_playerGameObject->m_RigidBodyState.position);
+	m_coinGameObject->m_collisionComp->SetPosition(m_coinGameObject->m_RigidBodyState.position);
+	for (int i = 0; i < m_enemyCount; i++) {
+		m_enemyGameObjectList[i]->m_collisionComp->SetPosition(m_enemyGameObjectList[i]->m_RigidBodyState.position);
+	}
+
+	m_collisionManager->Update();
+	for (int i = 0; i < m_enemyCount; i++) {
+		if (m_enemyGameObjectList[i]->m_collisionComp->DetectCollision(*(m_playerGameObject->m_collisionComp))) {
+			m_enemyGameObjectList[i]->m_RigidBodyState.velocity = Math::sVector(0.0f, 0.0f, 0.0f);
+			m_backgroundColor[0] = 0.0f;
+			m_backgroundColor[1] = 0.0f;
+			m_backgroundColor[2] = 0.0f;
+			m_collisionTime = GetElapsedSecondCount_simulation();
+		}
+	}
+	if (m_coinGameObject->m_collisionComp->DetectCollision(*(m_playerGameObject->m_collisionComp))) {
+		m_coinGameObject->m_RigidBodyState.velocity = Math::sVector(0.0f, 0.0f, 0.0f);
+		m_backgroundColor[0] = 1.0f;
+		m_backgroundColor[1] = 1.0f;
+		m_backgroundColor[2] = 1.0f;
+		m_collisionTime = GetElapsedSecondCount_simulation();
+	}
 
 }
 
@@ -301,9 +381,12 @@ void eae6320::cMyGame::SubmitGameObjectsRenderData
 
 void eae6320::cMyGame::SubmitDataToBeRendered(const float i_elapsedSecondCount_systemTime, const float i_elapsedSecondCount_sinceLastSimulationUpdate)
 {
-	Assets::sGameObject** i_gameObjectsToSubmit = new Assets::sGameObject * [2];
-	i_gameObjectsToSubmit[0] = m_coneGameObject;
-	i_gameObjectsToSubmit[1] = m_torusGameObject;
-	SubmitGameObjectsRenderData(m_Camera, m_backgroundColor, 2, i_gameObjectsToSubmit, i_elapsedSecondCount_sinceLastSimulationUpdate);
+	Assets::sGameObject** i_gameObjectsToSubmit = new Assets::sGameObject * [2 + m_enemyCount];
+	i_gameObjectsToSubmit[0] = m_playerGameObject;
+	i_gameObjectsToSubmit[1] = m_coinGameObject;
+	for (int i = 0; i < m_enemyCount; i++) {
+		i_gameObjectsToSubmit[i + 2] = m_enemyGameObjectList[i];
+	}
+	SubmitGameObjectsRenderData(m_Camera, m_backgroundColor, 2 + m_enemyCount, i_gameObjectsToSubmit, i_elapsedSecondCount_sinceLastSimulationUpdate);
 
 }

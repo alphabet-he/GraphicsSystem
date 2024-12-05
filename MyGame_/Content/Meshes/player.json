@@ -1,0 +1,117 @@
+{
+  "vertex_count_per_triangle": 3,
+  "vertex_data_count": 24,
+  "indice_data_count": 36,
+  "vertex_data": [
+    {
+      "vertex_position": [-0.15, -0.15, 0.15],
+      "vertex_color": [1, 0.0874, 0.296, 1]
+    },
+    {
+      "vertex_position": [-0.15, -0.15, 0.15],
+      "vertex_color": [1, 0.0874, 0.296, 1]
+    },
+    {
+      "vertex_position": [-0.15, -0.15, 0.15],
+      "vertex_color": [1, 0.0874, 0.296, 1]
+    },
+    {
+      "vertex_position": [0.15, -0.15, 0.15],
+      "vertex_color": [1, 0.0874, 0.296, 1]
+    },
+    {
+      "vertex_position": [0.15, -0.15, 0.15],
+      "vertex_color": [1, 0.0874, 0.296, 1]
+    },
+    {
+      "vertex_position": [0.15, -0.15, 0.15],
+      "vertex_color": [1, 0.0874, 0.296, 1]
+    },
+    {
+      "vertex_position": [-0.15, 0.15, 0.15],
+      "vertex_color": [1, 1, 0.0778, 1]
+    },
+    {
+      "vertex_position": [-0.15, 0.15, 0.15],
+      "vertex_color": [1, 1, 0.0778, 1]
+    },
+    {
+      "vertex_position": [-0.15, 0.15, 0.15],
+      "vertex_color": [1, 1, 0.0778, 1]
+    },
+    {
+      "vertex_position": [0.15, 0.15, 0.15],
+      "vertex_color": [1, 1, 0.0778, 1]
+    },
+    {
+      "vertex_position": [0.15, 0.15, 0.15],
+      "vertex_color": [1, 1, 0.0778, 1]
+    },
+    {
+      "vertex_position": [0.15, 0.15, 0.15],
+      "vertex_color": [1, 1, 0.0778, 1]
+    },
+    {
+      "vertex_position": [-0.15, 0.15, -0.15],
+      "vertex_color": [1, 1, 0.0778, 1]
+    },
+    {
+      "vertex_position": [-0.15, 0.15, -0.15],
+      "vertex_color": [1, 1, 0.0778, 1]
+    },
+    {
+      "vertex_position": [-0.15, 0.15, -0.15],
+      "vertex_color": [1, 1, 0.0778, 1]
+    },
+    {
+      "vertex_position": [0.15, 0.15, -0.15],
+      "vertex_color": [1, 1, 0.0778, 1]
+    },
+    {
+      "vertex_position": [0.15, 0.15, -0.15],
+      "vertex_color": [1, 1, 0.0778, 1]
+    },
+    {
+      "vertex_position": [0.15, 0.15, -0.15],
+      "vertex_color": [1, 1, 0.0778, 1]
+    },
+    {
+      "vertex_position": [-0.15, -0.15, -0.15],
+      "vertex_color": [1, 0.0874, 0.296, 1]
+    },
+    {
+      "vertex_position": [-0.15, -0.15, -0.15],
+      "vertex_color": [1, 0.0874, 0.296, 1]
+    },
+    {
+      "vertex_position": [-0.15, -0.15, -0.15],
+      "vertex_color": [1, 0.0874, 0.296, 1]
+    },
+    {
+      "vertex_position": [0.15, -0.15, -0.15],
+      "vertex_color": [1, 0.0874, 0.296, 1]
+    },
+    {
+      "vertex_position": [0.15, -0.15, -0.15],
+      "vertex_color": [1, 0.0874, 0.296, 1]
+    },
+    {
+      "vertex_position": [0.15, -0.15, -0.15],
+      "vertex_color": [1, 0.0874, 0.296, 1]
+    }  
+],
+  "indice_data": [
+    0, 5, 7,
+    1, 22, 3,
+    4, 23, 9,
+    7, 5, 10,
+    8, 11, 13,
+    9, 23, 15,
+    12, 2, 6,
+    13, 11, 16,
+    14, 17, 18,
+    18, 17, 21,
+    19, 22, 1,
+    20, 2, 12
+  ]
+}

@@ -4,6 +4,7 @@
 #include "../Graphics/cEffect.h"
 #include "../Graphics/cMesh.h"
 #include "../Physics/sRigidBodyState.h"
+#include "../CollisionSystem/BaseCollisionComponent.h"
 
 namespace eae6320 {
 	namespace Assets {
@@ -14,6 +15,7 @@ namespace eae6320 {
 			Graphics::cEffect* m_Effect = nullptr;
 
 			Physics::sRigidBodyState m_RigidBodyState;
+			Collision::BaseCollisionComponent* m_collisionComp = nullptr;
 
 			~sGameObject();
 		};

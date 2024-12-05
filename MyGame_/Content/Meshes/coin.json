@@ -1,0 +1,1709 @@
+{
+  "vertex_count_per_triangle": 3,
+  "vertex_data_count": 380,
+  "indice_data_count": 540,
+  "vertex_data": [
+    {
+      "vertex_position": [0.05, -0.190211, -0.0363271],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.05, -0.190211, -0.0363271],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.05, -0.190211, -0.0363271],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.05, -0.190211, -0.0363271],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0951057, -0.161803, -0.0690983],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0951057, -0.161803, -0.0690983],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0951057, -0.161803, -0.0690983],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0951057, -0.161803, -0.0690983],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0363271, -0.161803, -0.111803],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0363271, -0.161803, -0.111803],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0363271, -0.161803, -0.111803],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0363271, -0.161803, -0.111803],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0363271, -0.161803, -0.111803],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0363271, -0.161803, -0.111803],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0363271, -0.161803, -0.111803],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0363271, -0.161803, -0.111803],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0951057, -0.161803, -0.0690983],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0951057, -0.161803, -0.0690983],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0951057, -0.161803, -0.0690983],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0951057, -0.161803, -0.0690983],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.117557, -0.161803, 7.00695e-09],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.117557, -0.161803, 7.00695e-09],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.117557, -0.161803, 7.00695e-09],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.117557, -0.161803, 7.00695e-09],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0951057, -0.161803, 0.0690983],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0951057, -0.161803, 0.0690983],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0951057, -0.161803, 0.0690983],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0951057, -0.161803, 0.0690983],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0363271, -0.161803, 0.111803],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0363271, -0.161803, 0.111803],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0363271, -0.161803, 0.111803],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0363271, -0.161803, 0.111803],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0363271, -0.161803, 0.111803],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0363271, -0.161803, 0.111803],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0363271, -0.161803, 0.111803],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0363271, -0.161803, 0.111803],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0951057, -0.161803, 0.0690983],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0951057, -0.161803, 0.0690983],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0951057, -0.161803, 0.0690983],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0951057, -0.161803, 0.0690983],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.117557, -0.161803, 0],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.117557, -0.161803, 0],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.117557, -0.161803, 0],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.117557, -0.161803, 0],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0190983, -0.190211, -0.0587785],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0190983, -0.190211, -0.0587785],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0190983, -0.190211, -0.0587785],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0190983, -0.190211, -0.0587785],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.130902, -0.117557, -0.0951057],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.130902, -0.117557, -0.0951057],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.130902, -0.117557, -0.0951057],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.130902, -0.117557, -0.0951057],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.05, -0.117557, -0.153884],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.05, -0.117557, -0.153884],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.05, -0.117557, -0.153884],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.05, -0.117557, -0.153884],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.05, -0.117557, -0.153884],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.05, -0.117557, -0.153884],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.05, -0.117557, -0.153884],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.05, -0.117557, -0.153884],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.130902, -0.117557, -0.0951057],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.130902, -0.117557, -0.0951057],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.130902, -0.117557, -0.0951057],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.130902, -0.117557, -0.0951057],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.161803, -0.117557, 9.64423e-09],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.161803, -0.117557, 9.64423e-09],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.161803, -0.117557, 9.64423e-09],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.161803, -0.117557, 9.64423e-09],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.130902, -0.117557, 0.0951057],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.130902, -0.117557, 0.0951057],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.130902, -0.117557, 0.0951057],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.130902, -0.117557, 0.0951057],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.05, -0.117557, 0.153884],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.05, -0.117557, 0.153884],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.05, -0.117557, 0.153884],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.05, -0.117557, 0.153884],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.05, -0.117557, 0.153884],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.05, -0.117557, 0.153884],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.05, -0.117557, 0.153884],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.05, -0.117557, 0.153884],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.130902, -0.117557, 0.0951057],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.130902, -0.117557, 0.0951057],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.130902, -0.117557, 0.0951057],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.130902, -0.117557, 0.0951057],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.161803, -0.117557, 0],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.161803, -0.117557, 0],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.161803, -0.117557, 0],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.161803, -0.117557, 0],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0190983, -0.190211, -0.0587785],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0190983, -0.190211, -0.0587785],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0190983, -0.190211, -0.0587785],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0190983, -0.190211, -0.0587785],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.153884, -0.0618034, -0.111803],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.153884, -0.0618034, -0.111803],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.153884, -0.0618034, -0.111803],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.153884, -0.0618034, -0.111803],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0587785, -0.0618034, -0.180902],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0587785, -0.0618034, -0.180902],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0587785, -0.0618034, -0.180902],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0587785, -0.0618034, -0.180902],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0587786, -0.0618034, -0.180902],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0587786, -0.0618034, -0.180902],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0587786, -0.0618034, -0.180902],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0587786, -0.0618034, -0.180902],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.153884, -0.0618034, -0.111803],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.153884, -0.0618034, -0.111803],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.153884, -0.0618034, -0.111803],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.153884, -0.0618034, -0.111803],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.190211, -0.0618034, 1.13375e-08],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.190211, -0.0618034, 1.13375e-08],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.190211, -0.0618034, 1.13375e-08],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.190211, -0.0618034, 1.13375e-08],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.153884, -0.0618034, 0.111803],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.153884, -0.0618034, 0.111803],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.153884, -0.0618034, 0.111803],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.153884, -0.0618034, 0.111803],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0587785, -0.0618034, 0.180902],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0587785, -0.0618034, 0.180902],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0587785, -0.0618034, 0.180902],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0587785, -0.0618034, 0.180902],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0587785, -0.0618034, 0.180902],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0587785, -0.0618034, 0.180902],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0587785, -0.0618034, 0.180902],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0587785, -0.0618034, 0.180902],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.153884, -0.0618034, 0.111803],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.153884, -0.0618034, 0.111803],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.153884, -0.0618034, 0.111803],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.153884, -0.0618034, 0.111803],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.190211, -0.0618034, 0],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.190211, -0.0618034, 0],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.190211, -0.0618034, 0],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.190211, -0.0618034, 0],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.05, -0.190211, -0.0363271],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.05, -0.190211, -0.0363271],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.05, -0.190211, -0.0363271],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.05, -0.190211, -0.0363271],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.161803, 0, -0.117557],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.161803, 0, -0.117557],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.161803, 0, -0.117557],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.161803, 0, -0.117557],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0618034, 0, -0.190211],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0618034, 0, -0.190211],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0618034, 0, -0.190211],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0618034, 0, -0.190211],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0618034, 0, -0.190211],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0618034, 0, -0.190211],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0618034, 0, -0.190211],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0618034, 0, -0.190211],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.161803, 0, -0.117557],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.161803, 0, -0.117557],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.161803, 0, -0.117557],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.161803, 0, -0.117557],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.2, 0, 1.19209e-08],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.2, 0, 1.19209e-08],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.2, 0, 1.19209e-08],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.2, 0, 1.19209e-08],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.161803, 0, 0.117557],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.161803, 0, 0.117557],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.161803, 0, 0.117557],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.161803, 0, 0.117557],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0618034, 0, 0.190211],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0618034, 0, 0.190211],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0618034, 0, 0.190211],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0618034, 0, 0.190211],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0618034, 0, 0.190211],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0618034, 0, 0.190211],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0618034, 0, 0.190211],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0618034, 0, 0.190211],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.161803, 0, 0.117557],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.161803, 0, 0.117557],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.161803, 0, 0.117557],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.161803, 0, 0.117557],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.2, 0, 0],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.2, 0, 0],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.2, 0, 0],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.2, 0, 0],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0618034, -0.190211, 3.68377e-09],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0618034, -0.190211, 3.68377e-09],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0618034, -0.190211, 3.68377e-09],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0618034, -0.190211, 3.68377e-09],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.153884, 0.0618034, -0.111803],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.153884, 0.0618034, -0.111803],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.153884, 0.0618034, -0.111803],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.153884, 0.0618034, -0.111803],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0587785, 0.0618034, -0.180902],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0587785, 0.0618034, -0.180902],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0587785, 0.0618034, -0.180902],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0587785, 0.0618034, -0.180902],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0587786, 0.0618034, -0.180902],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0587786, 0.0618034, -0.180902],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0587786, 0.0618034, -0.180902],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0587786, 0.0618034, -0.180902],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.153884, 0.0618034, -0.111803],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.153884, 0.0618034, -0.111803],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.153884, 0.0618034, -0.111803],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.153884, 0.0618034, -0.111803],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.190211, 0.0618034, 1.13375e-08],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.190211, 0.0618034, 1.13375e-08],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.190211, 0.0618034, 1.13375e-08],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.190211, 0.0618034, 1.13375e-08],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.153884, 0.0618034, 0.111803],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.153884, 0.0618034, 0.111803],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.153884, 0.0618034, 0.111803],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.153884, 0.0618034, 0.111803],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0587785, 0.0618034, 0.180902],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0587785, 0.0618034, 0.180902],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0587785, 0.0618034, 0.180902],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0587785, 0.0618034, 0.180902],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0587785, 0.0618034, 0.180902],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0587785, 0.0618034, 0.180902],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0587785, 0.0618034, 0.180902],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0587785, 0.0618034, 0.180902],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.153884, 0.0618034, 0.111803],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.153884, 0.0618034, 0.111803],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.153884, 0.0618034, 0.111803],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.153884, 0.0618034, 0.111803],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.190211, 0.0618034, 0],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.190211, 0.0618034, 0],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.190211, 0.0618034, 0],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.190211, 0.0618034, 0],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.05, -0.190211, 0.0363271],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.05, -0.190211, 0.0363271],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.05, -0.190211, 0.0363271],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.05, -0.190211, 0.0363271],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.130902, 0.117557, -0.0951057],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.130902, 0.117557, -0.0951057],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.130902, 0.117557, -0.0951057],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.130902, 0.117557, -0.0951057],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.05, 0.117557, -0.153884],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.05, 0.117557, -0.153884],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.05, 0.117557, -0.153884],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.05, 0.117557, -0.153884],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.05, 0.117557, -0.153884],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.05, 0.117557, -0.153884],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.05, 0.117557, -0.153884],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.05, 0.117557, -0.153884],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.130902, 0.117557, -0.0951057],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.130902, 0.117557, -0.0951057],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.130902, 0.117557, -0.0951057],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.130902, 0.117557, -0.0951057],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.161803, 0.117557, 9.64423e-09],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.161803, 0.117557, 9.64423e-09],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.161803, 0.117557, 9.64423e-09],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.161803, 0.117557, 9.64423e-09],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.130902, 0.117557, 0.0951057],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.130902, 0.117557, 0.0951057],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.130902, 0.117557, 0.0951057],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.130902, 0.117557, 0.0951057],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.05, 0.117557, 0.153884],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.05, 0.117557, 0.153884],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.05, 0.117557, 0.153884],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.05, 0.117557, 0.153884],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.05, 0.117557, 0.153884],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.05, 0.117557, 0.153884],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.05, 0.117557, 0.153884],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.05, 0.117557, 0.153884],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.130902, 0.117557, 0.0951057],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.130902, 0.117557, 0.0951057],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.130902, 0.117557, 0.0951057],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.130902, 0.117557, 0.0951057],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.161803, 0.117557, 0],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.161803, 0.117557, 0],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.161803, 0.117557, 0],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.161803, 0.117557, 0],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0190983, -0.190211, 0.0587785],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0190983, -0.190211, 0.0587785],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0190983, -0.190211, 0.0587785],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0190983, -0.190211, 0.0587785],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0951057, 0.161803, -0.0690983],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0951057, 0.161803, -0.0690983],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0951057, 0.161803, -0.0690983],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0951057, 0.161803, -0.0690983],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0363271, 0.161803, -0.111803],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0363271, 0.161803, -0.111803],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0363271, 0.161803, -0.111803],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0363271, 0.161803, -0.111803],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0363271, 0.161803, -0.111803],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0363271, 0.161803, -0.111803],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0363271, 0.161803, -0.111803],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0363271, 0.161803, -0.111803],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0951057, 0.161803, -0.0690983],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0951057, 0.161803, -0.0690983],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0951057, 0.161803, -0.0690983],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0951057, 0.161803, -0.0690983],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.117557, 0.161803, 7.00695e-09],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.117557, 0.161803, 7.00695e-09],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.117557, 0.161803, 7.00695e-09],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.117557, 0.161803, 7.00695e-09],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0951057, 0.161803, 0.0690983],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0951057, 0.161803, 0.0690983],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0951057, 0.161803, 0.0690983],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0951057, 0.161803, 0.0690983],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0363271, 0.161803, 0.111803],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0363271, 0.161803, 0.111803],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0363271, 0.161803, 0.111803],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0363271, 0.161803, 0.111803],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0363271, 0.161803, 0.111803],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0363271, 0.161803, 0.111803],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0363271, 0.161803, 0.111803],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0363271, 0.161803, 0.111803],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0951057, 0.161803, 0.0690983],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0951057, 0.161803, 0.0690983],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0951057, 0.161803, 0.0690983],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0951057, 0.161803, 0.0690983],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.117557, 0.161803, 0],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.117557, 0.161803, 0],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.117557, 0.161803, 0],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.117557, 0.161803, 0],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0190983, -0.190211, 0.0587785],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0190983, -0.190211, 0.0587785],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0190983, -0.190211, 0.0587785],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0190983, -0.190211, 0.0587785],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.05, 0.190211, -0.0363271],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.05, 0.190211, -0.0363271],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.05, 0.190211, -0.0363271],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.05, 0.190211, -0.0363271],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0190983, 0.190211, -0.0587785],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0190983, 0.190211, -0.0587785],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0190983, 0.190211, -0.0587785],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0190983, 0.190211, -0.0587785],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0190983, 0.190211, -0.0587785],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0190983, 0.190211, -0.0587785],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0190983, 0.190211, -0.0587785],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0190983, 0.190211, -0.0587785],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.05, 0.190211, -0.0363271],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.05, 0.190211, -0.0363271],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.05, 0.190211, -0.0363271],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.05, 0.190211, -0.0363271],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0618034, 0.190211, 3.68377e-09],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0618034, 0.190211, 3.68377e-09],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0618034, 0.190211, 3.68377e-09],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0618034, 0.190211, 3.68377e-09],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.05, 0.190211, 0.0363271],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.05, 0.190211, 0.0363271],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.05, 0.190211, 0.0363271],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.05, 0.190211, 0.0363271],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0190983, 0.190211, 0.0587785],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0190983, 0.190211, 0.0587785],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0190983, 0.190211, 0.0587785],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [-0.0190983, 0.190211, 0.0587785],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0190983, 0.190211, 0.0587785],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0190983, 0.190211, 0.0587785],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0190983, 0.190211, 0.0587785],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0190983, 0.190211, 0.0587785],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.05, 0.190211, 0.0363271],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.05, 0.190211, 0.0363271],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.05, 0.190211, 0.0363271],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.05, 0.190211, 0.0363271],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0618034, 0.190211, 0],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0618034, 0.190211, 0],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0618034, 0.190211, 0],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0618034, 0.190211, 0],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.05, -0.190211, 0.0363271],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.05, -0.190211, 0.0363271],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.05, -0.190211, 0.0363271],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.05, -0.190211, 0.0363271],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0, -0.2, 0],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0, -0.2, 0],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0, -0.2, 0],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0, -0.2, 0],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0, -0.2, 0],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0, -0.2, 0],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0, -0.2, 0],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0, -0.2, 0],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0, -0.2, 0],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0, -0.2, 0],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0, 0.2, 0],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0, 0.2, 0],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0, 0.2, 0],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0, 0.2, 0],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0, 0.2, 0],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0, 0.2, 0],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0, 0.2, 0],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0, 0.2, 0],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0, 0.2, 0],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0, 0.2, 0],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0618034, -0.190211, 0],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0618034, -0.190211, 0],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0618034, -0.190211, 0],
+      "vertex_color": [0, 1, 0, 1]
+    },
+    {
+      "vertex_position": [0.0618034, -0.190211, 0],
+      "vertex_color": [0, 1, 0, 1]
+    }  
+],
+  "indice_data": [
+    0, 44, 5,
+    2, 378, 365,
+    5, 44, 8,
+    6, 9, 49,
+    10, 13, 53,
+    11, 90, 15,
+    12, 135, 16,
+    14, 18, 57,
+    17, 176, 20,
+    19, 22, 61,
+    21, 220, 24,
+    23, 26, 65,
+    25, 264, 28,
+    27, 30, 70,
+    29, 308, 32,
+    31, 34, 75,
+    33, 352, 36,
+    35, 38, 79,
+    37, 376, 40,
+    39, 42, 83,
+    41, 3, 4,
+    43, 7, 87,
+    45, 1, 356,
+    47, 90, 11,
+    49, 9, 52,
+    51, 54, 95,
+    53, 13, 56,
+    55, 58, 99,
+    57, 18, 60,
+    59, 62, 103,
+    61, 22, 64,
+    63, 66, 107,
+    65, 26, 69,
+    67, 71, 111,
+    68, 72, 112,
+    70, 30, 74,
+    73, 76, 117,
+    75, 34, 78,
+    77, 80, 121,
+    79, 38, 82,
+    81, 84, 125,
+    83, 42, 86,
+    85, 48, 129,
+    87, 7, 50,
+    88, 46, 357,
+    91, 135, 12,
+    93, 96, 136,
+    95, 54, 98,
+    97, 100, 141,
+    99, 58, 102,
+    101, 104, 145,
+    103, 62, 106,
+    105, 108, 149,
+    107, 66, 110,
+    109, 113, 153,
+    111, 71, 115,
+    112, 72, 116,
+    114, 118, 157,
+    117, 76, 120,
+    119, 122, 161,
+    121, 80, 124,
+    123, 126, 165,
+    125, 84, 128,
+    127, 130, 169,
+    129, 48, 92,
+    131, 94, 173,
+    132, 176, 17,
+    133, 89, 358,
+    136, 96, 140,
+    138, 142, 180,
+    141, 100, 144,
+    143, 146, 185,
+    145, 104, 148,
+    147, 150, 189,
+    149, 108, 152,
+    151, 154, 193,
+    153, 113, 156,
+    155, 158, 197,
+    157, 118, 160,
+    159, 162, 201,
+    161, 122, 164,
+    163, 166, 205,
+    165, 126, 168,
+    167, 170, 209,
+    169, 130, 172,
+    171, 174, 213,
+    173, 94, 137,
+    175, 139, 217,
+    177, 220, 21,
+    178, 134, 359,
+    180, 142, 184,
+    182, 186, 224,
+    185, 146, 188,
+    187, 190, 229,
+    189, 150, 192,
+    191, 194, 233,
+    193, 154, 196,
+    195, 198, 237,
+    197, 158, 200,
+    199, 202, 241,
+    201, 162, 204,
+    203, 206, 245,
+    205, 166, 208,
+    207, 210, 249,
+    209, 170, 212,
+    211, 214, 253,
+    213, 174, 216,
+    215, 218, 257,
+    217, 139, 181,
+    219, 183, 261,
+    221, 264, 25,
+    222, 179, 360,
+    224, 186, 228,
+    226, 230, 268,
+    229, 190, 232,
+    231, 234, 273,
+    233, 194, 236,
+    235, 238, 277,
+    237, 198, 240,
+    239, 242, 281,
+    241, 202, 244,
+    243, 246, 285,
+    245, 206, 248,
+    247, 250, 289,
+    249, 210, 252,
+    251, 254, 293,
+    253, 214, 256,
+    255, 258, 297,
+    257, 218, 260,
+    259, 262, 301,
+    261, 183, 225,
+    263, 227, 305,
+    265, 308, 29,
+    266, 223, 361,
+    268, 230, 272,
+    270, 274, 312,
+    273, 234, 276,
+    275, 278, 317,
+    277, 238, 280,
+    279, 282, 321,
+    281, 242, 284,
+    283, 286, 325,
+    285, 246, 288,
+    287, 290, 329,
+    289, 250, 292,
+    291, 294, 333,
+    293, 254, 296,
+    295, 298, 337,
+    297, 258, 300,
+    299, 302, 341,
+    301, 262, 304,
+    303, 306, 345,
+    305, 227, 269,
+    307, 271, 349,
+    309, 352, 33,
+    310, 267, 362,
+    312, 274, 316,
+    314, 318, 366,
+    317, 278, 320,
+    319, 322, 367,
+    321, 282, 324,
+    323, 326, 368,
+    325, 286, 328,
+    327, 330, 369,
+    329, 290, 332,
+    331, 334, 370,
+    333, 294, 336,
+    335, 338, 371,
+    337, 298, 340,
+    339, 342, 372,
+    341, 302, 344,
+    343, 346, 373,
+    345, 306, 348,
+    347, 350, 374,
+    349, 271, 313,
+    351, 315, 375,
+    353, 376, 37,
+    354, 311, 363,
+    377, 355, 364,
+    379, 3, 41
+  ]
+}

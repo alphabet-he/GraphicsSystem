@@ -20,7 +20,10 @@ return
 		"Meshes/plane.json",
 		"Meshes/cone.json",
 		"Meshes/torus.json",
-		"Meshes/helix.json"
+		"Meshes/helix.json",
+		"Meshes/player.json",
+		"Meshes/enemy.json",
+		"Meshes/coin.json"
 	},
 
 	procedural = 

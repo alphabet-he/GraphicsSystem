@@ -46,6 +46,9 @@
     <ProjectReference Include="..\..\Engine\Assets\Assets.vcxproj">
       <Project>{e803347f-34d1-43ac-b234-5f8940fab26a}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\..\Engine\CollisionSystem\Collision.vcxproj">
+      <Project>{5ac3a344-76bb-405e-9a00-bf61b9510e30}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\..\Engine\Math\Math.vcxproj">
       <Project>{999c3d5f-7f79-4bd7-ae21-92eeed0c5962}</Project>
     </ProjectReference>
