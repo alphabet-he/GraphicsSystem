@@ -7,4 +7,4 @@ This project includes:
  - A terrain generation system utilizing the custom graphics system, which procedurally generates terrain based on parameters provided in JSON files.
  - A sample game with input system that showcases the engine systems.
 
-More details are at [](https://www.junxuanhu.com/game-engine-dev).
+More details are at [my portfolio page](https://www.junxuanhu.com/game-engine-dev).
